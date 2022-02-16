@@ -1,3 +1,14 @@
+## Installation Guide for backend
+1. Clone the repository
+2. Open the repository in your preferred code editor
+3. From the command line, run ```python manage.py runserver```
+4. Now open Postman and go to one of the following urls
+   1. localhost:8000/create
+      1. for POSTing menu data to Firestore
+   2. localhost:8000/create/menu_name
+      1. for GETing menu data from Firestore
+
+
 ## Inspiration
 In my area, I have a lot of small business owners. 
 More specifically, individuals who cook and sell food straight from their homes. 
@@ -24,3 +35,4 @@ like home cooks, to share information with prospective clients
 - Python
 - React
 - Firebase (for data storage and account login with google)
+
