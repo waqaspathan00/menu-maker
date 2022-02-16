@@ -21,6 +21,7 @@ class MenuController:
 
             menu_name = data["restaurant-name"]  # extract menu name
 
+            # write menu data to Firestore
             FirestoreDB.menu_collection.document(menu_name).set(data)
 
             return JsonResponse(data)
@@ -29,10 +30,12 @@ class MenuController:
     @staticmethod
     def view(response, name):
         """ view a menu using its name """
+
         if response.method == "GET":
-            # retrieve menu data using menu names
+            # retrieve menu data using menu name
             result = FirestoreDB.menu_collection.document(name).get()
-            if result.exists:
+
+            if result.exists:  # return menu data (to the front end)
                 menu_data = result.to_dict()
                 return JsonResponse(menu_data)
 
@@ -46,7 +49,10 @@ class MenuController:
     def delete(response, name):
         return HttpResponse(status=200)
 
+
 """
+Example data:
+
 {
     "restaurant-name": "Narus Place",
     "menu-data": [

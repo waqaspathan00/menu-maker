@@ -8,6 +8,7 @@ class MainConfig(AppConfig):
     name = 'main'
 
 class FirestoreDB:
+    """ initialize FirestoreDB using credentials stored in serviceAccount """
     cred = credentials.Certificate("serviceAccountKey.json")
     firebase_admin.initialize_app(cred)
     db = firestore.client()
