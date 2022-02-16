@@ -1,0 +1,2 @@
+Django==4.0.2
+firebase_admin==5.2.0
