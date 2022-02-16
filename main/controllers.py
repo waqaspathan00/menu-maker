@@ -1,7 +1,6 @@
 from django.http import HttpResponse, JsonResponse
-from .models import Menu
 from .apps import FirestoreDB
-from helpers import get_categories
+import json
 
 class MenuController:
     """ handle get and post requests concerning food recipes on homepage """
@@ -15,20 +14,23 @@ class MenuController:
     def create(response):
         """
         create new menu using data from form submit
-        NOTE: currently doesnt work due to missing CSRF token
         """
         if response.method == "POST":
-            print(response.POST)
+            # decode JSON response using utf-8 format
+            data = json.loads(response.body.decode('utf-8'))
 
-            # FirestoreDB.menu_collection.document(menu_name).set(menu)
+            menu_name = data["restaurant-name"]  # extract menu name
 
-            # return JsonResponse(menu)
+            FirestoreDB.menu_collection.document(menu_name).set(data)
+
+            return JsonResponse(data)
         return HttpResponse(status=200)
 
     @staticmethod
     def view(response, name):
         """ view a menu using its name """
         if response.method == "GET":
+            # retrieve menu data using menu names
             result = FirestoreDB.menu_collection.document(name).get()
             if result.exists:
                 menu_data = result.to_dict()
