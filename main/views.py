@@ -1,4 +1,5 @@
 from .controllers import MenuController
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -6,6 +7,7 @@ def home(response):
     """ landing page """
     return MenuController.home(response)
 
+@csrf_exempt
 def create(response):
     """ handle create menu POST """
     return MenuController.create(response)
