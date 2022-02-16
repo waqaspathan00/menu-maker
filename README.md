@@ -1,3 +1,13 @@
+##### Table of Contents  
+- [Installation Guide](#installation)\
+- [Inspiration](#inspiration)\
+- [Goal](#goal)\
+- [Mission Statement](#mission)\
+- [What Sets Us Apart](#unique)\
+- [Goal](#goal)
+
+<a name="installation"/>
+
 ## Installation Guide for backend
 1. Clone the repository
 2. Open the repository in your preferred code editor
@@ -7,7 +17,8 @@
       1. for POSTing menu data to Firestore
    2. localhost:8000/create/menu_name
       1. for GETing menu data from Firestore
-
+      
+<a name="inspiration"/>
 
 ## Inspiration
 In my area, I have a lot of small business owners. 
@@ -35,4 +46,3 @@ like home cooks, to share information with prospective clients
 - Python
 - React
 - Firebase (for data storage and account login with google)
-
