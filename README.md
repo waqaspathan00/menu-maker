@@ -66,4 +66,5 @@ like home cooks, to share information with prospective clients
 ## Programming Languages/ Technologies Used
 - Python
 - React
-- Firebase (for data storage and account login with google)
+- Firestore (for storing menu data)
+- Firebase (account login with google)
