@@ -1,9 +1,10 @@
-##### Table of Contents  
-- [Installation Guide](#installation)\
-- [Inspiration](#inspiration)\
-- [Goal](#goal)\
-- [Mission Statement](#mission)\
-- [What Sets Us Apart](#unique)\
+# Table of Contents  
+- [Installation Guide](#installation)
+- [How to run the project](#running)
+- [Inspiration](#inspiration)
+- [Goal](#goal)
+- [Mission Statement](#mission)
+- [What Sets Us Apart](#unique)
 - [Goal](#goal)
 
 <a name="installation"/>
@@ -17,6 +18,17 @@
       1. for POSTing menu data to Firestore
    2. localhost:8000/create/menu_name
       1. for GETing menu data from Firestore
+
+<a name="running"/>
+
+## How to run the project
+1. Ensure you have a serviceAccountKey from Google for Firestore
+   1. Follow this link to get one https://cloud.google.com/docs/authentication/production#create_service_account
+2. Place the serviceAccountKey.json file directly in the project. It should be sibling to backend and frontend folders.
+3. Next, open 2 terminals
+4. In terminal 1 start the backend server with this command ```python manage.py runserver```
+   1. By default this will run on port 8000
+5. In terminal 2 start the frontend application with this command ```npm start```
 
 <a name="inspiration"/>
 
