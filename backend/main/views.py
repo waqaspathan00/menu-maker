@@ -16,10 +16,12 @@ def view(response, name):
     """ handle view menu GET """
     return MenuController.view(response, name)
 
+@csrf_exempt
 def edit(response, name):
     """ handle edit menu PUT """
     return MenuController.edit(response, name)
 
+@csrf_exempt
 def delete(response, name):
     """ handle delete menu DELETE """
     return MenuController.delete(response, name)
