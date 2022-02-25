@@ -19,12 +19,14 @@ class MenuController:
             # decode JSON response using utf-8 format
             data = json.loads(response.body.decode('utf-8'))
 
-            menu_name = data["restaurant-name"]  # extract menu name
+            menu_name = data["menu-name"]  # extract menu name
 
             # write menu data to Firestore
             FirestoreDB.menu_collection.document(menu_name).set(data)
 
             return JsonResponse(data)
+
+        # on initial page load
         return HttpResponse(status=200)
 
     @staticmethod
@@ -43,10 +45,32 @@ class MenuController:
 
     @staticmethod
     def edit(response, name):
+
+        if response.method == "POST":
+            # decode JSON response using utf-8 format
+            data = json.loads(response.body.decode('utf-8'))
+
+            menu_name = data["menu-name"]  # extract current menu name
+
+            # check if menu name was changed
+            if menu_name == name:
+                # update menu data in Firestore
+                FirestoreDB.menu_collection.document(name).set(data)
+            else:
+                # delete menu with old name
+                FirestoreDB.menu_collection.document(name).delete()
+                # create menu with new name and key
+                FirestoreDB.menu_collection.document(menu_name).set(data)
+
+            return JsonResponse(data)
+
+
         return HttpResponse(status=200)
 
     @staticmethod
     def delete(response, name):
+        if response.method == "POST":
+            FirestoreDB.menu_collection.document(name).delete()
         return HttpResponse(status=200)
 
 
@@ -54,7 +78,7 @@ class MenuController:
 Example data:
 
 {
-    "restaurant-name": "Narus Place",
+    "menu-name": "Narus Place",
     "menu-data": [
         {
             "category-title": "dinner",
