@@ -25,6 +25,8 @@ class MenuController:
             FirestoreDB.menu_collection.document(menu_name).set(data)
 
             return JsonResponse(data)
+
+        # on initial page load
         return HttpResponse(status=200)
 
     @staticmethod
