@@ -1,11 +1,16 @@
 # Table of Contents  
-- [Installation Guide](#installation)
-- [How to run the project](#running)
+- [Backend](#backend)
+  - [Installation Guide](#installation)
+  - [How to run the project](#running)
 - [Inspiration](#inspiration)
 - [Goal](#goal)
 - [Mission Statement](#mission)
 - [What Sets Us Apart](#unique)
 - [Goal](#goal)
+
+<a name="backend"/>
+
+# BACKEND
 
 <a name="installation"/>
 
@@ -22,6 +27,16 @@
       1. for POSTing menu data to Firestore
    2. localhost:8000/create/menu_name
       1. for GETing menu data from Firestore
+      
+<a name="running"/>
+
+## How to run tests
+- First, set an environment variable telling django where to find settings.py
+
+```export DJANGO_SETTINGS_MODULE=backend.menu_maker.settings```
+- Next, run the tests by just entering ```pytest``` in the terminal
+  - NOTE: you must be in the ```/backend``` directory before running this
+
 
 <a name="running"/>
 
