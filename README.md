@@ -9,10 +9,14 @@
 
 <a name="installation"/>
 
-## Installation Guide for backend
+## Installation guide for backend
 1. Clone the repository
 2. Open the repository in your preferred code editor
-3. From the command line, run ```python manage.py runserver```
+3. In terminal at root of project directory, run the following commands
+   1. ```cd backend```
+   2. ```pip install -r requirements.txt```
+   3. ```python manage.py migrate```
+   4. ```python manage.py runserver```
 4. Now open Postman and go to one of the following urls
    1. localhost:8000/create
       1. for POSTing menu data to Firestore
