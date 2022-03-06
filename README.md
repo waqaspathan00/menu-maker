@@ -1,23 +1,42 @@
 # Table of Contents  
-- [Installation Guide](#installation)
-- [How to run the project](#running)
+- [Backend](#backend)
+  - [Installation Guide](#installation)
+  - [How to run the project](#running)
 - [Inspiration](#inspiration)
 - [Goal](#goal)
 - [Mission Statement](#mission)
 - [What Sets Us Apart](#unique)
 - [Goal](#goal)
 
+<a name="backend"/>
+
+# BACKEND
+
 <a name="installation"/>
 
-## Installation Guide for backend
+## Installation guide for backend
 1. Clone the repository
 2. Open the repository in your preferred code editor
-3. From the command line, run ```python manage.py runserver```
+3. In terminal at root of project directory, run the following commands
+   1. ```cd backend```
+   2. ```pip install -r requirements.txt```
+   3. ```python manage.py migrate```
+   4. ```python manage.py runserver```
 4. Now open Postman and go to one of the following urls
    1. localhost:8000/create
       1. for POSTing menu data to Firestore
    2. localhost:8000/create/menu_name
       1. for GETing menu data from Firestore
+      
+<a name="running"/>
+
+## How to run tests
+- First, set an environment variable telling django where to find settings.py
+
+```export DJANGO_SETTINGS_MODULE=backend.menu_maker.settings```
+- Next, run the tests by just entering ```pytest``` in the terminal
+  - NOTE: you must be in the ```/backend``` directory before running this
+
 
 <a name="running"/>
 

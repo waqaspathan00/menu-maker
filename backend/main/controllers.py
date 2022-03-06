@@ -6,18 +6,18 @@ class MenuController:
     """ handle get and post requests concerning food recipes on homepage """
 
     @staticmethod
-    def home(response):
+    def home(request):
         """ return OKAY status code """
         return HttpResponse(status=200)
 
     @staticmethod
-    def create(response):
+    def create(request):
         """
         create new menu using data from form submit
         """
-        if response.method == "POST":
-            # decode JSON response using utf-8 format
-            data = json.loads(response.body.decode('utf-8'))
+        if request.method == "POST":
+            # decode HTTP request using utf-8
+            data = json.loads(request.body.decode('utf-8'))
 
             menu_name = data["menu-name"]  # extract menu name
 
@@ -30,10 +30,10 @@ class MenuController:
         return HttpResponse(status=200)
 
     @staticmethod
-    def view(response, name):
+    def view(request, name):
         """ view a menu using its name """
 
-        if response.method == "GET":
+        if request.method == "GET":
             # retrieve menu data using menu name
             result = FirestoreDB.menu_collection.document(name).get()
 
@@ -44,11 +44,11 @@ class MenuController:
         return HttpResponse(status=404)
 
     @staticmethod
-    def edit(response, name):
+    def edit(request, name):
 
-        if response.method == "POST":
-            # decode JSON response using utf-8 format
-            data = json.loads(response.body.decode('utf-8'))
+        if request.method == "PATCH":
+            # decode HTTP request using utf-8 format
+            data = json.loads(request.body.decode('utf-8'))
 
             menu_name = data["menu-name"]  # extract current menu name
 
@@ -68,43 +68,7 @@ class MenuController:
         return HttpResponse(status=200)
 
     @staticmethod
-    def delete(response, name):
-        if response.method == "POST":
+    def delete(request, name):
+        if request.method == "DELETE":
             FirestoreDB.menu_collection.document(name).delete()
         return HttpResponse(status=200)
-
-
-"""
-Example data:
-
-{
-    "menu-name": "Narus Place",
-    "menu-data": [
-        {
-            "category-title": "dinner",
-            "items": [
-                {
-                    "item-name": "chicken",
-                    "item-price": "19",
-                    "item-description": "oven roasted chicken"
-                },
-                {
-                    "item-name": "steak",
-                    "item-price": "79",
-                    "item-description": "wagyu steak and fries"
-                }
-            ]
-        },
-        {
-            "category-title": "dessert",
-            "items": [
-                {
-                    "item-name": "cookies",
-                    "item-price": "2.99",
-                    "item-description": "chocolate chip cookies"
-                }
-            ]
-        }
-    ]
-}
-"""
