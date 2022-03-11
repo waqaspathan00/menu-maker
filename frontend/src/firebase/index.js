@@ -44,8 +44,13 @@ const googleProvider = new GoogleAuthProvider()
 
 export const loginWithGoogle = () =>
 {
-	signInWithPopup(auth, googleProvider).catch((error) =>
-	{
-		console.log(error)
-	})
+	signInWithPopup(auth, googleProvider).then((result) => {
+
+        var user = result.user;
+        console.log(user);
+
+ 	}).catch((error) =>
+    {
+        console.log(error)
+    })
 }
