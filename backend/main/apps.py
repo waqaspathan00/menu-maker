@@ -12,4 +12,7 @@ class FirestoreDB:
     cred = credentials.Certificate("../serviceAccountKey.json")
     firebase_admin.initialize_app(cred)
     db = firestore.client()
-    menu_collection = db.collection("menus")
+
+    @staticmethod
+    def collection(uid):
+        return FirestoreDB.db.collection(uid)

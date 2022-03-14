@@ -7,6 +7,7 @@ class MenuController:
 
     @staticmethod
     def home(request):
+        # print(request.session['token'])
         """ return OKAY status code """
         return HttpResponse(status=200)
 
@@ -19,10 +20,13 @@ class MenuController:
             # decode HTTP request using utf-8
             data = json.loads(request.body.decode('utf-8'))
 
+            # request.session['uid'] = 'wU2s2G0D6OdTASvb51eVKgiIzbN2'
             menu_name = data["menu-name"]  # extract menu name
+            userUID = request.session['uid']
 
             # write menu data to Firestore
-            FirestoreDB.menu_collection.document(menu_name).set(data)
+            collection = FirestoreDB.collection(userUID)
+            collection.document(menu_name).set(data)
 
             return JsonResponse(data)
 
@@ -34,8 +38,13 @@ class MenuController:
         """ view a menu using its name """
 
         if request.method == "GET":
+
+            # request.session['uid'] = 'wU2s2G0D6OdTASvb51eVKgiIzbN2'
+
+            userUID = request.session['uid']
+
             # retrieve menu data using menu name
-            result = FirestoreDB.menu_collection.document(name).get()
+            result = FirestoreDB.collection(userUID).document(name).get()
 
             if result.exists:  # return menu data (to the front end)
                 menu_data = result.to_dict()
@@ -52,15 +61,17 @@ class MenuController:
 
             menu_name = data["menu-name"]  # extract current menu name
 
+            userUID = request.session['uid']
+
             # check if menu name was changed
             if menu_name == name:
                 # update menu data in Firestore
-                FirestoreDB.menu_collection.document(name).set(data)
+                FirestoreDB.collection(userUID).document(name).set(data)
             else:
                 # delete menu with old name
-                FirestoreDB.menu_collection.document(name).delete()
+                FirestoreDB.collection(userUID).document(name).delete()
                 # create menu with new name and key
-                FirestoreDB.menu_collection.document(menu_name).set(data)
+                FirestoreDB.collection(userUID).document(menu_name).set(data)
 
             return JsonResponse(data)
 
@@ -70,5 +81,6 @@ class MenuController:
     @staticmethod
     def delete(request, name):
         if request.method == "DELETE":
-            FirestoreDB.menu_collection.document(name).delete()
+            userUID = request.session['uid']
+            FirestoreDB.collection(userUID).document(name).delete()
         return HttpResponse(status=200)

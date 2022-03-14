@@ -1,5 +1,5 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-
+import axios from 'axios';
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 
@@ -48,9 +48,18 @@ export const loginWithGoogle = () =>
 
         var user = result.user;
         console.log(user);
+        axios.post('http://localhost:8000/oauth/login/', {
+          uid: user.uid
+        })
+        .then((response) => {
+          console.log(response);
+        }, (error) => {
+          console.log(error);
+        });
 
- 	}).catch((error) =>
-    {
-        console.log(error)
-    })
+
+ }).catch((error) =>
+	{
+		console.log(error)
+	})
 }

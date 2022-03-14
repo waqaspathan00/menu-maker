@@ -20,10 +20,11 @@ from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('', include('main.urls')),
+    path('', include('main.urls')),
+    path('oauth/', include('oauth.urls')),
 
     # Google Auth:
-    path('', TemplateView.as_view(template_name="index.html")),
-    path('accounts/', include('allauth.urls')),
-    path('logout', LogoutView.as_view()),
+    # path('', TemplateView.as_view(template_name="index.html")),
+    # path('accounts/', include('allauth.urls')),
+    # path('logout', LogoutView.as_view()),
 ]
