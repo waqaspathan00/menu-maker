@@ -1,1 +1,8 @@
 /serviceAccountKey.json
+/.idea/.gitignore
+/backend/db.sqlite3
+/.idea/menu-maker.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/vcs.xml
