@@ -11,6 +11,6 @@ from django.views.decorators.csrf import csrf_exempt
 def login(response):
     data = json.loads(response.body)
     token = jwt.encode(payload=data, key="my_secret_key")
-    print(token)
-    # response.session['token'] = token
+    response.session['token'] = token
+    print("logging in:", response.session["token"])
     return HttpResponse(status=200)
