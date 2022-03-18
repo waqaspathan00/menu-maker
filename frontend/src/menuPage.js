@@ -4,11 +4,13 @@ import SearchBar from './components/searchBar'
 
 function menuPage() {
   return (
-    <>
-        <p class="text-base">NY's Kitchen</p>
-        <SearchBar />
+    <div>
+        <p class="text-base flex justify-center pt-5 pb-5">NY's Kitchen</p>
+        <div >
+          <SearchBar />
+        </div>
         <Footer/>
-    </>
+    </div>
   )
 }
 
