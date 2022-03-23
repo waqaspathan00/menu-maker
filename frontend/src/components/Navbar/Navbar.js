@@ -1,10 +1,19 @@
 import Logo from "../Logo/Logo"
+import UserNav from "../UserNav/UserNav"
 
-const Navbar = () => {
+const Navbar = () =>
+{
   return (
-	<nav className="w-full shadow h-[75px]">
-    <Logo />
-  </nav>
+    <header className="w-full shadow-sm h-[75px]">
+      <nav className="flex items-center justify-between container mx-auto h-full">
+        <div>
+          <Logo />
+        </div>
+        <div>
+          <UserNav />
+        </div>
+      </nav>
+    </header>
   )
 }
 
