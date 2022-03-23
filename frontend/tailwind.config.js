@@ -11,6 +11,9 @@ module.exports = {
         'primary-gray': '#8E8E93'
       }
     },
+    fontFamily: {
+      'logo': ['Rock Salt', 'cursive']
+    }
   },
   plugins: [],
 }
