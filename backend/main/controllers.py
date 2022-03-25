@@ -20,12 +20,10 @@ class MenuController:
             # decode HTTP request using utf-8
             data = json.loads(request.body.decode('utf-8'))
 
-            # request.session['uid'] = 'wU2s2G0D6OdTASvb51eVKgiIzbN2'
             menu_name = data["menu-name"]  # extract menu name
-            userUID = request.session['uid']
 
             # write menu data to Firestore
-            collection = FirestoreDB.collection(userUID)
+            collection = FirestoreDB.collection(menu_name)
             collection.document(menu_name).set(data)
 
             return JsonResponse(data)
@@ -38,13 +36,8 @@ class MenuController:
         """ view a menu using its name """
 
         if request.method == "GET":
-
-            # request.session['uid'] = 'wU2s2G0D6OdTASvb51eVKgiIzbN2'
-
-            userUID = request.session['uid']
-
             # retrieve menu data using menu name
-            result = FirestoreDB.collection(userUID).document(name).get()
+            result = FirestoreDB.collection("menus").document(name).get()
 
             if result.exists:  # return menu data (to the front end)
                 menu_data = result.to_dict()
