@@ -42,7 +42,7 @@ export const loginWithGoogle = () => {
 
         var user = result.user;
         console.log(user);
-        axios.post('http://localhost:8000/login/', {
+        axios.post('http://localhost:8000/oauth/login/', {
             uid: user.uid
         })
             .then((response) => {
