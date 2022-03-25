@@ -8,10 +8,10 @@ import jwt
 
 def home(response):
     """ landing page """
-    jwt_token = CustomSession.objects.order_by('-id')[0].uid  # get jwt token from session
-    print("home token:", jwt_token)
-    jwt_token = jwt.decode(jwt_token, key="my_secret_key", algorithms=["HS256"])  # decode the jwt token
-    print("home uid:", jwt_token)
+    token = CustomSession.objects.order_by('-id')[0].uid  # get jwt token from session
+    print("home token:", token)
+    token = jwt.decode(token, key="my_secret_key", algorithms=["HS256"])  # decode the jwt token
+    print("home uid:", token)
 
     return HttpResponse(status=200)
     # return JsonResponse(json.dumps(response.body))
