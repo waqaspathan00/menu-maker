@@ -75,22 +75,44 @@ class MenuController:
             # decode HTTP request using utf-8 format
             data = json.loads(request.body.decode('utf-8'))
 
-            menu_name = data["menu-name"]  # extract current menu name
+            token = CustomSession.objects.order_by('-id')[0].uid  # get jwt token from session
+            userID = jwt.decode(token, key="my_secret_key", algorithms=["HS256"])  # decode the jwt token
 
-            userUID = request.session['uid']
+            user_menu_doc = FirestoreDB.collection(userID).document("menus")
+            user_menus = user_menu_doc.get()
 
-            # check if menu name was changed
-            if menu_name == name:
-                # update menu data in Firestore
-                FirestoreDB.collection(userUID).document(name).set(data)
+            # check if user is authorized to edit menu
+            if user_menus.exists:
+                menu_names_list = user_menus.to_dict()['menu_names']
+
+                if name in menu_names_list:
+                    menu_name = data["menu-name"]  # extract current menu name
+
+                    # check if menu name was changed
+                    if menu_name == name:
+
+                        # update menu data in Firestore
+                        FirestoreDB.collection('menus').document(name).set(data)
+                    else:
+                        # update user menu names list with new name
+                        menu_names_list.remove(name)
+                        menu_names_list.append(menu_name)
+                        user_menu_doc.update({'menu_names': menu_names_list})
+
+                        # delete menu with old name
+                        FirestoreDB.collection('menus').document(name).delete()
+                        # create menu with new name and key
+                        FirestoreDB.collection('menus').document(menu_name).set(data)
+
+                    return JsonResponse(data)
+
+
+                else:
+                    return HttpResponse(status=401)
+
+            #  menu not owned by user
             else:
-                # delete menu with old name
-                FirestoreDB.collection(userUID).document(name).delete()
-                # create menu with new name and key
-                FirestoreDB.collection(userUID).document(menu_name).set(data)
-
-            return JsonResponse(data)
-
+                return HttpResponse(status=401)
 
         return HttpResponse(status=200)
 
