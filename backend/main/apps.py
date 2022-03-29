@@ -14,13 +14,14 @@ class FirestoreDB:
     db = firestore.client()
 
     @staticmethod
-    def collection(coll_id):
+    def get_collection(coll_id):
         """ return a Firestore collection using provided collection id """
         return FirestoreDB.db.collection(coll_id)
 
     @staticmethod
     def get_menu(menu_name):
-        menu_collection = FirestoreDB.db.collection("menus")
+        """ return a menu data document using provided menu_name """
+        menu_collection = FirestoreDB.get_collection("menus")
         document = menu_collection.document(menu_name)
 
         # if menu_name has been taken, negate creation
@@ -31,12 +32,13 @@ class FirestoreDB:
     @staticmethod
     def add_menu(menu_name, data):
         """ add menu to Firestore """
-        menu_collection = FirestoreDB.db.collection("menus")
+        menu_collection = FirestoreDB.get_collection("menus")
         menu_collection.document(menu_name).set(data)
 
     @staticmethod
     def get_user_menus(uid):
-        user_collection = FirestoreDB.collection(uid)
+        """ get a list of menus that the user owns """
+        user_collection = FirestoreDB.get_collection(uid)
         user_menus = user_collection.document("menus")
 
         menu_names = user_menus.get()
@@ -45,7 +47,7 @@ class FirestoreDB:
     @staticmethod
     def add_menu_to_user(menu_names, menu_name, uid):
         """ give ownership for a menu name to a user """
-        user_collection = FirestoreDB.collection(uid)
+        user_collection = FirestoreDB.get_collection(uid)
         user_menus = user_collection.document("menus")
 
         if menu_names.exists:
