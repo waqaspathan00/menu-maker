@@ -49,7 +49,7 @@ class MenuController:
 
         if request.method == "GET":
             # retrieve menu data using menu name
-            result = FirestoreDB.collection("menus").document(name).get()
+            result = FirestoreDB.get_menu(name)
 
             if result.exists:  # return menu data (to the front end)
                 menu_data = result.to_dict()

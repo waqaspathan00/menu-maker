@@ -26,7 +26,7 @@ class FirestoreDB:
 
         # if menu_name has been taken, negate creation
         if document.get().exists:
-            return document
+            return document.get()
         return None
 
     @staticmethod
