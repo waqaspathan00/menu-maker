@@ -37,7 +37,7 @@ class FirestoreDB:
 
     @staticmethod
     def delete_menu(menu_name):
-        """ delete menu document using menu name """
+        """ delete menu document from "menus" collection using menu name """
         FirestoreDB.get_menu(menu_name).delete()
 
     @staticmethod
