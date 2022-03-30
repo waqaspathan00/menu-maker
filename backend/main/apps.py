@@ -26,7 +26,7 @@ class FirestoreDB:
 
         # if menu_name has been taken, negate creation
         if document.get().exists:
-            return document.get()
+            return document
         return None
 
     @staticmethod
@@ -34,6 +34,11 @@ class FirestoreDB:
         """ add menu to Firestore """
         menu_collection = FirestoreDB.get_collection("menus")
         menu_collection.document(menu_name).set(data)
+
+    @staticmethod
+    def delete_menu(menu_name):
+        """ delete menu document using menu name """
+        FirestoreDB.get_menu(menu_name).delete()
 
     @staticmethod
     def get_user_menus(uid):
@@ -45,13 +50,13 @@ class FirestoreDB:
         return menu_names
 
     @staticmethod
-    def add_menu_to_user(menu_names, menu_name, uid):
+    def add_menu_to_user(user_owned_menus, menu_name, uid):
         """ give ownership for a menu name to a user """
         user_collection = FirestoreDB.get_collection(uid)
         user_menus = user_collection.document("menus")
 
-        if menu_names.exists:
-            menu_names_dict = menu_names.to_dict()
+        if user_owned_menus.exists:
+            menu_names_dict = user_owned_menus.to_dict()
             menu_names_dict['menu_names'].append(menu_name)
             user_menus.update({'menu_names': menu_names_dict['menu_names']})
         else:
