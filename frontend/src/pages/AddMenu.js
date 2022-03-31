@@ -1,8 +1,16 @@
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import MenuInput from '../components/Inputs/MenuInput'
+import { adjustStep } from '../redux/menuSlice'
 import eatingCat from './../assets/img/eating-cat.png'
 
 const AddMenu = () =>
 {
+	// Resets adjust step to 1
+	const dispatch = useDispatch()
+	useEffect(() => {
+		dispatch(adjustStep(1))
+	},[dispatch])
 	return (
 		<section className="max-w-[1137px] mx-auto flex items-center 
 		justify-center

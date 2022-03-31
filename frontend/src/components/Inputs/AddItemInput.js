@@ -51,7 +51,7 @@ function AddItemInput({ setIsOpen })
 					<div className='mt-8 w-full grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4'>
 						<div className='w-full'>
 							<label htmlFor="dish-price" className='text-sm font-medium'>Price ($) *</label>
-							<div className='flex items-center mr-2'><input type="number" min="0" step="0.01" className='block text-sm border w-full p-2 rounded mt-2 bg-primary-gray/10' id="dish-price" placeholder='25.01' value={dishPrice} onChange={(e) => setDishPrice(e.currentTarget.value)} required />
+							<div className='flex items-center mr-2'><input type="number" min="0" step="any" className='block text-sm border w-full p-2 rounded mt-2 bg-primary-gray/10' id="dish-price" placeholder='0.00' value={dishPrice} onChange={(e) => setDishPrice(e.currentTarget.value)} required />
 							</div>
 						</div>
 						<div className='w-full'>
