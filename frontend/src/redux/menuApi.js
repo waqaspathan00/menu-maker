@@ -10,4 +10,13 @@ export const menuApi = createApi({
 	})
 })
 
+/* 
+ * Building new queries
+ * queryName: builder.query({...})
+ * To export, use the queryName and prepend it with `use` + QueryName  
+ * (capitalize every word)
+ * e.g getName -> useGetName
+*/
+
+
 export const {useGetMenuQuery} = menuApi;
