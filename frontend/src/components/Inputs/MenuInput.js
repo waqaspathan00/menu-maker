@@ -2,7 +2,7 @@ import { ReactComponent as PizzaIcon } from './../../assets/img/Pizza.svg'
 const MenuInput = () =>
 {
 	return (
-		<div className="mt-4 w-full p-4">
+		<div className="mt-4 w-full p-4" data-testid="test-input">
 			<div className="flex items-center space-x-2 font-medium">
 				<PizzaIcon />
 				<h4 className="text-sm">Add Menu</h4>
