@@ -7,7 +7,7 @@ import AddItems from './pages/AddItems';
 function App()
 {
   return (
-    <div className="App w-screen h-screen">
+    <div className="App">
       <Router>
         <Navbar />
         <Routes>

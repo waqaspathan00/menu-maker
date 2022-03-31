@@ -1,21 +1,18 @@
 import { ReactComponent as PizzaIcon } from './../../assets/img/Pizza.svg'
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { adjustStep, storeNewMenu } from '../../redux/menuSlice';
 import { useNavigate } from 'react-router-dom';
 const MenuInput = () =>
 {
 	const [menuName, setMenuName] = useState("")
-	const {data} = useSelector(state => state.newMenu);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	function handleSubmit(e)
 	{
 		e.preventDefault();
-		const temp = {...data};
-		temp['menu-name'] = menuName;
-		dispatch(storeNewMenu(temp));
+		dispatch(storeNewMenu(menuName));
 		dispatch(adjustStep(2))
 		setMenuName("");
 		navigate("/add-items")
