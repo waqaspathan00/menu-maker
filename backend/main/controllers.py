@@ -98,6 +98,20 @@ class MenuController:
     @staticmethod
     def delete(request, name):
         if request.method == "DELETE":
-            userUID = request.session['uid']
-            FirestoreDB.collection(userUID).document(name).delete()
+            uid = get_uid()
+            user_owned_menus = FirestoreDB.get_user_menus(uid)
+
+            # check if user owns the menu
+            if not user_owned_menus.exists:
+                return HttpResponse(status=401)
+
+            menu_names_list = user_owned_menus.to_dict()['menu_names']
+            if name not in menu_names_list:
+                return HttpResponse(status=401)
+
+            # remove menu from menus collection
+            FirestoreDB.delete_menu(name)
+
+            # remove menu name from user's menu name list
+            FirestoreDB.remove_menu_from_user(user_owned_menus, name, uid)
         return HttpResponse(status=200)

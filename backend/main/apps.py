@@ -61,3 +61,15 @@ class FirestoreDB:
             user_menus.update({'menu_names': menu_names_dict['menu_names']})
         else:
             user_menus.set({'menu_names': [menu_name]})
+
+    @staticmethod
+    def remove_menu_from_user(user_owned_menus, menu_name, uid):
+        """ remove ownership for a menu name fram a user """
+        user_collection = FirestoreDB.get_collection(uid)
+        user_menus = user_collection.document("menus")
+
+        if user_owned_menus.exists:
+            menu_names_dict = user_owned_menus.to_dict()
+            menu_names_dict['menu_names'].remove(menu_name)
+            user_menus.update({'menu_names': menu_names_dict['menu_names']})
+
