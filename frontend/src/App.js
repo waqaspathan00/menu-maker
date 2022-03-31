@@ -3,6 +3,7 @@ import MenuPage from './menuPage'
 import Navbar from './components/Navbar/Navbar';
 import PrimaryLayout from './Layout/PrimaryLayout';
 import AddMenu from './pages/AddMenu';
+import AddItems from './pages/AddItems';
 function App()
 {
   return (
@@ -11,7 +12,8 @@ function App()
         <Navbar />
         <Routes>
           <Route path='/view' element={<MenuPage />} />
-          <Route path="/dashboard" element={<PrimaryLayout children={<AddMenu />} />} />
+          <Route path="/add-menu" element={<PrimaryLayout children={<AddMenu />} />} />
+          <Route path="/add-items" element={<PrimaryLayout children={<AddItems />} />} />
         </Routes>
       </Router>
     </div>
