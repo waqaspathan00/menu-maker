@@ -2,7 +2,7 @@ function Dishes({ props })
 {
 
 	return (
-		<div className="w-full h-auto p-4">
+		<div className="w-full h-auto">
 			<h4 className="text-xl font-semibold">{props['item-name']}</h4>
 			<p className="text-sm">{props['item-description']}</p>
 			<div className="flex justify-between items-center pt-10">
