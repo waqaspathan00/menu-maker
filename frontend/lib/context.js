@@ -9,7 +9,7 @@ export const NewMenuContext = createContext({})
 
 export const NewMenuProvider = ({ children }) =>
 {
-	const [step, setStep] = useState(1);
+	const [step, setStep] = useState(0);
 	const [newMenu, setNewMenu] = useState({
 		"menu-data": [{
 			"category-title": "",
