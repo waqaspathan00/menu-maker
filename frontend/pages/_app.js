@@ -3,7 +3,8 @@ import { useUserData } from "../lib/hooks";
 import { NewMenuProvider, UserContext } from "../lib/context";
 import Navbar from "/components/Navbar/Navbar";
 import React, { useState } from "react";
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function MyApp({ Component, pageProps })
 {
 
@@ -16,6 +17,7 @@ function MyApp({ Component, pageProps })
             <Navbar />
             <NewMenuProvider>
                 <Component {...pageProps} />
+                <ToastContainer position='top-right' />
             </NewMenuProvider>
         </UserContext.Provider>
     )
