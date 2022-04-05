@@ -1,19 +1,30 @@
 import { useRouter } from "next/router"
 import { useContext, useState } from "react";
-import { NewMenuContext } from "/lib/context"
+import { NewMenuContext } from "/lib/context";
+
+import {MdArrowRightAlt} from 'react-icons/md'
+import { toast } from "react-toastify";
+
 const MenuInput = ({ setStep }) =>
 {
 	const router = useRouter();
 	const [menuName, setMenuName] = useState("");
 	const { newMenu, setNewMenu } = useContext(NewMenuContext);
 
-	const handleClick = () =>
+	const handleSubmit = (e) =>
 	{
-		const temp = newMenu;
-		temp["menu-name"] = menuName;
-		setNewMenu(temp);
-		setStep(prev => prev + 1);
-		router.push("/create/add-items");
+		e.preventDefault();
+		if (!menuName.replace(/\s/g, '').length)
+		{
+			toast.error("Menu name must be valid");
+			setMenuName("")
+		} else {
+			const temp = newMenu;
+			temp["menu-name"] = menuName;
+			setNewMenu(temp);
+			router.push("/create/add-items");
+		}
+
 	}
 
 	const handleChange = (e) =>
@@ -46,14 +57,16 @@ const MenuInput = ({ setStep }) =>
 				</svg>
 				<h4 className="text-sm font-bold">Add Menu</h4>
 			</div>
-			<form className="text-left mt-4">
+			<form className="text-left mt-4" onSubmit={handleSubmit}>
 				<label htmlFor="menu-name" className=" font-semibold">Menu Name *</label>
 				<input type="text" id="menu-name" className="block w-full bg-[#F9F9F9] h-11 border border-[#DADADA] rounded-sm mt-4 pl-4" placeholder="Lunch, dinner, etc." value={menuName} onChange={handleChange} required />
+				<div className="flex justify-between items-center mt-8 ">
+					<h4>Cancel</h4>
+					<button className='flex items-center font-bold' type="submit">Next 	<MdArrowRightAlt className="ml-2" /></button>
+				
+				</div>
 			</form>
-			<div className="flex justify-between items-center mt-8 ">
-				<h4>Cancel</h4>
-				<button className='flex items-center font-bold' onClick={handleClick}>Next</button>
-			</div>
+
 		</div>
 	)
 }
