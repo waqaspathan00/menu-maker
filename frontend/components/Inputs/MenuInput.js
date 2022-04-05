@@ -1,4 +1,4 @@
-import { ReactComponent as PizzaIcon } from './../../assets/img/Pizza.svg'
+// import { ReactComponent as PizzaIcon } from '../../public/assets/img/Pizza.svg'
 const MenuInput = () =>
 {
 	return (
