@@ -4,7 +4,6 @@ const MenuInput = () =>
 	return (
 		<div className="mt-4 w-full p-4">
 			<div className="flex items-center space-x-2 font-medium">
-				<PizzaIcon />
 				<h4 className="text-sm">Add Menu</h4>
 			</div>
 			<form className="text-left mt-4">
