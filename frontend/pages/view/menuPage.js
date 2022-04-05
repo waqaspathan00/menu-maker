@@ -1,7 +1,7 @@
 import React from 'react'
-import Footer from './components/footer'
-import SearchBar from './components/searchBar'
-import MenuChoice from './components/MenuChoice'
+import Footer from '../components/footer'
+import SearchBar from '../components/searchBar'
+import MenuChoice from '../components/MenuChoice'
 
 function MenuPage() {
 

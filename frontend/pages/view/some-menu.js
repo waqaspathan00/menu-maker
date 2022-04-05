@@ -1,10 +1,10 @@
 import React from 'react'
-import { Categories } from './components/categories'
-import Footer from './components/footer'
-import MenuItem from './components/MenuItem'
+import { Categories } from '../components/categories'
+import Footer from '../components/footer'
+import MenuItem from '../components/MenuItem'
 import {MdOutlineArrowBack} from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
-import Modal from "./components/Modal";
+import Modal from "../components/Modal";
 
 import { useState } from "react";
 
@@ -19,7 +19,7 @@ export const SomeMenu = () => {
   }
 
   const navigate = useNavigate()
-  
+
   return (
     <div>
       <div className='h-1/5'>
