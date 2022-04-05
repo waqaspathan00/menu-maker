@@ -1,10 +1,25 @@
 /* React JS Template using functions */
-import React, {useState, useEffect} from "react"
+import React, { useContext, useEffect, useState } from "react"
+import BreadCrumb from '/components/Breadcrumb/BreadCrumb'
+import { NewMenuContext } from "/lib/context";
+export default function AddItems()
+{
+    const { step, setStep, newMenu } = useContext(NewMenuContext);
 
-export default function COMPONENTNAME() {
+    useEffect(() =>
+    {
+        setStep(2);
+    }, [])
+
     return (
-        <div>
-            aceasdceasd
-        </div>
+        <main className="mt-4 h-auto grid place-items-center">
+            <div className="container mx-auto">
+                <BreadCrumb step={step} />
+            </div>
+            <div>
+                {console.log(newMenu)}
+            </div>
+        </main>
+
     )
 }
