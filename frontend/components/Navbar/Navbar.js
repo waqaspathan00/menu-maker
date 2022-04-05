@@ -1,5 +1,5 @@
-import UserNav from "/UserNav/UserNav";
-import Logo from "/Logo/Logo";
+import UserNav from "/components/UserNav/UserNav";
+import Logo from "/components/Logo/Logo";
 
 const Navbar = () =>
 {
