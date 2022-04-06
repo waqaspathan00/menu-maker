@@ -2,15 +2,14 @@ import { useRouter } from "next/router"
 import { useContext, useState } from "react";
 import { NewMenuContext } from "/lib/context";
 
-import {MdArrowRightAlt} from 'react-icons/md'
+import { MdArrowRightAlt } from 'react-icons/md'
 import { toast } from "react-toastify";
 
 const MenuInput = ({ setStep }) =>
 {
 	const router = useRouter();
-	const [menuName, setMenuName] = useState("");
 	const { newMenu, setNewMenu } = useContext(NewMenuContext);
-
+	const [menuName, setMenuName] = useState(newMenu["menu-name"].length > 0 ? newMenu["menu-name"] : "");
 	const handleSubmit = (e) =>
 	{
 		e.preventDefault();
@@ -18,7 +17,8 @@ const MenuInput = ({ setStep }) =>
 		{
 			toast.error("Menu name must be valid");
 			setMenuName("")
-		} else {
+		} else
+		{
 			const temp = newMenu;
 			temp["menu-name"] = menuName;
 			setNewMenu(temp);
@@ -63,7 +63,7 @@ const MenuInput = ({ setStep }) =>
 				<div className="flex justify-between items-center mt-8 ">
 					<h4>Cancel</h4>
 					<button className='flex items-center font-bold' type="submit">Next 	<MdArrowRightAlt className="ml-2" /></button>
-				
+
 				</div>
 			</form>
 
