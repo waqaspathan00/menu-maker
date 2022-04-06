@@ -29,7 +29,7 @@ export default function AddItems()
             <div className="container mx-auto">
                 <BreadCrumb step={step} />
             </div>
-            <section className="mt-0 h-[calc(100vh-275px)] container mx-auto p-4 relative">
+            <section className="mt-0 h-[calc(100vh-275px)] container mx-auto p-4 ">
                 <div className="xl:w-3/4 lg:w-3/4 w-full mx-auto p-4 space-y-4 flex flex-col">
                     <div className="space-y-4">
                         <div className="flex items-center border p-4">
@@ -40,7 +40,7 @@ export default function AddItems()
                             {newMenu["menu-data"][0].items.length < 1 && <div className="text-center bg-primary-gray/10 text-sm p-4">No items available</div>}
                         </div>
                     </div>
-                    <div className="flex flex-wrap justify-between items-center space-y-2 absolute bottom-0 xl:w-3/4 lg:w-3/4 w-full mx-auto">
+                    <div className="flex flex-wrap justify-between items-center space-y-2 w-full mx-auto pt-4">
                         <div className="flex space-x-2">
                             <button className="px-6 py-2 border border-primary-blue text-primary-blue font-bold rounded flex items-center hover:bg-primary-blue hover:text-white transition-colors xl:w-fit lg:w-fit md:w-fit sm:w-fit xs:w-fit w-full text-sm justify-center" onClick={() => setIsOpen(true)}>
                                 <AiFillPlusCircle className="w-6 h-6 mr-2" />

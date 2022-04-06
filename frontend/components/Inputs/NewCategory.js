@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-const NewCategory = ({ setCategories, setIsOpen, categories }) =>
+const NewCategory = ({ setCategories, setIsOpen, categories, providedCat = "" }) =>
 {
-	const [category, setCategory] = useState("");
+	const [category, setCategory] = useState(providedCat);
 
 	const handleSubmit = (e) =>
 	{
@@ -17,6 +17,7 @@ const NewCategory = ({ setCategories, setIsOpen, categories }) =>
 			tempArr.push(category);
 			setCategories(tempArr);
 			setIsOpen(false);
+			toast.success(`${ category } is successfully added!`, { pauseOnHover: false })
 		}
 		setCategory("");
 	}
@@ -27,7 +28,7 @@ const NewCategory = ({ setCategories, setIsOpen, categories }) =>
 	}
 
 	return <div className=" fixed top-0 left-0 h-screen w-screen overflow-hidden bg-slate-900/70 grid place-items-center">
-		<div className="w-96 border p-4 rounded shadow-xl bg-white">\
+		<div className="w-96 border p-4 rounded shadow-xl bg-white">
 			<h1 className="font-bold text-lg mb-2">Enter Category Name</h1>
 			<input type="text" className="block w-full border rounded p-2 bg-slate-50" placeholder="Vegetarian Options, Steaks" value={category} onChange={handleChange} />
 			<div className="w-full flex mt-4 space-x-4">
