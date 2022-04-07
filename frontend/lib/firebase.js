@@ -53,3 +53,14 @@ export const loginWithGoogle = () => {
         console.log(error)
     })
 }
+
+export const logoutWithGoogle = () => {
+    auth.signOut().then(r => {
+        console.log(r)
+        axios.post('http://localhost:8000/api/logout/').then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        });
+    })
+}
