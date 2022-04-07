@@ -16,6 +16,9 @@ function Dish({ props })
 					<div className=''>
 						<p className='text-sm leading-relaxed'>{props['item-description']}</p>
 					</div>
+					<div>
+						<img src={props['item-image']} />
+					</div>
 				</div>
 			</div>
 		</div>
