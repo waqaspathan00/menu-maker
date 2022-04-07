@@ -6,12 +6,14 @@ import { NewMenuContext } from "/lib/context";
 import BreadCrumb from '/components/Breadcrumb/BreadCrumb'
 
 
+
 const AddMenu = () =>
 {
-    const { step, setStep, newMenu, setNewMenu } = useContext(NewMenuContext);
-    
-    useEffect(() => {
+    const { step, setStep } = useContext(NewMenuContext);
+    useEffect(() =>
+    {
         setStep(1);
+
     }, [])
 
     return (
