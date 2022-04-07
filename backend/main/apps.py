@@ -30,8 +30,8 @@ class FirestoreDB:
         return None
 
     @staticmethod
-    def add_menu(menu_name, data):
-        """ add menu to Firestore """
+    def save_menu(menu_name, data):
+        """ save menu data to Firestore, can be used for create and edit"""
         menu_collection = FirestoreDB.get_collection("menus")
         menu_collection.document(menu_name).set(data)
 

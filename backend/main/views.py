@@ -1,12 +1,14 @@
-from .controllers import MenuController, HttpResponse, JsonResponse
+from .menu_controller import create_menu, view_menu, edit_menu, delete_menu
+from .auth_controller import login_user, logout_user
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from oauth.models import CustomSession
+from .models import CustomSession
 import jwt
 
 
 # Create your views here.
 
-def home(response):
+def test(request):
     """ landing page """
     token = CustomSession.objects.order_by('-id')[0].uid  # get jwt token from session
     print("home token:", token)
@@ -14,28 +16,46 @@ def home(response):
     print("home uid:", token)
 
     return HttpResponse(status=200)
-    # return JsonResponse(json.dumps(response.body))
-    # return MenuController.home(response)
 
 
 @csrf_exempt
-def create(response):
+def create(request):
     """ handle create menu POST """
-    return MenuController.create(response)
+    if request.method == "POST":
+        return create_menu(request)
+    return HttpResponse(status=400, content="Incorrect HTTP request, use POST")
 
-
-def view(response, name):
+@csrf_exempt
+def view(request, name):
     """ handle view menu GET """
-    return MenuController.view(response, name)
+    if request.method == "GET":
+        return view_menu(name)
+    return HttpResponse(status=400, content="Incorrect HTTP request, use GET")
 
 
 @csrf_exempt
-def edit(response, name):
-    """ handle edit menu PUT """
-    return MenuController.edit(response, name)
+def edit(request, name):
+    """ handle edit menu PATCH """
+    if request.method == "PATCH":
+        return edit_menu(request, name)
+    return HttpResponse(status=400, content="Incorrect HTTP request, use PATCH")
 
 
 @csrf_exempt
-def delete(response, name):
+def delete(request, name):
     """ handle delete menu DELETE """
-    return MenuController.delete(response, name)
+    if request.method == "DELETE":
+        return delete_menu(name)
+    return HttpResponse(status=400, content="Incorrect HTTP request, use DELETE")
+
+
+@csrf_exempt
+def login(request):
+    """ when the user logs in, save their uid to session as a jwt token """
+    return login_user(request)
+
+
+@csrf_exempt
+def logout(response):
+    """ when the user logs out, remove their uid from session """
+    return logout_user()
