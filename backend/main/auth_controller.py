@@ -9,9 +9,9 @@ from .models import CustomSession
 
 
 @csrf_exempt
-def login_user(response):
+def login_user(request):
     """ when the user logs in, save their uid to session as a jwt token """
-    data = json.loads(response.body)
+    data = json.loads(request.body)
     token = jwt.encode(payload=data, key="my_secret_key", algorithm="HS256")
     new_user = CustomSession(uid=token)
     new_user.save()  # save uid token to session

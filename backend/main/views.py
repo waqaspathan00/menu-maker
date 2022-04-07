@@ -1,5 +1,5 @@
 from .menu_controller import create_menu, view_menu, edit_menu, delete_menu
-from .login_controller import login_user, logout_user
+from .auth_controller import login_user, logout_user
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import CustomSession
@@ -8,7 +8,7 @@ import jwt
 
 # Create your views here.
 
-def test(response):
+def test(request):
     """ landing page """
     token = CustomSession.objects.order_by('-id')[0].uid  # get jwt token from session
     print("home token:", token)

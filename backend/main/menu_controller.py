@@ -5,13 +5,6 @@ import json
 
 """ handle get and post requests concerning food recipes on homepage """
 
-
-def home(request):
-    """ return OKAY status code """
-    # print(request.session['token'])
-    return HttpResponse(status=200)
-
-
 def create_menu(request):
     """
     create new menu using data from form submit
@@ -108,4 +101,4 @@ def delete_menu(name):
 
     # remove menu name from user's menu name list
     FirestoreDB.remove_menu_from_user(user_owned_menus, name, uid)
-    return HttpResponse(status=200, content="Succesfully deleted menu")
+    return HttpResponse(status=200, content="Successfully deleted menu")
