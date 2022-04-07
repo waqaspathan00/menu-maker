@@ -1,6 +1,7 @@
 from .models import CustomSession
 import jwt
 
+
 def get_uid():
     """ decode jwt token into uid """
     token = CustomSession.objects.order_by('-id')[0].uid  # get jwt token from session
