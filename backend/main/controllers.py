@@ -22,17 +22,16 @@ class MenuController:
             # decode HTTP request using utf-8
             data = json.loads(request.body.decode('utf-8'))
             menu_name = data["menu-name"]
-            formatted_data = ''
-            # Lower Case Menu Name
-            menu_lower = menu_name.lower()
-            # check for blank space in menu name
-            for i in range(len(menu_lower)):
-                if menu_lower[i] == '':
-                    formatted_data = menu_lower.replace()
-                else:
-                    formatted_data = menu_lower
-            data['formatted-menu-name'] = formatted_data
-            menu_name_v2 = data['formatted-menu-name']
+
+            url_menu_name = menu_name.lower()  # convert menu name to lowercase
+            url_menu_name = url_menu_name.replace(' ', '-')  # replace spaces with dashes
+
+            special_chars = ['"', "'", ":", "#", ",", "!", "?", "@", "."]
+            for char in special_chars:
+                url_menu_name = url_menu_name.replace(char, "")
+
+            # save the new url name in the data
+            data['url_name'] = url_menu_name
 
             # check if menu name taken
             menu_doc = FirestoreDB.get_menu(url_menu_name)
@@ -41,15 +40,14 @@ class MenuController:
 
             # Initialize Availability Times
             data['is-open'] = False
-            hours = data['is-open']
 
             # write menu data "menus" collection
-            FirestoreDB.add_menu(menu_name_v2, hours, data)
+            FirestoreDB.save_menu(url_menu_name, data)
 
             # give ownership of the menu_name to the user
             uid = get_uid()
             user_owned_menus = FirestoreDB.get_user_menus(uid)
-            FirestoreDB.add_menu_to_user(user_owned_menus, menu_name_v2, hours, uid)
+            FirestoreDB.add_menu_to_user(user_owned_menus, url_menu_name, uid)
 
             return JsonResponse(data)
 

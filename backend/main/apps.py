@@ -61,11 +61,3 @@ class FirestoreDB:
             user_menus.update({'menu_names': menu_names_dict['menu_names']})
         else:
             user_menus.set({'menu_names': [menu_name]})
-
-    @staticmethod
-    def get_hours(hours):
-        menu_collection = FirestoreDB.get_collection("menus")
-        document = menu_collection.document(hours)
-        if document.get().exists:
-            return document
-        return None

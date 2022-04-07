@@ -10,7 +10,7 @@ function App()
 {
   return (
     <div className="App w-screen h-screen">
-      {/* <button onClick={loginWithGoogle}>Login w/ Google</button> */}
+       <button onClick={loginWithGoogle}>Login w/ Google</button>
 
       <Router>
         <Navbar />
