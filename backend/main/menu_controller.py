@@ -43,8 +43,9 @@ def create_menu(request):
 def view_menu(name):
     """ view a menu using its name from url """
 
+    menu_name = name.lower()  # remove lower cases
     # retrieve menu data using menu name
-    result = FirestoreDB.get_menu(name).get()
+    result = FirestoreDB.get_menu(menu_name).get()
 
     if result.exists:  # return menu data (to the front end)
         menu_data = result.to_dict()
@@ -69,7 +70,7 @@ def edit_menu(request, name):
     if name not in menu_names_list:
         return HttpResponse(status=401, content="You do not have access to this menu")
 
-    menu_name = data["menu-name"]  # extract current menu name
+    menu_name = data["url-name"]  # extract current menu name
 
     # Availability Swap
     # if the user changes their open status:
@@ -88,7 +89,7 @@ def edit_menu(request, name):
         # delete menu with old name
         FirestoreDB.delete_menu(name)
         # create menu with new name and data
-        FirestoreDB.add_menu(menu_name, data)
+        FirestoreDB.save_menu(menu_name, data)
 
     return JsonResponse(data)
 
