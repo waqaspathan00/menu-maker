@@ -14,7 +14,7 @@ class CustomSession(models.Model):
 
     # How to work with CustomSession
 
-    from oauth.models import CustomSession
+    from .models import CustomSession
     session = CustomSession.objects      # get a list of session objects
     new_user = CustomSession(uid=<UID>)  # save a user to the session (by uid)
     session.get(id=<ID>).uid                 # get user id
@@ -31,5 +31,3 @@ class CustomSession(models.Model):
 # add a row to this table
 # then delete it
 # manually both times
-
-
