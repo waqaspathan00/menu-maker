@@ -19,32 +19,40 @@ def test(response):
 
 
 @csrf_exempt
-def create(response):
+def create(request):
     """ handle create menu POST """
-    return create_menu(response)
+    if request.method == "POST":
+        return create_menu(request)
+    return HttpResponse(status=400, content="Incorrect HTTP request, use POST")
 
 @csrf_exempt
-def view(response, name):
+def view(request, name):
     """ handle view menu GET """
-    return view_menu(response, name)
+    if request.method == "GET":
+        return view_menu(name)
+    return HttpResponse(status=400, content="Incorrect HTTP request, use GET")
 
 
 @csrf_exempt
-def edit(response, name):
-    """ handle edit menu PUT """
-    return edit_menu(response, name)
+def edit(request, name):
+    """ handle edit menu PATCH """
+    if request.method == "PATCH":
+        return edit_menu(request, name)
+    return HttpResponse(status=400, content="Incorrect HTTP request, use PATCH")
 
 
 @csrf_exempt
-def delete(response, name):
+def delete(request, name):
     """ handle delete menu DELETE """
-    return delete_menu(response, name)
+    if request.method == "DELETE":
+        return delete_menu(name)
+    return HttpResponse(status=400, content="Incorrect HTTP request, use DELETE")
 
 
 @csrf_exempt
-def login(response):
+def login(request):
     """ when the user logs in, save their uid to session as a jwt token """
-    return login_user(response)
+    return login_user(request)
 
 
 @csrf_exempt
