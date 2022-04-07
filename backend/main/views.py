@@ -38,4 +38,16 @@ def edit(response, name):
 @csrf_exempt
 def delete(response, name):
     """ handle delete menu DELETE """
-    return MenuController.delete(response, name)
+    return delete_menu(response, name)
+
+
+@csrf_exempt
+def login(response):
+    """ when the user logs in, save their uid to session as a jwt token """
+    return login_user(response)
+
+
+@csrf_exempt
+def logout(response):
+    """ when the user logs out, remove their uid from session """
+    return logout_user()
