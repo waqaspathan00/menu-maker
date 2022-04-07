@@ -32,12 +32,13 @@ const NewCategory = ({ setCategories, setIsOpen, categories, providedCat = "" })
 			<h1 className="font-bold text-lg mb-2">Enter Category Name</h1>
 			<input type="text" className="block w-full border rounded p-2 bg-slate-50" placeholder="Vegetarian Options, Steaks" value={category} onChange={handleChange} />
 			<div className="w-full flex mt-4 space-x-4">
-				<button className="w-full text-center border border-primary-blue text-primary-blue text-base font-semibold hover:text-white hover:bg-primary-blue  rounded py-2 transition-colors" onClick={handleSubmit}>Add</button>
 				<button className="w-full text-center border border-primary-gray text-primary-gray hover:border-black hover:text-black rounded" type="button" onClick={() =>
 				{
 					setCategory("");
 					setIsOpen(false);
 				}}>Cancel</button>
+				<button className="w-full text-center border border-primary-blue text-primary-blue text-base font-semibold hover:text-white hover:bg-primary-blue  rounded py-2 transition-colors" onClick={handleSubmit}>Add</button>
+
 			</div>
 
 		</div>
