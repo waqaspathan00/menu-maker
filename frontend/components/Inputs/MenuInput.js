@@ -59,7 +59,7 @@ const MenuInput = ({ setStep }) =>
 			</div>
 			<form className="text-left mt-4" onSubmit={handleSubmit}>
 				<label htmlFor="menu-name" className=" font-semibold">Menu Name *</label>
-				<input type="text" id="menu-name" className="block w-full bg-[#F9F9F9] h-11 border border-[#DADADA] rounded-sm mt-4 pl-4" placeholder="Lunch, dinner, etc." value={menuName} onChange={handleChange} required />
+				<input type="text" id="menu-name" className="block w-full bg-[#F9F9F9] h-11 border border-[#DADADA] rounded-sm mt-4 pl-4" placeholder="Amazing Monday, Tuesday Bash, etc." value={menuName} onChange={handleChange} required />
 				<div className="flex justify-between items-center mt-8 ">
 					<h4>Cancel</h4>
 					<button className='flex items-center font-bold' type="submit">Next 	<MdArrowRightAlt className="ml-2" /></button>
