@@ -3,3 +3,5 @@ firebase_admin==5.2.0
 pytest==6.2.5
 pyjwt[crypto]
 ipython
+django-allauth
+django-cors-headers
