@@ -24,5 +24,6 @@ def login_user(response):
 def logout_user():
     """ when the user logs out, remove their uid from session """
     print("logging out")
-    CustomSession.objects.order_by('-id')[0].delete()
+    # CustomSession.objects.order_by('-id')[0].delete()
+    CustomSession.objects.all().delete()
     return HttpResponse(status=200)
