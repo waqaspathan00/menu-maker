@@ -18,3 +18,9 @@ def login(response):
     new_user = CustomSession(uid=token)
     new_user.save()  # save uid token to session
     return HttpResponse(status=200)
+
+@csrf_exempt
+def logout():
+    """ when the user logs out, remove their uid from session """
+    CustomSession.objects.order_by('-id')[0].delete()
+    return HttpResponse(status=200)
