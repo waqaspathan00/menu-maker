@@ -12,18 +12,14 @@ from .models import CustomSession
 def login_user(response):
     """ when the user logs in, save their uid to session as a jwt token """
     data = json.loads(response.body)
-    print("login uid:", data)
     token = jwt.encode(payload=data, key="my_secret_key", algorithm="HS256")
-    print("login token:", token)
     new_user = CustomSession(uid=token)
     new_user.save()  # save uid token to session
-    return HttpResponse(status=200)
+    return HttpResponse(status=200, content="Successfully logged in")
 
 
 @csrf_exempt
 def logout_user():
     """ when the user logs out, remove their uid from session """
-    print("logging out")
-    # CustomSession.objects.order_by('-id')[0].delete()
     CustomSession.objects.all().delete()
-    return HttpResponse(status=200)
+    return HttpResponse(status=200, content="Successfully logged out")
