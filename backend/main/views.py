@@ -1,12 +1,14 @@
-from .controllers import MenuController, HttpResponse, JsonResponse
+from .menu_controller import create_menu, view_menu, edit_menu, delete_menu
+from .login_controller import login_user, logout_user
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from oauth.models import CustomSession
+from .models import CustomSession
 import jwt
 
 
 # Create your views here.
 
-def home(response):
+def test(response):
     """ landing page """
     token = CustomSession.objects.order_by('-id')[0].uid  # get jwt token from session
     print("home token:", token)
@@ -14,25 +16,23 @@ def home(response):
     print("home uid:", token)
 
     return HttpResponse(status=200)
-    # return JsonResponse(json.dumps(response.body))
-    # return MenuController.home(response)
 
 
 @csrf_exempt
 def create(response):
     """ handle create menu POST """
-    return MenuController.create(response)
+    return create_menu(response)
 
-
+@csrf_exempt
 def view(response, name):
     """ handle view menu GET """
-    return MenuController.view(response, name)
+    return view_menu(response, name)
 
 
 @csrf_exempt
 def edit(response, name):
     """ handle edit menu PUT """
-    return MenuController.edit(response, name)
+    return edit_menu(response, name)
 
 
 @csrf_exempt
