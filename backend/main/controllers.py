@@ -35,7 +35,7 @@ class MenuController:
             menu_name_v2 = data['formatted-menu-name']
 
             # check if menu name taken
-            menu_doc = FirestoreDB.get_menu(menu_name_v2)
+            menu_doc = FirestoreDB.get_menu(url_menu_name)
             if menu_doc:
                 return HttpResponse(status=409)
 
@@ -90,24 +90,15 @@ class MenuController:
                 return HttpResponse(status=401)
 
             # Availability Swap
-            hours = data["is-open"]
-
-            if hours:
-                data["is-open"] = False
-                hours = data['is-open']
-                FirestoreDB.get_hours(hours).set(data['is-open'])
-
-            if not hours:
-                data["is-open"] = True
-                hours = data['is-open']
-                FirestoreDB.get_hours(hours).set(data['is-open'])
+            # if the user changes their open status:
+            #     data["is-open"] = not data["is-open"]
 
             menu_name = data["menu-name"]  # extract current menu name
 
             # check if menu name was changed
             if menu_name == name:
                 # update menu data in Firestore
-                FirestoreDB.get_menu(name).set(data)
+                FirestoreDB.save_menu(name, data)
             else:
                 # update user menu names list with new name
                 menu_names_list.remove(name)
@@ -117,7 +108,7 @@ class MenuController:
                 # delete menu with old name
                 FirestoreDB.delete_menu(name)
                 # create menu with new name and data
-                FirestoreDB.add_menu(menu_name, data)
+                FirestoreDB.save_menu(menu_name, data)
 
             return JsonResponse(data)
 
