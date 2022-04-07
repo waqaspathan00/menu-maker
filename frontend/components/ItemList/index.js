@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { AiFillCaretDown } from 'react-icons/ai'
 import Dish from './Dish';
 import { ReactSortable } from "react-sortablejs";
@@ -9,17 +9,17 @@ function ItemList({ props, index })
 	const [state, setState] = useState(props.items);
 	const { newMenu, setNewMenu} = useContext(NewMenuContext);
 
-	function sortable() {
+	const sortable = (menu) => {
 		let temp = { ...newMenu };
-		temp['menu-data'][index].items = state;
+		temp['menu-data'][index]['items'] = menu
+		setNewMenu(temp)
+		// return (menu)
 	}
 
 	useEffect(() =>
 	{
-		setState(props.items);
-		sortable();
-
-	}, [newMenu])
+		sortable(state)
+	}, [state])
 
 	return (
 
@@ -29,10 +29,9 @@ function ItemList({ props, index })
 				<AiFillCaretDown className="w-6" />
 			</button>
 			<div className='space-y-4'>
-				{isOpen ? <ReactSortable list={state} setList={setState} setData={props.items} animation={300}>
+				{isOpen ? <ReactSortable list={state}  setList={setState} animation={300}>
 					{state.map((item, index) => <Dish key={index} props={item} />)}
 				</ReactSortable> : null}
-				{console.log(newMenu)}
 			</div>
 
 		</div>

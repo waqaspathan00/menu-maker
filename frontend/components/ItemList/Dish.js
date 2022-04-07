@@ -6,7 +6,7 @@ function Dish({ props })
 	return (
 		<div className='mt-4 w-auto border rounded shadow-lg p-4'>
 			<div className='flex items-center'>
-				<MdOutlineDragIndicator className='mr-4' />
+				<MdOutlineDragIndicator className='mr-4 hover:cursor-grab' />
 				<div className='w-full border-l pl-4'>
 					<div className='w-full flex justify-between items-center'>
 						<h1 className='leading-relaxed font-semibold'>{props['item-name']}</h1>
@@ -18,7 +18,6 @@ function Dish({ props })
 					</div>
 				</div>
 			</div>
-
 		</div>
 	)
 }
