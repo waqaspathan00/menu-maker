@@ -55,7 +55,8 @@ like home cooks, to share information with prospective clients
 <a name="programming"/>
 
 ## Programming Languages/ Technologies Used
-- Python
-- React
-- Firestore (for storing menu data)
-- Firebase (account login with google)
+- Python/ Django for backend
+- React/ NextJS for frontend
+- Firestore (storing menu data)
+- Firebase (authentication with google)
+- Firebase Storage (storing images)
