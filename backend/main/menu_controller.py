@@ -1,0 +1,115 @@
+from django.http import HttpResponse, JsonResponse
+from .apps import FirestoreDB
+from .utilities import get_uid
+import json
+
+""" handle get and post requests concerning food recipes on homepage """
+
+
+def home(request):
+    """ return OKAY status code """
+    # print(request.session['token'])
+    return HttpResponse(status=200)
+
+
+def create_menu(request):
+    """
+    create new menu using data from form submit
+    """
+    if request.method == "POST":
+        uid = get_uid()
+        if not uid:
+            return HttpResponse(status=404, content="You must be logged in to create a menu")
+
+        # decode HTTP request using utf-8
+        data = json.loads(request.body.decode('utf-8'))
+        menu_name = data["menu-name"]
+
+        # check if menu name taken
+        menu_doc = FirestoreDB.get_menu(menu_name)
+        if menu_doc:
+            return HttpResponse(status=409, content="Menu name is taken")
+
+        # write menu data "menus" collection
+        FirestoreDB.add_menu(menu_name, data)
+
+        # give ownership of the menu_name to the user
+        user_owned_menus = FirestoreDB.get_user_menus(uid)
+        FirestoreDB.add_menu_to_user(user_owned_menus, menu_name, uid)
+
+        return JsonResponse(data)
+    return HttpResponse(status=400, content="Incorrect HTTP request, use POST")
+
+
+def view_menu(request, name):
+    """ view a menu using its name """
+
+    if request.method == "GET":
+        # retrieve menu data using menu name
+        result = FirestoreDB.get_menu(name).get()
+
+        if result.exists:  # return menu data (to the front end)
+            menu_data = result.to_dict()
+            return JsonResponse(menu_data)
+        return HttpResponse(status=404, content="Menu does not exist")
+    return HttpResponse(status=400, content="Incorrect HTTP request, use GET")
+
+
+
+def edit_menu(request, name):
+    if request.method == "PATCH":
+        # decode HTTP request using utf-8 format
+        data = json.loads(request.body.decode('utf-8'))
+        uid = get_uid()
+
+        # check if user owns any menus
+        user_owned_menus = FirestoreDB.get_user_menus(uid)
+        if not user_owned_menus.exists:
+            return HttpResponse(status=401, content="You do not have access to this menu")
+
+        # check if user owns the menu
+        menu_names_list = user_owned_menus.to_dict()['menu_names']
+        if name not in menu_names_list:
+            return HttpResponse(status=401, content="You do not have access to this menu")
+
+        menu_name = data["menu-name"]  # extract current menu name
+
+        # check if menu name was changed
+        if menu_name == name:
+            # update menu data in Firestore
+            FirestoreDB.get_menu(name).set(data)
+        else:
+            # update user menu names list with new name
+            menu_names_list.remove(name)
+            menu_names_list.append(menu_name)
+            user_owned_menus.update({'menu_names': menu_names_list})
+
+            # delete menu with old name
+            FirestoreDB.delete_menu(name)
+            # create menu with new name and data
+            FirestoreDB.add_menu(menu_name, data)
+
+        return JsonResponse(data)
+    return HttpResponse(status=400, content="Incorrect HTTP request, use PATCH")
+
+
+def delete_menu(request, name):
+    if request.method == "DELETE":
+        uid = get_uid()
+        user_owned_menus = FirestoreDB.get_user_menus(uid)
+
+        # check if user owns the menu
+        if not user_owned_menus.exists:
+            return HttpResponse(status=401, content="You do not have access to this menu")
+
+        menu_names_list = user_owned_menus.to_dict()['menu_names']
+        if name not in menu_names_list:
+            return HttpResponse(status=401, content="You do not have access to this menu")
+
+        # remove menu from menus collection
+        FirestoreDB.delete_menu(name)
+
+        # remove menu name from user's menu name list
+        FirestoreDB.remove_menu_from_user(user_owned_menus, name, uid)
+        return HttpResponse(status=200, content="Succesfully deleted menu")
+    return HttpResponse(status=400, content="Incorrect HTTP request, use DELETE")
