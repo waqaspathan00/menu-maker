@@ -40,7 +40,7 @@ def create_menu(request):
 
 
 def view_menu(name):
-    """ view a menu using its name """
+    """ view a menu using its name from url """
 
     # retrieve menu data using menu name
     result = FirestoreDB.get_menu(name).get()
@@ -52,6 +52,8 @@ def view_menu(name):
 
 
 def edit_menu(request, name):
+    """ edit the data on an existing menu """
+
     # decode HTTP request using utf-8 format
     data = json.loads(request.body.decode('utf-8'))
     uid = get_uid()
@@ -87,13 +89,16 @@ def edit_menu(request, name):
 
 
 def delete_menu(name):
+    """ delete an existing menu by name """
+
     uid = get_uid()
     user_owned_menus = FirestoreDB.get_user_menus(uid)
 
-    # check if user owns the menu
+    # check if user owns any menus
     if not user_owned_menus.exists:
         return HttpResponse(status=401, content="You do not have access to this menu")
 
+    # check if user owns the menu
     menu_names_list = user_owned_menus.to_dict()['menu_names']
     if name not in menu_names_list:
         return HttpResponse(status=401, content="You do not have access to this menu")
