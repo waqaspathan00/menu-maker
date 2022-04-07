@@ -1,6 +1,7 @@
 import {getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
 import axios from 'axios';
 import {initializeApp} from "firebase/app";
+import { getStorage } from 'firebase/storage'
 // TODO: Add SDKs for Firebase products that you want to use
 
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -56,3 +57,5 @@ export const loginWithGoogle = () => {
         console.log(error)
     })
 }
+
+export const storage = getStorage();
