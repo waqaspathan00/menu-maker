@@ -1,3 +1,5 @@
 module.exports = {
-  /* config options here */
+	images: {
+		domains: ['lh3.googleusercontent.com'],
+	},
 }

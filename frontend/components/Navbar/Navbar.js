@@ -1,8 +1,13 @@
 import UserNav from "/components/UserNav/UserNav";
 import Logo from "/components/Logo/Logo";
-
+import { useUserData } from "../../lib/hooks";
+import { useContext, useEffect } from "react";
+import { loginWithGoogle } from "../../lib/firebase";
+import { UserContext } from "../../lib/context";
 const Navbar = () =>
 {
+  const { userData } = useContext(UserContext);
+
   return (
     <header className="w-screen shadow-sm h-auto">
       <nav className="flex items-center justify-between container mx-auto h-[75px] p-4">
@@ -10,7 +15,7 @@ const Navbar = () =>
           <Logo />
         </div>
         <div>
-          <UserNav />
+          {userData.user ? <UserNav user={userData.user} /> : <button onClick={loginWithGoogle}>Login in</button>}
         </div>
       </nav>
     </header>
