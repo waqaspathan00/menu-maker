@@ -1,15 +1,24 @@
-import {  useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AiFillCaretDown } from 'react-icons/ai'
 import Dish from './Dish';
 import { ReactSortable } from "react-sortablejs";
 import { NewMenuContext } from '../../lib/context';
+
+/*
+* props @type {object} - holds single category and its items
+* index @type {Number} - holds the index of the current categories inside 
+* 						 menu-data array.
+*/
+
 function ItemList({ props, index })
 {
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(true);
 	const [state, setState] = useState(props.items);
-	const { newMenu, setNewMenu} = useContext(NewMenuContext);
+	const [isEdit, setEdit] = useState(false);
+	const { newMenu, setNewMenu } = useContext(NewMenuContext);
 
-	const sortable = (menu) => {
+	const sortable = (menu) =>
+	{
 		let temp = { ...newMenu };
 		temp['menu-data'][index]['items'] = menu
 		setNewMenu(temp)
@@ -29,11 +38,10 @@ function ItemList({ props, index })
 				<AiFillCaretDown className="w-6" />
 			</button>
 			<div className='space-y-4'>
-				{isOpen ? <ReactSortable list={state}  setList={setState} animation={300}>
-					{state.map((item, index) => <Dish key={index} props={item} />)}
+				{isOpen ? <ReactSortable list={state} setList={setState} animation={300} disabled={!isEdit ? false : true} >
+					{state.map((item, index) => <Dish key={index} props={item} category={props['category-title']} isEdit={isEdit} setEdit={setEdit} />)}
 				</ReactSortable> : null}
 			</div>
-
 		</div>
 	);
 }
