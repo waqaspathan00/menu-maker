@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "react-toastify";
-const NewCategory = ({ setCategories, setIsOpen, categories, providedCat = "" }) =>
+import { NewMenuContext } from "../../lib/context";
+const NewCategory = ({  setIsOpen, setToggle }) =>
 {
-	const [category, setCategory] = useState(providedCat);
+	const [category, setCategory] = useState("");
+	const { currentCategories, setNewCategories} = useContext(NewMenuContext);
 
 	const handleSubmit = (e) =>
 	{
@@ -13,13 +15,16 @@ const NewCategory = ({ setCategories, setIsOpen, categories, providedCat = "" })
 			toast.error("Category name is not valid");
 		} else
 		{
-			const tempArr = [...categories]
-			tempArr.push(category);
-			setCategories(tempArr);
+			const tempCat = [...currentCategories];
+			tempCat.push(category);
+			setNewCategories(tempCat)
+
 			setIsOpen(false);
+			setToggle(true);
 			toast.success(`${ category } is successfully added!`, { pauseOnHover: false })
 		}
 		setCategory("");
+
 	}
 
 	const handleChange = (e) =>
