@@ -1,22 +1,40 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AiOutlineLink, AiFillPlusCircle, AiOutlineCloseCircle } from 'react-icons/ai'
 import { useUploadFile } from 'react-firebase-hooks/storage';
+
 import { NewMenuContext, UserContext } from '../../lib/context';
 import SushiIcon from '../SVG/SushiIcon';
 import { storage } from '../../lib/firebase';
 import { ref, getDownloadURL } from 'firebase/storage'
 import { toast } from 'react-toastify';
-
-function NewItemInput({ categories, setToggle })
+/*
+* setToggle @type {function} - toggles boolean
+* type @type {String} - checks if is in edit mode
+* props @type {object} - holds single dish information
+* prevCategory @type {String} - holds current category (It will track in case *  							  user change the category of the dish)
+*/
+function NewItemInput({  setToggle, type = "", props, prevCategory = "" })
 {
+	// Holds the updated categories and it's respective menus
+	const { newMenu, setNewMenu, currentCategories } = useContext(NewMenuContext);
+	const { userData } = useContext(UserContext);
+
+
+	// Holds basic information about single dish
 	const [dishName, setDishName] = useState("");
 	const [dishDesc, setDishDesc] = useState("");
-	const [dishCat, setDishCat] = useState(categories[0]);
+	const [dishCat, setDishCat] = useState(type !== 'edit' ? currentCategories[currentCategories.length - 1] : prevCategory);
 	const [dishPrice, setDishPrice] = useState("");
 	const [dishImage, setDishImage] = useState(null);
-	const { newMenu, setNewMenu } = useContext(NewMenuContext);
+
+	// Keeps track of the previous category for editing item
+	const [prevCat, setPrevCat] = useState("")
+
+
+
+	// Firebase upload
 	const [uploadFile, uploading] = useUploadFile();
-	const { userData} = useContext(UserContext);
+
 
 
 	async function upload()
@@ -49,7 +67,20 @@ function NewItemInput({ categories, setToggle })
 		e.preventDefault();
 		let tempMenu = { ...newMenu };
 		tempMenu['slug'] = tempMenu['menu-name'].split(' ').join('-').toLowerCase()
-		const catMenu = newMenu["menu-data"].filter((cat) => cat['category-title'] === dishCat);
+		if (type === 'edit')
+		{
+			// Remove the dish from the previous array
+			if (prevCat !== dishCat)
+			{
+				// console.log("PREVIOUS ARRAY: ", tempMenu["menu-data"])
+				// console.log(prevCat)
+				let prev = tempMenu["menu-data"].findIndex((item) => item['category-title'] === prevCat);
+				const pos = tempMenu["menu-data"][prev]['items'].findIndex((current) => current['item-name'] === dishName)
+				tempMenu["menu-data"][prev]['items'].splice(pos, 1);
+			}
+		}
+
+		const catMenu = tempMenu["menu-data"].filter((cat) => cat['category-title'] === dishCat);
 
 		const imageUrl = await upload();
 		if (!uploading)
@@ -64,14 +95,23 @@ function NewItemInput({ categories, setToggle })
 			setNewMenu(tempMenu);
 			setToggle(false)
 		}
-
 	}
 
-
+	useEffect(() =>
+	{
+		if (type === "edit")
+		{
+			setDishName(props['item-name']);
+			setDishDesc(props['item-description']);
+			setDishCat(prevCategory)
+			setPrevCat(prevCategory)
+			setDishPrice(Number(props['item-price']).toFixed(2))
+		}
+	}, [])
 
 
 	return (
-		<div className="fixed top-0 left-0 h-screen w-screen overflow-hidden bg-slate-900/70 flex items-center justify-center wrap">
+		<div className="fixed top-0 left-0 h-screen w-screen overflow-hidden bg-slate-900/70 flex items-center justify-center wrap z-50">
 			<div className="w-[600px] h-auto bg-white p-6 rounded border shadow-lg relative">
 				<div className='absolute right-6'>
 					{uploading ? <div className='text-white flex font-bold'><svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-primary-blue" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -92,15 +132,15 @@ function NewItemInput({ categories, setToggle })
 						<input type="text" id="dish-name" className="block w-full border p-2 rounded bg-[#F9F9F9] focus-within:outline-1 focus-within:outline-primary-gray" placeholder="Tacos, Sushi, Steak" disabled={uploading} value={dishName} onChange={(e) => setDishName(e.currentTarget.value)} required />
 					</div>
 					<div className="space-y-1 mt-5">
-						<label htmlFor="dish-desc" className="text-sm font-semibold">Describe your dish * </label>
-						<textarea type="text" id="dish-desc" className="block w-full border p-2 rounded bg-[#F9F9F9] focus-within:outline-1 focus-within:outline-primary-gray" placeholder="Dish description" disabled={uploading} value={dishDesc} onChange={(e) => setDishDesc(e.currentTarget.value)} required />
+						<label htmlFor="dish-desc" className="text-sm font-semibold">Describe your dish <span className='text-xs text-gray-400 font-normal'>(optional)</span> </label>
+						<textarea type="text" id="dish-desc" className="block w-full border p-2 rounded bg-[#F9F9F9] focus-within:outline-1 focus-within:outline-primary-gray" placeholder="Dish description" disabled={uploading} value={dishDesc} onChange={(e) => setDishDesc(e.currentTarget.value)} />
 					</div>
 					<div className='mt-5'>
 						<div className='w-full'>
 							<label htmlFor="dish-category" className='text-sm font-semibold'>Select Category *</label>
-							<select className='block w-full bg-[#F9F9F9] p-2 mt-2 border rounded focus-within:outline-1 focus-within:outline-primary-gray' disabled={uploading} onClick={(e) => setDishCat(e.currentTarget.value)} required>
+							<select className='block w-full bg-[#F9F9F9] p-2 mt-2 border rounded focus-within:outline-1 focus-within:outline-primary-gray' disabled={uploading} onClick={(e) => setDishCat(e.currentTarget.value)} defaultValue={dishCat} required>
 								<option label='Pick a category' disabled>Pick a category</option>
-								{categories.map((category) =>
+								{currentCategories.map((category) =>
 									<option key={category} value={category} label={category} id={category}>{category}</option>
 								)}
 							</select>
@@ -113,7 +153,7 @@ function NewItemInput({ categories, setToggle })
 							</div>
 						</div>
 						<div className='w-full mt-1'>
-							<h4 className='text-sm font-semibold'>Upload <span className='text-xs text-primary-gray/70'>(optional)</span></h4>
+							<h4 className='text-sm font-semibold'>Upload <span className='text-xs text-gray-400 font-normal'>(optional)</span></h4>
 							<div className='border mt-2 rounded  flex items-center w-full'>
 								<div className='items-center w-full ml-4 grow text-primary-gray'>
 									<p className='text-sm font-medium'><AiOutlineLink className='w-4 h-4 inline mr-2' />{dishImage ? dishImage.name : "Choose a file"}</p>
