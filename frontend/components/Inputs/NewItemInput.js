@@ -21,10 +21,10 @@ function NewItemInput({ categories, setToggle })
 
 	async function upload()
 	{
-		const storageName = `${userData.user.uid}/${dishCat}/${dishImage.name}`;
-		const ref2 = ref(storage, storageName);
 		if (dishImage)
 		{
+			const storageName = `${ userData.user.uid }/${ dishCat }/${ dishImage.name }`;
+			const ref2 = ref(storage, storageName);
 			try
 			{
 				const req = await uploadFile(ref2, dishImage, {
