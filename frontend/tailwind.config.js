@@ -10,11 +10,15 @@ module.exports = {
                 'primary-red': '#FF3B30',
                 'primary-blue': '#007AFF',
                 'primary-gray': '#8E8E93'
-            }
+            },
+            dropShadow: {
+                "md": '0 5px 5px rgba(204, 204, 204, 0.75)',
+            },
         },
         fontFamily: {
             'rock-salt': ['Rock Salt', 'cursive']
         }
+
     },
     plugins: [],
 }
