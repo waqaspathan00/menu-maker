@@ -13,7 +13,7 @@ module.exports = {
             }
         },
         fontFamily: {
-            'logo': ['Rock Salt', 'cursive']
+            'rock-salt': ['Rock Salt', 'cursive']
         }
     },
     plugins: [],
