@@ -12,7 +12,7 @@ export default function Home() {
 
 const SplashSection = () => {
     return (
-        <div className={"flex flex-col items-center"}>
+        <div className={"flex flex-col items-center bg-gradient-to-b from-white to-blue-gray"}>
             <h1 className={"text-4xl font-rock-salt my-6"}>Menu Mate</h1>
             <h3 className={"text-sm text-center mx-12 my-4"}>QUICKLY AND EASILY CREATE SHAREABLE MENUS</h3>
             <div className={"w-1/2 border-2 border-gray-300"}></div>
@@ -29,16 +29,20 @@ const SplashSection = () => {
 
 const TutorialSection = () => {
     return (
-        <div className={"flex flex-col items-center my-8"}>
-            <h2 className={"text-2xl text-center font-bold"}>Let me show you how in 2 simple steps</h2>
-            <div className={"flex"}>
-                <div className={"flex flex-col items-center"}>
+        <div className={"flex flex-col items-center relative bg-blue-gray"}>
+            <h2 className={"text-2xl text-center font-bold my-8"}>Let me show you how in 2 simple steps</h2>
+            <div className={"flex w-full h-80"}>
+                <div className={"flex flex-col items-center justify-center"}>
                     <h3 className={"text-xl font-bold"}>FIRST</h3>
-                    <h4>Enter the items on your menu</h4>
+                    <h4 className={"text-center"}>Enter the items on your menu</h4>
                     <img src={"/assets/img/home/first-step-add.png"} className={"w-28"}/>
                 </div>
-
-                <img src={"/assets/img/home/mobile-add-item.png"} className={"w-2/5"}/>
+                <div className={"w-3/4"}>
+                    <img src={"/assets/img/home/mobile-make-menu.png"}
+                         className={"w-2/5 styled-img absolute top-28 right-12 -rotate-3"}/>
+                    <img src={"/assets/img/home/mobile-add-item.png"}
+                         className={"w-2/5 styled-img absolute top-40 right-4 rotate-6"}/>
+                </div>
             </div>
         </div>
     )
