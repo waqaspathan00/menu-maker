@@ -49,7 +49,7 @@ function ItemList({ props, index })
 			</div>
 			<div className='space-y-4'>
 				{isOpen ? <ReactSortable list={state} setList={setState} animation={300} disabled={!isEdit ? false : true} >
-					{state.map((item, index) => <Dish key={index} props={item} category={props['category-title']} isEdit={isEdit} setEdit={setEdit} />)}
+					{state.map((item, index) => <Dish key={index} props={item} category={props['category-title']} isEdit={isEdit} setEdit={setEdit} index={index}/>)}
 				</ReactSortable> : null}
 			</div>
 			{categoryOpen && <NewCategory type='edit' setIsOpen={setIsCategoryOpen} prevCategory={props['category-title']} />}
