@@ -1,6 +1,6 @@
 import json
 import jwt
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import CustomSession
 
@@ -15,7 +15,7 @@ def login_user(request):
     token = jwt.encode(payload=data, key="my_secret_key", algorithm="HS256")
     new_user = CustomSession(uid=token)
     new_user.save()  # save uid token to session
-    return HttpResponse(status=200, content="Successfully logged in")
+    return JsonResponse(data)
 
 
 @csrf_exempt

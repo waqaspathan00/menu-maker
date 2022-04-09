@@ -53,16 +53,22 @@ def delete(request, name):
 @csrf_exempt
 def login(request):
     """ when the user logs in, save their uid to session as a jwt token """
-    return login_user(request)
+    if request.method == "POST":
+        return login_user(request)
+    return HttpResponse(status=400, content="Incorrect HTTP request, use POST")
 
 
 @csrf_exempt
 def logout(request):
     """ when the user logs out, remove their uid from session """
-    return logout_user()
+    if request.method == "POST":
+        return logout_user()
+    return HttpResponse(status=400, content="Incorrect HTTP request, use POST")
 
 
 @csrf_exempt
 def menus(request):
     """ get a list of menus that the user owns """
-    return get_menus()
+    if request.method == "GET":
+        return get_menus()
+    return HttpResponse(status=400, content="Incorrect HTTP request, use GET")
