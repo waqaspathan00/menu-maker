@@ -3,6 +3,7 @@ import { BsThreeDotsVertical } from 'react-icons/bs'
 import { MdOutlineDragIndicator } from 'react-icons/md'
 import { NewMenuContext } from '../../lib/context';
 import NewItemInput from '../Inputs/NewItemInput';
+import { findCategoryIndex } from '/lib/utils'
 
 /**
  * @param  {Object} props - Dish information
@@ -18,13 +19,18 @@ function Dish({ props, category, isEdit, setEdit, index })
 	function removeDish()
 	{
 		let tempMenu = { ...newMenu };
-		let catIndex = tempMenu["menu-data"].findIndex((item) => item['category-title'] === category);
+		let catIndex = findCategoryIndex(tempMenu["menu-data"], category)
 
 		if (catIndex !== -1)
 		{
 			tempMenu["menu-data"][catIndex]["items"].splice(index, 1);
-			setNewMenu(tempMenu)
+
+			if (tempMenu["menu-data"][catIndex]["items"].length === 0)
+			{
+				tempMenu["menu-data"].splice(catIndex, 1);
+			}
 		}
+		setNewMenu(tempMenu);
 	}
 
 	return (
