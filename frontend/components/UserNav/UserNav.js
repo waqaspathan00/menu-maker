@@ -16,3 +16,6 @@ const UserNav = ({ user }) =>
 }
 
 export default UserNav
+
+{/*<button onClick={loginWithGoogle}>Sign In</button>*/}
+{/*<button onClick={() => logoutWithGoogle()}>Sign Out</button>*/}

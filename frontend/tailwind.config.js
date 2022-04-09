@@ -9,12 +9,20 @@ module.exports = {
                 'primary-black': '#1C1C1E',
                 'primary-red': '#FF3B30',
                 'primary-blue': '#007AFF',
-                'primary-gray': '#8E8E93'
-            }
+                'primary-gray': '#8E8E93',
+                'blue-gray': '#F4F6FC',
+                'grey': '#CCC',
+                'dark-grey': "#555"
+            },
+            dropShadow: {
+                "md": '0 5px 5px rgba(204, 204, 204, 0.75)',
+            },
         },
         fontFamily: {
-            'logo': ['Rock Salt', 'cursive']
-        }
+            'rock-salt': ['Rock Salt', 'cursive']
+        },
+
+
     },
     plugins: [],
 }

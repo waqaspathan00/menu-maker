@@ -1,4 +1,4 @@
-from .menu_controller import create_menu, view_menu, edit_menu, delete_menu
+from .menu_controller import create_menu, view_menu, edit_menu, delete_menu, get_menus
 from .auth_controller import login_user, logout_user
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -24,6 +24,7 @@ def create(request):
     if request.method == "POST":
         return create_menu(request)
     return HttpResponse(status=400, content="Incorrect HTTP request, use POST")
+
 
 @csrf_exempt
 def view(request, name):
@@ -52,10 +53,22 @@ def delete(request, name):
 @csrf_exempt
 def login(request):
     """ when the user logs in, save their uid to session as a jwt token """
-    return login_user(request)
+    if request.method == "POST":
+        return login_user(request)
+    return HttpResponse(status=400, content="Incorrect HTTP request, use POST")
 
 
 @csrf_exempt
-def logout(response):
+def logout(request):
     """ when the user logs out, remove their uid from session """
-    return logout_user()
+    if request.method == "POST":
+        return logout_user()
+    return HttpResponse(status=400, content="Incorrect HTTP request, use POST")
+
+
+@csrf_exempt
+def menus(request):
+    """ get a list of menus that the user owns """
+    if request.method == "GET":
+        return get_menus()
+    return HttpResponse(status=400, content="Incorrect HTTP request, use GET")
