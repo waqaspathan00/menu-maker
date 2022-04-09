@@ -11,9 +11,22 @@ import NewItemInput from '../Inputs/NewItemInput';
 * setEdit @type {function}
 */
 
-function Dish({ props, category, isEdit, setEdit })
+function Dish({ props, category, isEdit, setEdit, index })
 {
 	const [isOpen, setIsOpen] = useState(false);
+	const { newMenu, setNewMenu } = useContext(NewMenuContext);
+	function removeDish()
+	{
+		let tempMenu = { ...newMenu };
+		let catIndex = tempMenu["menu-data"].findIndex((item) => item['category-title'] === category);
+
+		if (catIndex !== -1)
+		{
+			tempMenu["menu-data"][catIndex]["items"].splice(index, 1);
+			setNewMenu(tempMenu)
+		}
+	}
+
 	return (
 		<>
 			<div className='mt-4 w-auto border rounded shadow-lg p-4'>
@@ -26,11 +39,11 @@ function Dish({ props, category, isEdit, setEdit })
 						</button>
 						{isOpen ? <div className='absolute right-0 top-6 w-24 px-4 py-2 border rounded bg-white z-10'>
 							<ul className='text-left space-y-1'>
-								<li><button className='cursor-pointer hover:text-gray-400' onClick={() => { setEdit(true); setIsOpen(false)}}>edit</button>
+								<li><button className='cursor-pointer hover:text-gray-400' onClick={() => { setEdit(true); setIsOpen(false) }}>edit</button>
 								</li>
-								<li className='text-red-500 hover:text-red-700 cursor-pointer'>remove</li>
+								<li className='text-red-500 hover:text-red-700 cursor-pointer' onClick={removeDish}>remove</li>
 							</ul>
-						</div>: null}
+						</div> : null}
 
 						<div className=''>
 							{props['item-description'].length > 0 ? <p className='text-sm leading-relaxed'>{props['item-description']}</p> : null}
@@ -46,6 +59,7 @@ function Dish({ props, category, isEdit, setEdit })
 		</>
 	)
 }
+
 
 
 
