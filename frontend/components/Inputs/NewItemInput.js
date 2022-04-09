@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 * props @type {object} - holds single dish information
 * prevCategory @type {String} - holds current category (It will track in case *  							  user change the category of the dish)
 */
-function NewItemInput({  setToggle, type = "", props, prevCategory = "" })
+function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 {
 	// Holds the updated categories and it's respective menus
 	const { newMenu, setNewMenu, currentCategories } = useContext(NewMenuContext);
@@ -67,30 +67,56 @@ function NewItemInput({  setToggle, type = "", props, prevCategory = "" })
 		e.preventDefault();
 		let tempMenu = { ...newMenu };
 		tempMenu['slug'] = tempMenu['menu-name'].split(' ').join('-').toLowerCase()
+
 		if (type === 'edit')
 		{
-			// Remove the dish from the previous array
+			// Remove the dish from the previous array only if that category 	changes
 			if (prevCat !== dishCat)
 			{
-				// console.log("PREVIOUS ARRAY: ", tempMenu["menu-data"])
-				// console.log(prevCat)
+				/*
+				* Get the index of the previous category the dish within the 
+				* menu-data array.
+				* 
+				 */
 				let prev = tempMenu["menu-data"].findIndex((item) => item['category-title'] === prevCat);
+
+				/*
+				* Get the index of the the dish within the array of that 
+				* category
+				 */
 				const pos = tempMenu["menu-data"][prev]['items'].findIndex((current) => current['item-name'] === dishName)
+
+				/*
+				* Remove that the dish from the array
+				  */
 				tempMenu["menu-data"][prev]['items'].splice(pos, 1);
 			}
 		}
 
+		// Store the items array for this specific category
 		const catMenu = tempMenu["menu-data"].filter((cat) => cat['category-title'] === dishCat);
 
 		const imageUrl = await upload();
 		if (!uploading)
 		{
+			// Check if items in this category is not empty
+			const dishInfo = {
+				"item-description": dishDesc,
+				"item-name": dishName,
+				"item-price": dishPrice,
+				"item-image": imageUrl ? imageUrl : ""
+			}
+			
 			if (catMenu.length > 0)
 			{
-				catMenu[0].items.push({ "item-description": dishDesc, "item-name": dishName, "item-price": dishPrice, "item-image": imageUrl ? imageUrl : "" })
+				catMenu[0].items.push(dishInfo)
 			} else
 			{
-				tempMenu['menu-data'].push({ 'category-title': dishCat, 'items': [{ "item-description": dishDesc, "item-name": dishName, "item-price": dishPrice, "item-image": imageUrl ? imageUrl : "" }] })
+				tempMenu['menu-data'].push(
+					{
+						'category-title': dishCat,
+						'items': [dishInfo]
+					})
 			}
 			setNewMenu(tempMenu);
 			setToggle(false)
