@@ -4,13 +4,13 @@ import { MdOutlineDragIndicator } from 'react-icons/md'
 import { NewMenuContext } from '../../lib/context';
 import NewItemInput from '../Inputs/NewItemInput';
 
-/*
-* props @type {object} - holds single dish information
-* category @type {String} - current category which this dish is in
-* isEdit @type {boolean}
-* setEdit @type {function}
-*/
-
+/**
+ * @param  {Object} props - Dish information
+ * @param  {String} category - Dish's category
+ * @param  {Boolean} isEdit 
+ * @param  {Function} setEdit
+ * @param  {Number} index - Index of this dish in the newMenu object
+ */
 function Dish({ props, category, isEdit, setEdit, index })
 {
 	const [isOpen, setIsOpen] = useState(false);
