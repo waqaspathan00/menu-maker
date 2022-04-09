@@ -10,6 +10,6 @@
     .styled-img {
         filter: drop-shadow(0 5px 5px rgba(204, 204, 204, 0.75));
         border-radius: 10px;
-        border: #CCC 2px solid;
+        border: #CCC 1px solid;
     }
 }
