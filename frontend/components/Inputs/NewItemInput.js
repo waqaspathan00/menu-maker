@@ -7,12 +7,15 @@ import SushiIcon from '../SVG/SushiIcon';
 import { storage } from '../../lib/firebase';
 import { ref, getDownloadURL } from 'firebase/storage'
 import { toast } from 'react-toastify';
-/*
-* setToggle @type {function} - toggles boolean
-* type @type {String} - checks if is in edit mode
-* props @type {object} - holds single dish information
-* prevCategory @type {String} - holds current category (It will track in case *  							  user change the category of the dish)
-*/
+import { findCategoryIndex, findDishIndex } from "/lib/utils"
+
+
+/**
+ * @param  {Function} setToggle - Gets the toggle state from create/add-items
+ * @param  {String} type="" - holds whether is edit or not
+ * @param  {Object} props - Dish information
+ * @param  {String} prevCategory="" the initial category of this dish
+ */
 function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 {
 	// Holds the updated categories and it's respective menus
@@ -67,36 +70,48 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 		e.preventDefault();
 		let tempMenu = { ...newMenu };
 		tempMenu['slug'] = tempMenu['menu-name'].split(' ').join('-').toLowerCase()
-
+		const imageUrl = dishImage ? await upload() : "";
 		if (type === 'edit')
 		{
-			// Remove the dish from the previous array only if that category 	changes
+			/*
+			* Get the index of the previous category the dish within the 
+			* menu-data array.
+			* 
+			*/
+
+			let prev = findCategoryIndex(tempMenu["menu-data"], prevCat)
+
+			/*
+			* Get the index of the the dish within the array of that 
+			* category
+			 */
+		
+			const pos = findDishIndex(tempMenu["menu-data"][prev], props["item-name"])
+
+
+			tempMenu["menu-data"][prev]['items'][pos] = {
+				"item-description": dishDesc,
+				"item-name": dishName,
+				"item-price": dishPrice,
+				"item-image": props["image-url"]
+			}
 			if (prevCat !== dishCat)
 			{
-				/*
-				* Get the index of the previous category the dish within the 
-				* menu-data array.
-				* 
-				 */
-				let prev = tempMenu["menu-data"].findIndex((item) => item['category-title'] === prevCat);
-
-				/*
-				* Get the index of the the dish within the array of that 
-				* category
-				 */
-				const pos = tempMenu["menu-data"][prev]['items'].findIndex((current) => current['item-name'] === dishName)
-
 				/*
 				* Remove that the dish from the array
 				  */
 				tempMenu["menu-data"][prev]['items'].splice(pos, 1);
+				// Remove item from menu-data array if there's no items in it.
+				if(tempMenu["menu-data"][prev]["items"].length === 0) {
+					tempMenu["menu-data"].splice(prev,1);
+				}
 			}
-		}
 
+		}
 		// Store the items array for this specific category
 		const catMenu = tempMenu["menu-data"].filter((cat) => cat['category-title'] === dishCat);
 
-		const imageUrl = await upload();
+	
 		if (!uploading)
 		{
 			// Check if items in this category is not empty
@@ -106,7 +121,7 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 				"item-price": dishPrice,
 				"item-image": imageUrl ? imageUrl : ""
 			}
-			
+
 			if (catMenu.length > 0)
 			{
 				catMenu[0].items.push(dishInfo)
@@ -118,9 +133,10 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 						'items': [dishInfo]
 					})
 			}
-			setNewMenu(tempMenu);
-			setToggle(false)
+
 		}
+		setNewMenu(tempMenu);
+		setToggle(false)
 	}
 
 	useEffect(() =>
@@ -197,7 +213,7 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 					</div>
 					<div className=' flex mt-8'>
 						<button className=' border rounded border-primary-blue px-6 py-2 text-sm font-bold text-primary-blue flex items-center hover:bg-primary-blue hover:text-white group transition-colors' type='submit' disabled={uploading}>
-							<AiFillPlusCircle className='w-6 h-6 mr-2' />Add Item
+							<AiFillPlusCircle className='w-6 h-6 mr-2' />{type === "edit" ? "Update" : "Add Item"}
 						</button>
 						<button className='text-primary-gray hover:bg-primary-gray hover:text-white transition-colors font-medium border rounded px-6 py-2 ml-4' type='button' disabled={uploading} onClick={() => setToggle(false)}>Cancel</button>
 					</div>
