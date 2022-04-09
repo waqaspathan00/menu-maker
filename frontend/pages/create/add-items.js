@@ -20,7 +20,13 @@ export default function AddItems()
 
     useEffect(() =>
     {
-        setStep(2);
+        if (step === 1 || step === 3)
+        {
+            setStep(2);
+     
+        } else {
+            router.push("/create/add-menu")
+        }
     }, [])
 
     return (
