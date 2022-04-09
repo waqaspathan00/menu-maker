@@ -4,7 +4,6 @@ import BreadCrumb from '/components/Breadcrumb/BreadCrumb'
 import { NewMenuContext } from "/lib/context";
 import { useRouter } from 'next/router'
 import { AiFillPlusCircle } from 'react-icons/ai'
-import { MdArrowRightAlt } from 'react-icons/md'
 import { toast } from "react-toastify";
 import NewCategory from "/components/Inputs/NewCategory"
 import NewItemInput from "/components/Inputs/NewItemInput";
@@ -23,8 +22,9 @@ export default function AddItems()
         if (step === 1 || step === 3)
         {
             setStep(2);
-     
-        } else {
+
+        } else
+        {
             router.push("/create/add-menu")
         }
     }, [])
@@ -80,7 +80,20 @@ export default function AddItems()
 
                         </div>
                         <div className="pb-2 w-full  xl:w-fit lg:w-fit md:w-fit sm:w-fit  xs:w-fit">
-                            <button className="px-6 py-2 font-semibold flex items-center text-white transition-colors  w-full justify-center bg-primary-green hover:bg-primary-green/70 rounded">
+                            <button className="px-6 py-2 font-semibold flex items-center text-white transition-colors  w-full justify-center bg-primary-green hover:bg-primary-green/70 rounded" onClick={async (e) =>
+                            {
+                                e.preventDefault();
+                                const req = await fetch('http://127.0.0.1:8000/api/create', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Accept': 'application/json',
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify(newMenu)
+
+                                })
+                                console.log(req);
+                            }}>
                                 Submit
                             </button>
                         </div>
