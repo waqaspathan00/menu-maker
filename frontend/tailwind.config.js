@@ -10,6 +10,7 @@ module.exports = {
                 'primary-red': '#FF3B30',
                 'primary-blue': '#007AFF',
                 'primary-gray': '#8E8E93',
+                'primary-green': '#34C759'
                 'blue-gray': '#F4F6FC',
                 'grey': '#CCC',
                 'dark-grey': "#555"
@@ -21,8 +22,6 @@ module.exports = {
         fontFamily: {
             'rock-salt': ['Rock Salt', 'cursive']
         },
-
-
     },
     plugins: [],
 }

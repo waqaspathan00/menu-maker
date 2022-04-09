@@ -1,7 +1,9 @@
 import {loginWithGoogle, logoutWithGoogle} from "../lib/firebase";
 import Image from "next/Image";
 
-export default function Home() {
+export default function Home({ menus })
+{
+    
     return (
         <div>
             <SplashSection/>

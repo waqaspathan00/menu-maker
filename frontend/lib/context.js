@@ -14,6 +14,7 @@ export const NewMenuProvider = ({ children }) =>
 		"menu-data": [],
 		"menu-name": ""
 	});
+	const [currentCategories, setNewCategories] = useState(["Main (default)"])
 
-	return <NewMenuContext.Provider value={{ step, setStep, newMenu, setNewMenu }}>{children}</NewMenuContext.Provider>
+	return <NewMenuContext.Provider value={{ step, setStep, newMenu, setNewMenu, currentCategories, setNewCategories }}>{children}</NewMenuContext.Provider>
 }
