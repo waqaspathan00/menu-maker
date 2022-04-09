@@ -5,7 +5,7 @@ import { NewMenuContext } from "/lib/context";
 import { MdArrowRightAlt } from 'react-icons/md'
 import { toast } from "react-toastify";
 
-const MenuInput = ({ setStep }) =>
+const MenuInput = () =>
 {
 	const router = useRouter();
 	const { newMenu, setNewMenu } = useContext(NewMenuContext);
@@ -63,7 +63,6 @@ const MenuInput = ({ setStep }) =>
 				<div className="flex justify-between items-center mt-8 ">
 					<h4>Cancel</h4>
 					<button className='flex items-center font-bold' type="submit">Next 	<MdArrowRightAlt className="ml-2" /></button>
-
 				</div>
 			</form>
 
