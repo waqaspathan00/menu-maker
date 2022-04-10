@@ -1,10 +1,9 @@
 import UserNav from "/components/UserNav/UserNav";
 import Logo from "/components/Logo/Logo";
-import { useUserData } from "../../lib/hooks";
 import { useContext, useEffect } from "react";
 import { loginWithGoogle } from "../../lib/firebase";
 import { UserContext } from "../../lib/context";
-const Navbar = () =>
+const NavigationBar = () =>
 {
   const { userData } = useContext(UserContext);
 
@@ -22,4 +21,4 @@ const Navbar = () =>
   )
 }
 
-export default Navbar
+export default NavigationBar
