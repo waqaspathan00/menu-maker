@@ -8,6 +8,7 @@ import { storage } from '../../lib/firebase';
 import { ref, getDownloadURL } from 'firebase/storage'
 import { toast } from 'react-toastify';
 import { findCategoryIndex, findDishIndex } from "/lib/utils"
+import { async } from '@firebase/util';
 
 
 /**
@@ -29,9 +30,6 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 	const [dishCat, setDishCat] = useState(type !== 'edit' ? currentCategories[currentCategories.length - 1] : prevCategory);
 	const [dishPrice, setDishPrice] = useState("");
 	const [dishImage, setDishImage] = useState(null);
-
-	// Keeps track of the previous category for editing item
-	const [prevCat, setPrevCat] = useState("")
 
 
 
@@ -71,47 +69,11 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 		let tempMenu = { ...newMenu };
 		tempMenu['slug'] = tempMenu['menu-name'].split(' ').join('-').toLowerCase()
 		const imageUrl = dishImage ? await upload() : "";
-		if (type === 'edit')
-		{
-			/*
-			* Get the index of the previous category the dish within the 
-			* menu-data array.
-			* 
-			*/
 
-			let prev = findCategoryIndex(tempMenu["menu-data"], prevCat)
-
-			/*
-			* Get the index of the the dish within the array of that 
-			* category
-			 */
-		
-			const pos = findDishIndex(tempMenu["menu-data"][prev], props["item-name"])
-
-
-			tempMenu["menu-data"][prev]['items'][pos] = {
-				"item-description": dishDesc,
-				"item-name": dishName,
-				"item-price": dishPrice,
-				"item-image": props["image-url"]
-			}
-			if (prevCat !== dishCat)
-			{
-				/*
-				* Remove that the dish from the array
-				  */
-				tempMenu["menu-data"][prev]['items'].splice(pos, 1);
-				// Remove item from menu-data array if there's no items in it.
-				if(tempMenu["menu-data"][prev]["items"].length === 0) {
-					tempMenu["menu-data"].splice(prev,1);
-				}
-			}
-
-		}
 		// Store the items array for this specific category
 		const catMenu = tempMenu["menu-data"].filter((cat) => cat['category-title'] === dishCat);
 
-	
+
 		if (!uploading)
 		{
 			// Check if items in this category is not empty
@@ -120,7 +82,7 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 				"item-name": dishName,
 				"item-price": dishPrice,
 				"item-image": imageUrl ? imageUrl : "",
-				"image-path": `${ dishCat }/${ dishImage.name }`
+				"image-path": imageUrl ? `${ dishCat }/${ dishImage.name } ` : ""
 			}
 
 			if (catMenu.length > 0)
@@ -140,14 +102,71 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 		setToggle(false)
 	}
 
+	async function handleEdit(e)
+	{
+		e.preventDefault();
+		let tempMenu = { ...newMenu };
+		/*
+		* Get the index of the previous category the dish within the 
+		* menu-data array.
+		* 
+		*/
+		let prev = findCategoryIndex(tempMenu["menu-data"], prevCategory)
+
+		/*
+		* Get the index of the the dish within the array of that 
+		* category
+		 */
+
+		const pos = findDishIndex(tempMenu["menu-data"][prev], props["item-name"])
+
+		tempMenu["menu-data"][prev]['items'][pos] = {
+			"item-description": dishDesc,
+			"item-name": dishName,
+			"item-price": dishPrice,
+			"item-image": props["image-url"],
+			"image-path": props["image-url"].length > 0 ? `${ dishCat }/${ dishImage.name } ` : ""
+		}
+		if (prevCategory !== dishCat)
+		{
+			/*
+			* Remove that the dish from the array
+			  */
+			tempMenu["menu-data"][prev]['items'].splice(pos, 1);
+			// Remove item from menu-data array if there's no items in it.
+		}
+		let findCatIndex = findCategoryIndex(tempMenu['menu-data'], dishCat)
+
+		if (findCatIndex === - 1)
+		{
+			tempMenu["menu-data"].push({
+				'category-title': dishCat,
+				'items': [{
+					"item-description": dishDesc,
+					"item-name": dishName,
+					"item-price": dishPrice,
+					"item-image": props["image-url"]
+				}]
+			})
+		} else
+		{
+			tempMenu["menu-data"][findCatIndex]["items"].push({
+				"item-description": dishDesc,
+				"item-name": dishName,
+				"item-price": dishPrice,
+				"item-image": props["image-url"]
+			})
+		}
+
+		setNewMenu(tempMenu)
+	}
+
 	useEffect(() =>
 	{
 		if (type === "edit")
 		{
 			setDishName(props['item-name']);
 			setDishDesc(props['item-description']);
-			setDishCat(prevCategory)
-			setPrevCat(prevCategory)
 			setDishPrice(Number(props['item-price']).toFixed(2))
 		}
 	}, [])
@@ -165,7 +184,7 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 					</div> : <button className="text-xs flex items-center hover:text-primary-gray" onClick={() => setToggle(false)}> Close<AiOutlineCloseCircle className='w-5 h-5 ml-1' /></button>}
 
 				</div>
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={type === 'edit' ? handleEdit : handleSubmit}>
 					<div className='flex items-center space-x-2'>
 						<SushiIcon classname='mb-1' />
 						<h1 className='font-bold'>Add a Dish</h1>
