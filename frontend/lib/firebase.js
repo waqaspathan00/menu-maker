@@ -2,6 +2,7 @@ import {getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
 import axios from 'axios';
 import {initializeApp} from "firebase/app";
 import { getStorage } from 'firebase/storage'
+import { collection, getFirestore } from "firebase/firestore"; 
 // TODO: Add SDKs for Firebase products that you want to use
 
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -20,14 +21,12 @@ import { getStorage } from 'firebase/storage'
 // Your web app's Firebase configuration
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCkKvXgPbR_jYkjjbG3PDGN6w_jM95Anfg",
-    authDomain: "learnfirebase-544b9.firebaseapp.com",
-    databaseURL: "https://learnfirebase-544b9-default-rtdb.firebaseio.com",
-    projectId: "learnfirebase-544b9",
-    storageBucket: "learnfirebase-544b9.appspot.com",
-    messagingSenderId: "982907877980",
-    appId: "1:982907877980:web:01e53d273d9acfbe24c499",
-    measurementId: "G-GSMF3Y1MKB"
+    apiKey: "AIzaSyB5ipG5sxHAC1aGpNzpg3NzKHOfdIHwlJ0",
+    authDomain: "capstone-13aec.firebaseapp.com",
+    projectId: "capstone-13aec",
+    storageBucket: "capstone-13aec.appspot.com",
+    messagingSenderId: "215496982785",
+    appId: "1:215496982785:web:d53c54725bb8282cec1b00"
 };
 
 
@@ -35,6 +34,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app)
+export const db = getFirestore();
 
 const googleProvider = new GoogleAuthProvider()
 
@@ -68,3 +68,6 @@ export const logoutWithGoogle = () => {
         });
     })
 }
+
+export const menuRef = collection(db,'menus');
+
