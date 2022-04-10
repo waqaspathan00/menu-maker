@@ -1,13 +1,14 @@
 import {loginWithGoogle, logoutWithGoogle} from "../lib/firebase";
 import Image from "next/Image";
 
-export default function Home({ menus })
-{
-    
+export default function Home({menus}) {
+
     return (
         <div>
             <SplashSection/>
             <TutorialSection/>
+            <WhoIsThisForSection/>
+            {/*<InstallGuide/>*/}
         </div>
     )
 }
@@ -62,6 +63,31 @@ const TutorialSection = () => {
                     </div>
                 </div>
             </div>
+        </div>
+    )
+}
+
+const WhoIsThisForSection = () => {
+    const TargetCustomerCard = ({image, title}) => {
+        return (
+            <div className={"flex bg-lavender rounded-2xl mx-2 my-4 items-center justify-around h-16 drop-shadow-md"}>
+                <img src={`/assets/img/home/whoisthisfor/${image}.png`} className={"w-20"}/>
+                <h4 className={"text-xl font-rock-salt font-bold"}>{title}</h4>
+            </div>
+        )
+    }
+
+    return (
+        <div className={"flex flex-col"}>
+            <h2 className={"text-3xl text-center font-bold my-4"}>Who is this for?</h2>
+            <h3 className={"text-xl text-center"}>Home-based small business'</h3>
+
+            <TargetCustomerCard image={"homecook"} title={"Home Cooks"}/>
+            <TargetCustomerCard image={"jewelry"} title={"Jewelry Artisans"}/>
+            <TargetCustomerCard image={"realtor"} title={"Realtors"}/>
+            <TargetCustomerCard image={"wedding"} title={"Boutiques"}/>
+
+
         </div>
     )
 }
