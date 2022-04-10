@@ -6,6 +6,7 @@ import NavigationBar from "/components/Navbar/NavigationBar";
 import React, { useState } from "react";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import QuickNavBar from "../components/Navbar/QuickNavBar";
 
 function MyApp({ Component, pageProps }) {
     const userData = useUserData();
@@ -19,6 +20,7 @@ function MyApp({ Component, pageProps }) {
                     <Component {...pageProps} />
                     <ToastContainer position='top-right' />
                 </NewMenuProvider>
+                <QuickNavBar/>
             </UserContext.Provider>
         </div>
     )
