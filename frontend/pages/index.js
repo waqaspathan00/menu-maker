@@ -1,15 +1,24 @@
 import React, {Fragment} from "react";
 import {loginWithGoogle, logoutWithGoogle} from "../lib/firebase";
 import Image from "next/Image";
+import Link from "next/link"
+import NavigationBar from "../components/Navbar/NavigationBar";
 
 export default function Home({menus}) {
 
     return (
         <div>
+            <NavigationBar/>
             <SplashSection/>
             <TutorialSection/>
             <WhoIsThisForSection/>
             <InstallGuide/>
+
+            <Link href={"/create/add-items"}>
+                <a className={"fixed bottom-8 right-8 bg-blue-gray p-2 drop-shadow-md rounded-full"}>
+                    <img className={"w-16 "} src={"/assets/img/nav/create-menu.png"} bg={"light"} variant={"light"}/>
+                </a>
+            </Link>
         </div>
     )
 }
@@ -33,7 +42,7 @@ const SplashSection = () => {
 
 const TutorialSection = () => {
     return (
-        <div className={"flex flex-col items-around bg-blue-gray"}>
+        <div id={"how-to-use"} className={"flex flex-col items-around bg-blue-gray"}>
             <h2 className={"text-3xl text-center font-bold my-8"}>Let us show you how in 2 simple steps</h2>
             <div className={"flex w-full h-80"}>
                 <div className={"flex flex-col items-center justify-center"}>
@@ -80,9 +89,9 @@ const WhoIsThisForSection = () => {
     }
 
     return (
-        <div className={"flex flex-col my-8"}>
+        <div id={"who-is-this-for"} className={"flex flex-col my-8"}>
             <h2 className={"text-3xl text-center font-bold my-4"}>Who is this for?</h2>
-            <h3 className={"text-xl text-center"}>Home-based small business'</h3>
+            <h3 className={"text-xl text-center mt-12"}>Home-based small business'</h3>
 
             <TargetCustomerCard image={"homecook"} title={"Home Cooks"}/>
             <TargetCustomerCard image={"jewelry"} title={"Jewelry Artisans"}/>
@@ -123,7 +132,7 @@ const InstallGuide = () => {
     // }
 
     return (
-        <div className={"flex flex-col items-center justify-center bg-blue-gray"}>
+        <div id={"how-to-install"} className={"flex flex-col items-center justify-center bg-blue-gray"}>
             <h2 className={"text-3xl text-center font-bold my-4"}>Install Menu Mate as an app</h2>
             <h3 className={"text-xl"}>In just 3 clicks!</h3>
 
