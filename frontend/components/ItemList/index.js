@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
-import { AiFillCaretDown, AiFillEdit, AiFillDelete } from 'react-icons/ai'
+import { AiFillCaretDown } from 'react-icons/ai'
+import { BsThreeDotsVertical } from 'react-icons/bs'
 import Dish from './Dish';
 import { ReactSortable } from "react-sortablejs";
 import { NewMenuContext } from '../../lib/context';
 import NewCategory from '../Inputs/NewCategory';
+import { toast } from 'react-toastify';
 
 /*
 * props @type {object} - holds single category and its items
@@ -16,7 +18,7 @@ function ItemList({ props, index })
 	const [isOpen, setIsOpen] = useState(true);
 	const [state, setState] = useState(props.items);
 	const [isEdit, setEdit] = useState(false);
-	const { newMenu, setNewMenu } = useContext(NewMenuContext);
+	const { newMenu, setNewMenu, currentCategories, setNewCategories } = useContext(NewMenuContext);
 	const [categoryOpen, setIsCategoryOpen] = useState(false)
 	const [showWarning, setShowWarning] = useState(false)
 
@@ -24,6 +26,9 @@ function ItemList({ props, index })
 	{
 		let temp = { ...newMenu };
 		temp['menu-data'][index]['items'] = menu
+
+
+
 		setNewMenu(temp)
 		// return (menu)
 	}
@@ -31,8 +36,18 @@ function ItemList({ props, index })
 	function handleDelete()
 	{
 		let temp = { ...newMenu };
-		temp["menu-data"].splice(index, 1);
+		const deletedCategory = temp["menu-data"].splice(index, 1);
 		setNewMenu(temp);
+		setShowWarning(false);
+		let indexOfDeletedCategory = currentCategories.indexOf(deletedCategory[0]["category-title"])
+
+		// Don't delete default category
+		if (indexOfDeletedCategory !== -1 && indexOfDeletedCategory !== 0)
+		{
+			currentCategories.splice(indexOfDeletedCategory, 1);
+		}
+
+		toast.success(`${ deletedCategory[0]["category-title"] } successfully deleted`)
 	}
 
 
@@ -52,9 +67,12 @@ function ItemList({ props, index })
 						<AiFillCaretDown className="w-6" />
 					</div>
 				</button>
-				<div className='space-x-2 flex border-l pl-2 border-l-primary-gray'>
-					<AiFillEdit className='hover:text-primary-gray cursor-pointer' title="Edit Category title" onClick={() => setIsCategoryOpen(true)} />
-					<AiFillDelete className='text-primary-red hover:text-primary-red/50 cursor-pointer' title='Delete' onClick={() => setShowWarning(true)} />
+				<div className='space-x-2 flex border-l pl-2 border-l-primary-gray relative'>
+					{/* <span className='flex items-center text-xs cursor-pointer hover:text-slate-500 transition-colors' title='Options'><BsThreeDotsVertical className='w-4 h-4' /></span> */}
+					<div className='space-x-2 text-xs whitespace-nowrap'>
+						<button onClick={() => setIsCategoryOpen(true)}>Edit</button>
+						<button onClick={() => setShowWarning(true)}>Delete</button>
+					</div>
 				</div>
 			</div>
 			<div className='space-y-4'>
