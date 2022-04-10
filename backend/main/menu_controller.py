@@ -58,7 +58,11 @@ def edit_menu(request, name):
 
     # decode HTTP request using utf-8 format
     data = json.loads(request.body.decode('utf-8'))
-    uid = get_uid()
+    # uid = get_uid()
+    uid = "12345"
+    if not uid:
+        return HttpResponse(status=404, content="You must be logged in to edit a menu")
+
 
     # check if user owns any menus
     user_owned_menus = FirestoreDB.get_user_menus(uid)
@@ -84,7 +88,7 @@ def edit_menu(request, name):
         # update user menu names list with new name
         menu_names_list.remove(name)
         menu_names_list.append(menu_name)
-        user_owned_menus.update({'menu_names': menu_names_list})
+        FirestoreDB.update_user_menus(uid, menu_names_list)
 
         # delete menu with old name
         FirestoreDB.delete_menu(name)
