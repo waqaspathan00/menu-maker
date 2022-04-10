@@ -71,9 +71,9 @@ const TutorialSection = () => {
 const WhoIsThisForSection = () => {
     const TargetCustomerCard = ({image, title}) => {
         return (
-            <div className={"flex bg-lavender rounded-2xl mx-2 my-4 items-center justify-around h-16 drop-shadow-md"}>
+            <div className={"flex bg-primary-blue rounded-2xl mx-2 my-4 items-center justify-around h-16 drop-shadow-md"}>
                 <img src={`/assets/img/home/whoisthisfor/${image}.png`} className={"w-20"}/>
-                <h4 className={"text-xl font-rock-salt font-bold"}>{title}</h4>
+                <h4 className={"text-xl font-rock-salt font-bold text-white"}>{title}</h4>
             </div>
         )
     }
@@ -97,7 +97,7 @@ const InstallGuide = () => {
     const InstructionStepCard = ({num, title, image}) => {
         return (
             <div className={"flex rounded-xl styled-img overflow-hidden justify-between mx-2 my-4"}>
-                <div className={"bg-lavender font-bold flex items-center justify-center w-1/12"}>
+                <div className={"bg-primary-blue font-bold flex items-center justify-center w-1/12"}>
                     <div className={"bg-white rounded-full text-center w-6"}>
                         {num}
                     </div>
