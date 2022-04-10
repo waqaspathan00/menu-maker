@@ -124,8 +124,8 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 			"item-description": dishDesc,
 			"item-name": dishName,
 			"item-price": dishPrice,
-			"item-image": props["image-url"],
-			"image-path": props["image-url"].length > 0 ? `${ dishCat }/${ dishImage.name } ` : ""
+			"item-image": props["item-image"],
+			"image-path": props["item-image"].length > 0 ? `${ dishCat }/${ dishImage.name } ` : ""
 		}
 		if (prevCategory !== dishCat)
 		{
@@ -145,7 +145,7 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 					"item-description": dishDesc,
 					"item-name": dishName,
 					"item-price": dishPrice,
-					"item-image": props["image-url"]
+					"item-image": props["item-image"]
 				}]
 			})
 		} else
@@ -154,7 +154,7 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 				"item-description": dishDesc,
 				"item-name": dishName,
 				"item-price": dishPrice,
-				"item-image": props["image-url"]
+				"item-image": props["item-image"]
 			})
 		}
 
