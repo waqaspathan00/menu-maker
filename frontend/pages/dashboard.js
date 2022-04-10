@@ -8,12 +8,10 @@ import { query, where, getDocs } from 'firebase/firestore'
 function Dashboard({ menus })
 {
 	const { userMenus, setUserMenu } = useContext(MenusContext);
-	const [myMenus, setMyMenus] = useState(null);
 
 
 	useEffect(() =>
 	{
-		setUserMenu(menus);
 		async function getMenus(menusArr)
 		{
 			const q = query(menuRef, where("menu-name", "in", menusArr));
@@ -22,7 +20,7 @@ function Dashboard({ menus })
 			snapShot.forEach((doc) => {
 				temp.push(doc.data())
 			})
-			setMyMenus(temp)
+			setUserMenu(temp)
 		}
 
 		if (menus)
@@ -75,7 +73,7 @@ function Dashboard({ menus })
 							<div className="w-full h-auto mt-4 space-y-4">
 								{userMenus ? userMenus.map((menu, index) =>
 									<div className='w-full border p-4 rounded' key={index}>
-										<h1 className='text-xl font-bold'>{menu}</h1>
+										<h1 className='text-xl font-bold'>{menu["menu-name"]}</h1>
 										<ul>
 											<li>Lunch</li>
 										</ul>
