@@ -1,6 +1,6 @@
 import '../styles/globals.css';
 import { useUserData } from "../lib/hooks";
-import { NewMenuProvider, UserContext } from "../lib/context";
+import { MenusProvider, NewMenuProvider, UserContext } from "../lib/context";
 import Navbar from "/components/Navbar/Navbar";
 import React, { useState } from "react";
 import { ToastContainer } from 'react-toastify';
@@ -12,17 +12,19 @@ function MyApp({ Component, pageProps })
     const userData = useUserData();
     const [step, setStep] = useState(1);
     return (
-        <div>
+        <>
             <UserContext.Provider value={{ userData, step, setStep }}>
-                <title>Menu Mate</title>
-                <Navbar />
-                <NewMenuProvider>
-                    <Component {...pageProps} />
-                    <ToastContainer position='top-right' />
-                </NewMenuProvider>
+                <MenusProvider>
+                    <NewMenuProvider>
+                        <title>Menu Mate</title>
+                        <Navbar />
+                        <Component {...pageProps} />
+                        <ToastContainer position='top-right' />
+                    </NewMenuProvider>
+                </MenusProvider>
             </UserContext.Provider>
-        </div>
+        </>
     )
 }
 
-export default MyApp
+export default MyApp;
