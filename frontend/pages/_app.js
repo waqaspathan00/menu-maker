@@ -15,7 +15,6 @@ function MyApp({ Component, pageProps }) {
         <div>
             <UserContext.Provider value={{ userData, step, setStep }}>
                 <title>Menu Mate</title>
-                <NavigationBar />
                 <NewMenuProvider>
                     <Component {...pageProps} />
                     <ToastContainer position='top-right' />
