@@ -1,12 +1,17 @@
 import UserNav from "/components/UserNav/UserNav";
 import Logo from "/components/Logo/Logo";
 import { useUserData } from "../../lib/hooks";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { loginWithGoogle } from "../../lib/firebase";
 import { UserContext } from "../../lib/context";
 const Navbar = () =>
 {
+  const [currentUser, setCurrentUser] = useState(null);
   const { userData } = useContext(UserContext);
+
+  useEffect(() => {
+    setCurrentUser(userData);
+  },[userData])
 
   return (
     <header className="w-screen shadow-sm h-auto">
@@ -15,7 +20,7 @@ const Navbar = () =>
           <Logo />
         </div>
         <div>
-          {userData.user ? <UserNav user={userData.user} /> : <button onClick={loginWithGoogle}>Login in</button>}
+          {currentUser ? <UserNav user={currentUser.user} /> : <button onClick={loginWithGoogle}>Login in</button>}
         </div>
       </nav>
     </header>
