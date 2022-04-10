@@ -99,7 +99,7 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 
 		}
 		setNewMenu(tempMenu);
-		setToggle(false)
+		setToggle(false);
 	}
 
 	async function handleEdit(e)
@@ -127,38 +127,51 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 			"item-image": props["item-image"],
 			"image-path": props["item-image"].length > 0 ? `${ dishCat }/${ dishImage.name } ` : ""
 		}
+
 		if (prevCategory !== dishCat)
 		{
+
+			let findCatIndex = findCategoryIndex(tempMenu['menu-data'], dishCat)
 			/*
 			* Remove that the dish from the array
 			  */
 			tempMenu["menu-data"][prev]['items'].splice(pos, 1);
-			// Remove item from menu-data array if there's no items in it.
-		}
-		let findCatIndex = findCategoryIndex(tempMenu['menu-data'], dishCat)
 
-		if (findCatIndex === - 1)
-		{
-			tempMenu["menu-data"].push({
-				'category-title': dishCat,
-				'items': [{
+			if (findCatIndex === - 1)
+			{
+				tempMenu["menu-data"].push({
+					'category-title': dishCat,
+					'items': [{
+						"item-description": dishDesc,
+						"item-name": dishName,
+						"item-price": dishPrice,
+						"item-image": props["item-image"]
+					}]
+				})
+			} else
+			{
+
+				tempMenu["menu-data"][findCatIndex]["items"].push({
 					"item-description": dishDesc,
 					"item-name": dishName,
 					"item-price": dishPrice,
 					"item-image": props["item-image"]
-				}]
-			})
+				})
+			}
 		} else
 		{
-			tempMenu["menu-data"][findCatIndex]["items"].push({
+
+			tempMenu["menu-data"][prev]["items"][pos] = {
 				"item-description": dishDesc,
 				"item-name": dishName,
 				"item-price": dishPrice,
 				"item-image": props["item-image"]
-			})
+			}
 		}
 
-		setNewMenu(tempMenu)
+
+		setNewMenu(tempMenu);
+		setToggle(false);
 	}
 
 	useEffect(() =>
