@@ -119,7 +119,8 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 				"item-description": dishDesc,
 				"item-name": dishName,
 				"item-price": dishPrice,
-				"item-image": imageUrl ? imageUrl : ""
+				"item-image": imageUrl ? imageUrl : "",
+				"image-path": `${ dishCat }/${ dishImage.name }`
 			}
 
 			if (catMenu.length > 0)
