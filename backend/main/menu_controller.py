@@ -58,8 +58,7 @@ def edit_menu(request, name):
 
     # decode HTTP request using utf-8 format
     data = json.loads(request.body.decode('utf-8'))
-    # uid = get_uid()
-    uid = "12345"
+    uid = get_uid()
     if not uid:
         return HttpResponse(status=404, content="You must be logged in to edit a menu")
 
