@@ -1,8 +1,37 @@
 import { BsCalendar2Check } from 'react-icons/bs'
 import { SiDatabricks } from 'react-icons/si'
 import { AiFillPlusCircle } from 'react-icons/ai'
-function Dashboard()
+import { useContext, useEffect, useState } from 'react';
+import { MenusContext } from '../lib/context';
+import { menuRef } from '../lib/firebase'
+import { query, where, getDocs } from 'firebase/firestore'
+function Dashboard({ menus })
 {
+	const { userMenus, setUserMenu } = useContext(MenusContext);
+	const [myMenus, setMyMenus] = useState(null);
+
+
+	useEffect(() =>
+	{
+		setUserMenu(menus);
+		async function getMenus(menusArr)
+		{
+			const q = query(menuRef, where("menu-name", "in", menusArr));
+			const snapShot = await getDocs(q);
+			let temp = [];
+			snapShot.forEach((doc) => {
+				temp.push(doc.data())
+			})
+			setMyMenus(temp)
+		}
+
+		if (menus)
+		{
+			getMenus(menus)
+		}
+
+	}, [menus])
+
 	return (
 		<main className="mt-20">
 			<section className="container mx-auto
@@ -43,13 +72,15 @@ function Dashboard()
 									Add Menu
 								</button>
 							</div>
-							<div className="w-full h-auto mt-4">
-								<div className='w-full border p-4 rounded'>
-									<h1 className='text-xl font-bold'>Dinner is Served</h1>
-									<ul>
-										<li>Lunch</li>
-									</ul>
-								</div>
+							<div className="w-full h-auto mt-4 space-y-4">
+								{userMenus ? userMenus.map((menu, index) =>
+									<div className='w-full border p-4 rounded' key={index}>
+										<h1 className='text-xl font-bold'>{menu}</h1>
+										<ul>
+											<li>Lunch</li>
+										</ul>
+									</div>
+								) : null}
 							</div>
 							<SiDatabricks className='w-6 h-6 absolute -left-12 top-0' />
 							<div className='h-full border  border-primary-gray/40 rounded mt-2 absolute -left-9 top-6'></div>
@@ -64,5 +95,17 @@ function Dashboard()
 		</main >
 	);
 }
+
+
+export const getServerSideProps = async (context) =>
+{
+	const req = await fetch(' http://127.0.0.1:8000/api/get-menus');
+	const data = await req.json();
+	console.log()
+	return {
+		props: { menus: data }
+	}
+}
+
 
 export default Dashboard;
