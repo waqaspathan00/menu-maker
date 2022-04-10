@@ -13,12 +13,6 @@ export default function Home({menus}) {
             <TutorialSection/>
             <WhoIsThisForSection/>
             <InstallGuide/>
-
-            <Link href={"/create/add-items"}>
-                <a className={"fixed bottom-8 right-8 bg-blue-gray p-2 drop-shadow-md rounded-full"}>
-                    <img className={"w-16 "} src={"/assets/img/nav/create-menu.png"} bg={"light"} variant={"light"}/>
-                </a>
-            </Link>
         </div>
     )
 }
