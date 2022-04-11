@@ -9,10 +9,12 @@ const BreadCrumb = ({ step }) =>
 
 	return (
 		<div className='w-full h-auto p-4 space-x-2 text-sm 2xl:flex lg:flex hidden'>
-			<div className='flex items-center'>
-				<h4 className='text-sm'>Dashboard</h4>
-				<AiOutlineRight className='w-4 h-4 text-gray-400' />
-			</div>
+			<Link href="/dashboard">
+				<div className='flex items-center cursor-pointer hover:text-primary-black/80'>
+					<h4 className='text-sm group-'>Dashboard</h4>
+					<AiOutlineRight className='w-4 h-4 text-gray-400' />
+				</div>
+			</Link>
 			{steps.map((crumb, index) => (index < step ?
 				<AddCrumbs key={index} crumb={crumb} isActive={index === step - 1} /> : ""))}
 		</div>

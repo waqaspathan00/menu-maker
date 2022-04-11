@@ -1,29 +1,33 @@
 import "bootstrap/dist/css/bootstrap.min.css"
 import '../styles/globals.css';
 import { useUserData } from "../lib/hooks";
-import { NewMenuProvider, UserContext } from "../lib/context";
-import NavigationBar from "/components/Navbar/NavigationBar";
+import { MenusProvider, NewMenuProvider, UserContext   } from "../lib/context";
+import Navbar from "/components/Navbar/Navbar";
+import NavigationBar from '/components/Navbar/NavigationBar'
+import QuickNavBar from '/components/Navbar/QuickNavBar'
 import React, { useState } from "react";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import QuickNavBar from "../components/Navbar/QuickNavBar";
 
 function MyApp({ Component, pageProps }) {
     const userData = useUserData();
     const [step, setStep] = useState(1);
 
     return (
-        <div>
+        <>
             <UserContext.Provider value={{ userData, step, setStep }}>
-                <title>Menu Mate</title>
-                <NewMenuProvider>
-                    <Component {...pageProps} />
-                    <ToastContainer position='top-right' />
-                </NewMenuProvider>
-                <QuickNavBar/>
+                <MenusProvider>
+                    <NewMenuProvider>
+                        <title>Menu Mate</title>
+                        <Navbar />
+                        <Component {...pageProps} />
+                        <ToastContainer position='top-right' />
+                    </NewMenuProvider>
+                    <QuickNavBar />
+                </MenusProvider>
             </UserContext.Provider>
-        </div>
+        </>
     )
 }
 
-export default MyApp
+export default MyApp;

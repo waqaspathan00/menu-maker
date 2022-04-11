@@ -5,6 +5,8 @@ import { NewMenuContext } from "/lib/context";
 import { MdArrowRightAlt } from 'react-icons/md'
 import { toast } from "react-toastify";
 
+import Link from 'next/link'
+
 const MenuInput = () =>
 {
 	const router = useRouter();
@@ -61,7 +63,7 @@ const MenuInput = () =>
 				<label htmlFor="menu-name" className=" font-semibold">Menu Name *</label>
 				<input type="text" id="menu-name" className="block w-full bg-[#F9F9F9] h-11 border border-[#DADADA] rounded-sm mt-4 pl-4" placeholder="Amazing Monday, Tuesday Bash, etc." value={menuName} onChange={handleChange} required />
 				<div className="flex justify-between items-center mt-8 ">
-					<h4>Cancel</h4>
+					<Link href="/dashboard">Cancel</Link>
 					<button className='flex items-center font-bold' type="submit">Next 	<MdArrowRightAlt className="ml-2" /></button>
 				</div>
 			</form>
