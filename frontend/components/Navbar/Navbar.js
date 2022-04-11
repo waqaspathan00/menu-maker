@@ -20,7 +20,7 @@ const Navbar = () =>
           <Logo />
         </div>
         <div>
-          {currentUser ? <UserNav user={currentUser.user} /> : <button onClick={loginWithGoogle}>Login in</button>}
+          {currentUser?.user ? <UserNav user={currentUser.user} /> : <button onClick={loginWithGoogle}>Login in</button>}
         </div>
       </nav>
     </header>
