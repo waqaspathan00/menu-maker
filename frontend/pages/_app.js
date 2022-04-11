@@ -2,11 +2,12 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import '../styles/globals.css';
 import { useUserData } from "../lib/hooks";
 import { MenusProvider, NewMenuProvider, UserContext   } from "../lib/context";
-import Navbar, {NavigationBar, QuickNavBar}from "/components/Navbar/NavigationBar";
+import Navbar from "/components/Navbar/Navbar";
+import NavigationBar from '/components/Navbar/NavigationBar'
+import QuickNavBar from '/components/Navbar/QuickNavBar'
 import React, { useState } from "react";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import QuickNavBar from "../components/Navbar/QuickNavBar";
 
 function MyApp({ Component, pageProps }) {
     const userData = useUserData();
