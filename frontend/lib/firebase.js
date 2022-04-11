@@ -35,7 +35,7 @@ const firebaseConfig = {
 // Initialize Firebase
 
 const app = initializeApp(firebaseConfig);
-const googleProvider = new GoogleAuthProvider()
+export const googleProvider = new GoogleAuthProvider()
 export const auth = getAuth(app)
 export const storage = getStorage();
 
@@ -45,7 +45,6 @@ export const signInWithGoogle =  () => {
 
         try {
             const response = await axios.post('http://localhost:8000/api/login/', {uid: user.uid})
-            console.log(response);
             toast.success("Signed in")
         } catch (error) {
             toast.error("Failed to connect to server")
@@ -57,7 +56,6 @@ export const signOutWithGoogle = () => {
     signOut(auth).then(async r => {
         try{
             const response = await axios.post('http://localhost:8000/api/logout/')
-            console.log(response)
             toast.success("Successfully signed out")
         } catch (error) {
             toast.error("Failed to connect to server")
