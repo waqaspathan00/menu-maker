@@ -50,6 +50,14 @@ class FirestoreDB:
         return menu_names
 
     @staticmethod
+    def update_user_menus(uid, menu_names_list):
+        """ update list of menus that the user owns """
+        user_collection = FirestoreDB.get_collection(uid)
+        user_menus = user_collection.document("menus")
+        user_menus.update({'menu_names': menu_names_list})
+        return
+
+    @staticmethod
     def add_menu_to_user(user_owned_menus, menu_name, uid):
         """ give ownership for a menu name to a user """
         user_collection = FirestoreDB.get_collection(uid)

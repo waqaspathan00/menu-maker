@@ -1,11 +1,14 @@
 import React, {Fragment} from "react";
 import {loginWithGoogle, logoutWithGoogle} from "../lib/firebase";
 import Image from "next/Image";
+import Link from "next/link"
+import NavigationBar from "../components/Navbar/NavigationBar";
 
 export default function Home({menus}) {
 
     return (
         <div>
+            <NavigationBar/>
             <SplashSection/>
             <TutorialSection/>
             <WhoIsThisForSection/>
@@ -16,7 +19,7 @@ export default function Home({menus}) {
 
 const SplashSection = () => {
     return (
-        <div className={"flex flex-col items-center"}>
+        <div className={"flex flex-col items-center mt-28"}>
             <h1 className={"text-4xl font-rock-salt my-6"}>Menu Mate</h1>
             <h3 className={"text-sm text-center mx-12 my-4"}>QUICKLY AND EASILY CREATE SHAREABLE MENUS</h3>
             <div className={"w-1/2 border-2 border-gray-300"}></div>
@@ -33,8 +36,8 @@ const SplashSection = () => {
 
 const TutorialSection = () => {
     return (
-        <div className={"flex flex-col items-around bg-blue-gray"}>
-            <h2 className={"text-3xl text-center font-bold my-8"}>Let me show you how in 2 simple steps</h2>
+        <div id={"how-to-use"} className={"flex flex-col items-around bg-blue-gray"}>
+            <h2 className={"text-3xl text-center font-bold my-8"}>Let us show you how in 2 simple steps</h2>
             <div className={"flex w-full h-80"}>
                 <div className={"flex flex-col items-center justify-center"}>
                     <h3 className={"text-xl font-bold"}>FIRST</h3>
@@ -52,7 +55,7 @@ const TutorialSection = () => {
             <div className={"my-20 flex h-80"}>
                 <div className={"w-1/2"}>
                     <img src={"/assets/img/home/mobile-view-menu.png"}
-                         className={"styled-img w-2/5 absolute left-2 top-100"}/>
+                         className={"styled-img w-2/5 absolute left-2"}/>
                 </div>
                 <div className={"w-1/2 flex flex-col items-center justify-center pr-8"}>
                     <img src={"/assets/img/home/second-step-qr.png"} className={"w-16"}/>
@@ -71,7 +74,8 @@ const TutorialSection = () => {
 const WhoIsThisForSection = () => {
     const TargetCustomerCard = ({image, title}) => {
         return (
-            <div className={"flex bg-primary-blue rounded-2xl mx-2 my-4 items-center justify-around h-16 drop-shadow-md"}>
+            <div
+                className={"flex bg-primary-blue rounded-2xl mx-2 my-4 items-center justify-around h-16 drop-shadow-md"}>
                 <img src={`/assets/img/home/whoisthisfor/${image}.png`} className={"w-20"}/>
                 <h4 className={"text-xl font-rock-salt font-bold text-white"}>{title}</h4>
             </div>
@@ -79,9 +83,9 @@ const WhoIsThisForSection = () => {
     }
 
     return (
-        <div className={"flex flex-col my-8"}>
+        <div id={"who-is-this-for"} className={"flex flex-col my-8"}>
             <h2 className={"text-3xl text-center font-bold my-4"}>Who is this for?</h2>
-            <h3 className={"text-xl text-center"}>Home-based small business'</h3>
+            <h3 className={"text-xl text-center mt-12"}>Home-based small business'</h3>
 
             <TargetCustomerCard image={"homecook"} title={"Home Cooks"}/>
             <TargetCustomerCard image={"jewelry"} title={"Jewelry Artisans"}/>
@@ -110,8 +114,19 @@ const InstallGuide = () => {
         )
     }
 
+    /** uncomment this when pwas are implemented */
+    // const openShareMenu = async () => {
+    //     if (navigation.canShare){
+    //         navigator.share({
+    //             files: filesArray,
+    //             title: "PWAs are awesome!",
+    //             text: "I learned how to build a PWA today",
+    //         })
+    //     }
+    // }
+
     return (
-        <div className={"flex flex-col items-center justify-center bg-blue-gray"}>
+        <div id={"how-to-install"} className={"flex flex-col items-center justify-center bg-blue-gray"}>
             <h2 className={"text-3xl text-center font-bold my-4"}>Install Menu Mate as an app</h2>
             <h3 className={"text-xl"}>In just 3 clicks!</h3>
 
@@ -121,7 +136,10 @@ const InstallGuide = () => {
                     <Fragment>
                         <div className={"text-center flex items-center"}>
                             First, press the<strong>&nbsp;share icon</strong>
-                            <img className={"w-8"} src={"/assets/img/home/installguide/share.png"}/>
+                            {/*<button onClick={openShareMenu}>*/}
+                            <button>
+                                <img className={"w-8"} src={"/assets/img/home/installguide/share.png"}/>
+                            </button>
                         </div>
                     </Fragment>
                 }
