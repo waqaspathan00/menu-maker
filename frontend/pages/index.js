@@ -169,6 +169,7 @@ const InstallGuide = () => {
                 }
                 image={"third-step-press-add"}
             />
+            <div className={"h-20"}></div>
         </div>
     )
 }
