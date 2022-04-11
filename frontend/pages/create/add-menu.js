@@ -4,20 +4,22 @@ import Image from 'next/Image'
 import { useContext, useEffect } from 'react'
 import { NewMenuContext } from "/lib/context";
 import BreadCrumb from '/components/Breadcrumb/BreadCrumb'
-
+import { useRouter } from "next/router";
 
 
 const AddMenu = () =>
 {
     const { step, setStep } = useContext(NewMenuContext);
+
+
     useEffect(() =>
     {
         setStep(1);
-
     }, [])
 
     return (
         <main className="mt-4 h-auto grid place-items-center">
+
             <div className="container mx-auto">
                 <BreadCrumb step={step} />
             </div>
