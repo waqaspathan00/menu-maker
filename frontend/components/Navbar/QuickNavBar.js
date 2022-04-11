@@ -3,7 +3,7 @@ import Link from "next/link"
 
 export default function QuickNavBar() {
     return (
-        <div className='w-full h-20 fixed bottom-0 flex justify-around items-center bg-grey'>
+        <div className='w-full h-20 fixed bottom-0 flex justify-around items-center bg-lavender'>
             <div className='bn-tab'>
                 <Link href={"/"}>
                     <img className={"w-10 cursor-pointer"} src={"/assets/img/nav/info.png"}/>
