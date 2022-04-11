@@ -9,25 +9,113 @@ import NewCategory from "/components/Inputs/NewCategory"
 import NewItemInput from "/components/Inputs/NewItemInput";
 
 import ItemList from "../../components/ItemList";
+import axios from "axios";
+import { async } from "@firebase/util";
 
 export default function AddItems()
 {
-    const { step, setStep, newMenu, currentCategories } = useContext(NewMenuContext);
+    const { step, setStep, newMenu, currentCategories, setNewMenu } = useContext(NewMenuContext);
     const [isOpen, setIsOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [toggleAddItem, setToggle] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
     const router = useRouter();
+
+
+    async function handleSubmit(e)
+    {
+        console.log(newMenu)
+        e.preventDefault();
+        try
+        {
+            setLoading(true);
+            const req = await fetch('http://127.0.0.1:8000/api/create', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newMenu)
+            })
+        } catch (error)
+        {
+            console.log(error)
+        } finally
+        {
+            setLoading(false);
+            toast.success("Menu successfully added! You will be redirected to dashboard");
+            setTimeout(() => {
+                router.push("/dashboard");
+                setNewMenu({
+                    "menu-data": [],
+                    "menu-name": "",
+                    "isActive": false
+                })
+            }, 1000)
+        }
+    }
+
+    async function handleEdit(e)
+    {
+        e.preventDefault();
+        setLoading(true);
+        try
+        {
+            const req = await fetch(`http://127.0.0.1:8000/api/edit/${ router.query.slug }`, {
+                method: 'PATCH',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newMenu)
+            })
+            toast.success("Menu successfully updated!")
+            setTimeout(() =>
+            {
+                router.push("/dashboard");
+                setNewMenu({
+                    "menu-data": [],
+                    "menu-name": "",
+                    "isActive": false
+                })
+            }, 1000)
+        } catch (error)
+        {
+            console.log(error);
+            toast.error("Oops! Something went wrong..")
+        } finally
+        {
+            setLoading(false);
+
+        }
+    }
+
 
     useEffect(() =>
     {
-        if (step === 1 || step === 3)
+        if (router.isReady)
         {
-            setStep(2);
+            if (router.query.isEdit === 'true')
+            {
+                setIsEdit(true);
+                setStep(2);
+            }
 
-        } else
-        {
-            router.push("/create/add-menu")
+            if (step === 1 || step === 3 || router.query.step == 2)
+            {
+                setStep(2);
+            } else
+            {
+                router.push("/create/add-menu")
+            }
         }
-    }, [])
+
+        return () =>
+        {
+            setIsEdit(false)
+        }
+
+    }, [router.isReady])
 
     return (
         <main className="mt-4 h-auto w-full">
@@ -80,21 +168,15 @@ export default function AddItems()
 
                         </div>
                         <div className="pb-2 w-full  xl:w-fit lg:w-fit md:w-fit sm:w-fit  xs:w-fit">
-                            <button className="px-6 py-2 font-semibold flex items-center text-white transition-colors  w-full justify-center bg-primary-green hover:bg-primary-green/70 rounded" onClick={async (e) =>
-                            {
-                                e.preventDefault();
-                                const req = await fetch('http://127.0.0.1:8000/api/create', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Accept': 'application/json',
-                                        'Content-Type': 'application/json'
-                                    },
-                                    body: JSON.stringify(newMenu)
+                            <button className="px-6 py-2 font-semibold flex items-center text-white transition-colors  w-full justify-center bg-primary-green hover:bg-primary-green/70 rounded" onClick={isEdit ? handleEdit : handleSubmit} disabled={loading}>
+                                {loading ? <div className="flex items-center">
+                                    Processing
+                                    <svg className="animate-spin ml-2 h-5 w-5 text-primary-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                </div> : "Submit"}
 
-                                })
-                                console.log(req);
-                            }}>
-                                Submit
                             </button>
                         </div>
                     </div>
