@@ -1,15 +1,15 @@
-import axios from "axios";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
-import { NewMenuContext } from "../../lib/context";
+import { NewMenuContext, MenusContext } from "../../lib/context";
 
 
-function CategoryList({ props })
+function CategoryList({ props, index })
 {
 
 	const router = useRouter();
 	const { newMenu, setNewMenu } = useContext(NewMenuContext);
+	const { userMenus, setUserMenu } = useContext(MenusContext);
 	const [isLoading, setLoading] = useState(false);
 	function handleEdit(menus)
 	{
@@ -29,13 +29,19 @@ function CategoryList({ props })
 		setLoading(true);
 		try
 		{
-			const req = await axios.delete(`http://127.0.0.1:8000/api/delete/${ props['slug'] }`)
+			const req = await fetch(`http://127.0.0.1:8000/api/delete/${ props['slug'] }`, {
+				method:"DELETE"
+			})
+			let temp = [...userMenus];
+			temp.splice(index, 1);
+			setUserMenu(temp);
+			toast.success("Successfully deleted!");
 		} catch (error)
 		{
 			console.error(error.message || error.description)
+			toast.error(error.message || error.description)
 		} finally {
 			setLoading(false);
-			toast.success("Successfully deleted!")
 		}
 	}
 
