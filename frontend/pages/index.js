@@ -1,7 +1,4 @@
 import React, {Fragment} from "react";
-import {loginWithGoogle, logoutWithGoogle} from "../lib/firebase";
-import Image from "next/Image";
-import Link from "next/link"
 import NavigationBar from "../components/Navbar/NavigationBar";
 
 export default function Home({menus}) {
