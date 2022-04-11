@@ -1,7 +1,8 @@
-import {getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
+import {getAuth, GoogleAuthProvider, signInWithPopup, signOut} from 'firebase/auth'
 import axios from 'axios';
 import {initializeApp} from "firebase/app";
-import { getStorage } from 'firebase/storage'
+import {getStorage} from 'firebase/storage'
+import {toast} from "react-toastify";
 // TODO: Add SDKs for Firebase products that you want to use
 
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -34,37 +35,32 @@ const firebaseConfig = {
 // Initialize Firebase
 
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app)
-
 const googleProvider = new GoogleAuthProvider()
+export const auth = getAuth(app)
+export const storage = getStorage();
 
-export const loginWithGoogle = () => {
-    signInWithPopup(auth, googleProvider).then((result) => {
+export const signInWithGoogle =  () => {
+    signInWithPopup(auth, googleProvider).then(async (result) => {
+        const user = result.user;
 
-        var user = result.user;
-        console.log(user);
-        axios.post('http://localhost:8000/api/login/', {
-            uid: user.uid
-        }).then((response) => {
+        try {
+            const response = await axios.post('http://localhost:8000/api/login/', {uid: user.uid})
             console.log(response);
-        }, (error) => {
-            console.log(error);
-        });
-    }).catch((error) => {
-        console.log(error)
+            toast.success("Signed in")
+        } catch (error) {
+            toast.error("Failed to connect to server")
+        }
     })
 }
 
-
-export const storage = getStorage();
-
-export const logoutWithGoogle = () => {
-    auth.signOut().then(r => {
-        console.log(r)
-        axios.post('http://localhost:8000/api/logout/').then((response) => {
-            console.log(response);
-        }, (error) => {
-            console.log(error);
-        });
+export const signOutWithGoogle = () => {
+    signOut(auth).then(async r => {
+        try{
+            const response = await axios.post('http://localhost:8000/api/logout/')
+            console.log(response)
+            toast.success("Successfully signed out")
+        } catch (error) {
+            toast.error("Failed to connect to server")
+        }
     })
 }
