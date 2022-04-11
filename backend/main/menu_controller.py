@@ -73,7 +73,7 @@ def edit_menu(request, name):
     if name not in menu_names_list:
         return HttpResponse(status=401, content="You do not have access to this menu")
 
-    menu_name = data["url-name"]  # extract current menu name
+    menu_name = data["url_name"]  # extract current menu name
 
     # Availability Swap
     # if the user changes their open status:
