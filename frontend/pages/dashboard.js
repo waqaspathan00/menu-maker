@@ -1,34 +1,62 @@
 import { BsCalendar2Check } from 'react-icons/bs'
 import { SiDatabricks } from 'react-icons/si'
 import { AiFillPlusCircle } from 'react-icons/ai'
-import { useContext, useEffect, useState } from 'react';
-import { MenusContext } from '../lib/context';
-import { menuRef } from '../lib/firebase'
-import { query, where, getDocs } from 'firebase/firestore'
-function Dashboard({ menus })
+import { useCallback, useContext, useEffect, useState } from 'react';
+import { MenusContext, UserContext } from '../lib/context';
+import { menuRef, db } from '../lib/firebase'
+import { query, where, getDocs, collection } from 'firebase/firestore'
+import { useRouter } from 'next/router';
+import CategoryList from '../components/ItemList/CategoryList';
+import { async } from '@firebase/util';
+import axios from 'axios';
+import Link from 'next/link';
+function Dashboard()
 {
 	const { userMenus, setUserMenu } = useContext(MenusContext);
+	const { userData } = useContext(UserContext)
+	const router = useRouter();
+	const getMenuList = useCallback(async (isMounted) =>
+	{
+		if (isMounted) 
+		{
+			try
+			{
+				const req = await axios.get('http://127.0.0.1:8000/api/get-menus');
+				let tempArr = []
+				if (req.data.length > 0)
+				{
+					const q = query(menuRef, where('slug', 'in', req.data))
+					const sp = await getDocs(q)
+					sp.forEach((doc) =>
+					{
+						tempArr.push(doc.data())
+					})
+				}
+				setUserMenu(tempArr)
+			} catch (error)
+			{
+				console.error(error.response.data)
+			}
+		}
 
+
+	}, [setUserMenu])
 
 	useEffect(() =>
 	{
-		async function getMenus(menusArr)
+		let isMounted = true;
+		if (!userData.loading)
 		{
-			const q = query(menuRef, where("menu-name", "in", menusArr));
-			const snapShot = await getDocs(q);
-			let temp = [];
-			snapShot.forEach((doc) => {
-				temp.push(doc.data())
-			})
-			setUserMenu(temp)
+			if (userData.user)
+			{
+				getMenuList(isMounted);
+			} else
+			{
+				router.push("/")
+			}
 		}
-
-		if (menus)
-		{
-			getMenus(menus)
-		}
-
-	}, [menus])
+		return () => isMounted = false;
+	}, [userData.user, getMenuList, setUserMenu])
 
 	return (
 		<main className="mt-20">
@@ -63,25 +91,22 @@ function Dashboard({ menus })
 							<div className='h-full border  border-primary-gray/40 rounded mt-2 absolute -left-9 top-6'></div>
 						</div>
 						<div className='w-full relative mt-2'>
-							<div className='flex items-center justify-between'>
-								<h4 className='font-semibold'>My Menus</h4>
-								<button className='flex items-center p-2 border rounded border-primary-black'>
-									<AiFillPlusCircle className='w-4 h-4 mr-1' />
-									Add Menu
-								</button>
-							</div>
+							<Link href="/create/add-menu" >
+								<div className='flex items-center justify-between'>
+									<h4 className='font-semibold'>My Menus</h4>
+									<button className='flex items-center p-2 border rounded text-primary-blue border-primary-blue hover:bg-primary-blue hover:text-white transition-colors font-semibold'>
+										<AiFillPlusCircle className='w-4 h-4 mr-1' />
+										Add Menu
+									</button>
+								</div>
+							</Link>
 							<div className="w-full h-auto mt-4 space-y-4">
-								{userMenus ? userMenus.map((menu, index) =>
-									<div className='w-full border p-4 rounded' key={index}>
-										<h1 className='text-xl font-bold'>{menu["menu-name"]}</h1>
-										<ul>
-											<li>Lunch</li>
-										</ul>
-									</div>
-								) : null}
+								{userMenus && userMenus?.length !== 0 ? userMenus.map((menu, index) =>
+									<CategoryList props={menu} index={index} key={index} />
+								) : <h1>No menus available</h1>}
 							</div>
 							<SiDatabricks className='w-6 h-6 absolute -left-12 top-0' />
-							<div className='h-full border  border-primary-gray/40 rounded mt-2 absolute -left-9 top-6'></div>
+							<div className='h-12 border  border-primary-gray/40 rounded mt-2 absolute -left-9 top-6'></div>
 						</div>
 
 
@@ -95,15 +120,7 @@ function Dashboard({ menus })
 }
 
 
-export const getServerSideProps = async (context) =>
-{
-	const req = await fetch(' http://127.0.0.1:8000/api/get-menus');
-	const data = await req.json();
-	console.log()
-	return {
-		props: { menus: data }
-	}
-}
+
 
 
 export default Dashboard;
