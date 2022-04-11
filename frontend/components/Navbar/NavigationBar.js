@@ -3,15 +3,10 @@ import {UserContext} from "../../lib/context";
 import {Navbar, Nav, Container} from "react-bootstrap";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
 import {signInWithGoogle, signOutWithGoogle} from "../../lib/firebase";
+import {useRouter} from "next/router";
 
 export default function NavigationBar() {
-    const {user} = useContext(UserContext);
-
-
-    useEffect(() => {
-        console.log(user)
-    })
-
+    const {userData} = useContext(UserContext);
 
     return (
         <>
@@ -19,6 +14,8 @@ export default function NavigationBar() {
                     bg="primary" variant={"dark"}>
                 <Container className={"flex justify-around transition-all"}>
                     <img className={"w-16 h-16 cursor-pointer"} src="/assets/logo.png" alt="logo"/>
+
+                    <TryItFreeButton/>
 
                     <NavbarToggle aria-controls={"responsive-navbar-nav"}/>
                     <Navbar.Collapse className={"w-full"} id={"responsive-nav-nav"}>
@@ -39,7 +36,7 @@ export default function NavigationBar() {
                                 </Nav.Link>
                             </ul>
 
-                            {user ?
+                            {userData.user ?
                                 <SignOutButton/>
                                 :
                                 <SignInButton/>
@@ -51,6 +48,20 @@ export default function NavigationBar() {
             </Navbar>
 
         </>
+    )
+}
+
+/**
+ *
+ */
+const TryItFreeButton = () => {
+    const router = useRouter();
+
+    return (
+        <button className={"px-2 py-2 bg-white rounded-lg flex justify-around items-center"}
+                onClick={() => router.push("/create/add-items")}>
+            <span className={"text-lg text-primary-blue"}>Try it Free</span>
+        </button>
     )
 }
 
