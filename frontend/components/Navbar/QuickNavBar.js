@@ -3,23 +3,27 @@ import Link from "next/link"
 
 export default function QuickNavBar() {
     return (
-        <div className='w-full h-20 fixed bottom-0 flex justify-around items-center bg-lavender'>
-            <div className='bn-tab'>
-                <Link href={"/"}>
-                    <img className={"w-10 cursor-pointer"} src={"/assets/img/nav/info.png"}/>
-                </Link>
+        <>
+            <div className={"h-20"}></div>
+            <div className='w-full h-20 fixed bottom-0 flex justify-around items-center bg-lavender'>
+                <div className='bn-tab'>
+                    <Link href={"/"}>
+                        <img className={"w-10 cursor-pointer"} src={"/assets/img/nav/info.png"}/>
+                    </Link>
+                </div>
+                <div className='bn-tab'>
+                    <Link href={"/create/add-menu"}>
+                        <img className={"w-10 cursor-pointer"} src={"/assets/img/nav/create-menu.png"}/>
+                    </Link>
+                </div>
+                <div className='bn-tab'>
+                    <Link href={"/dashboard"}>
+                        <img className={"w-10 cursor-pointer"} src={"/assets/img/nav/profile.png"}/>
+                    </Link>
+                </div>
             </div>
-            <div className='bn-tab'>
-                <Link href={"/create/add-menu"}>
-                    <img className={"w-10 cursor-pointer"} src={"/assets/img/nav/create-menu.png"}/>
-                </Link>
-            </div>
-            <div className='bn-tab'>
-                <Link href={"/dashboard"}>
-                    <img className={"w-10 cursor-pointer"} src={"/assets/img/nav/profile.png"}/>
-                </Link>
-            </div>
-        </div>
+        </>
+
     )
 }
 

@@ -1,7 +1,4 @@
 import React, {Fragment} from "react";
-import {loginWithGoogle, logoutWithGoogle} from "../lib/firebase";
-import Image from "next/Image";
-import Link from "next/link"
 import NavigationBar from "../components/Navbar/NavigationBar";
 
 export default function Home({menus}) {
@@ -169,7 +166,6 @@ const InstallGuide = () => {
                 }
                 image={"third-step-press-add"}
             />
-            <div className={"h-20"}></div>
         </div>
     )
 }
