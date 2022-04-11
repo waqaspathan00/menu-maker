@@ -1,5 +1,5 @@
 /* React JS Template using functions */
-import { createContext, useEffect, useState } from "react"
+import { createContext, useMemo, useState } from "react"
 
 // when user logs in their information will be saved in this context
 export const UserContext = createContext({ user: null })
@@ -24,8 +24,9 @@ export const MenusContext = createContext({});
 export const MenusProvider = ({ children }) =>
 {
 	const [userMenus, setUserMenu] = useState(null);
+	const values = useMemo(() => ({userMenus, setUserMenu}), [userMenus, setUserMenu])
 
-	return <MenusContext.Provider value={{ userMenus, setUserMenu }}>
+	return <MenusContext.Provider value={values}>
 		{children}
 	</MenusContext.Provider>
 }
