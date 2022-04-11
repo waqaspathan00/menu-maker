@@ -106,6 +106,20 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 	{
 		e.preventDefault();
 		let tempMenu = { ...newMenu };
+		let imageUrl = "";
+		let imagePath = ""
+		tempMenu['slug'] = tempMenu['menu-name'].split(' ').join('-').toLowerCase()
+		if (dishImage && props['image-path'] !== `${ dishCat }/${ dishImage.name }`)
+		{
+			imageUrl = await upload();
+			imagePath = `${ dishCat }/${ dishImage.name }`;
+		} else
+		{
+			imageUrl = props["item-image"];
+			imagePath = props["image-path"]
+		}
+
+	
 		/*
 		* Get the index of the previous category the dish within the 
 		* menu-data array.
@@ -124,8 +138,8 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 			"item-description": dishDesc,
 			"item-name": dishName,
 			"item-price": dishPrice,
-			"item-image": props["item-image"],
-			"image-path": props["item-image"].length > 0 ? `${ dishCat }/${ dishImage.name } ` : ""
+			"item-image": imageUrl,
+			"image-path": imagePath,
 		}
 
 		if (prevCategory !== dishCat)
@@ -165,7 +179,9 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 				"item-description": dishDesc,
 				"item-name": dishName,
 				"item-price": dishPrice,
-				"item-image": props["item-image"]
+				"item-image": imageUrl,
+				"image-path": imagePath,
+
 			}
 		}
 
@@ -180,7 +196,7 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 		{
 			setDishName(props['item-name']);
 			setDishDesc(props['item-description']);
-			setDishPrice(Number(props['item-price']).toFixed(2))
+			setDishPrice(Number(props['item-price']).toFixed(2));
 		}
 	}, [])
 
