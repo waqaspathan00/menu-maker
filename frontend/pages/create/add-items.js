@@ -9,8 +9,6 @@ import NewCategory from "/components/Inputs/NewCategory"
 import NewItemInput from "/components/Inputs/NewItemInput";
 
 import ItemList from "../../components/ItemList";
-import axios from "axios";
-import { async } from "@firebase/util";
 
 export default function AddItems()
 {
@@ -93,6 +91,7 @@ export default function AddItems()
 
     useEffect(() =>
     {
+        
         if (router.isReady)
         {
             if (router.query.isEdit === 'true')
