@@ -22,14 +22,18 @@ import { collection, getFirestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCkKvXgPbR_jYkjjbG3PDGN6w_jM95Anfg",
-    authDomain: "learnfirebase-544b9.firebaseapp.com",
-    databaseURL: "https://learnfirebase-544b9-default-rtdb.firebaseio.com",
-    projectId: "learnfirebase-544b9",
-    storageBucket: "learnfirebase-544b9.appspot.com",
-    messagingSenderId: "982907877980",
-    appId: "1:982907877980:web:01e53d273d9acfbe24c499",
-    measurementId: "G-GSMF3Y1MKB"
+    apiKey: "AIzaSyB5ipG5sxHAC1aGpNzpg3NzKHOfdIHwlJ0",
+
+    authDomain: "capstone-13aec.firebaseapp.com",
+
+    projectId: "capstone-13aec",
+
+    storageBucket: "capstone-13aec.appspot.com",
+
+    messagingSenderId: "215496982785",
+
+    appId: "1:215496982785:web:d53c54725bb8282cec1b00"
+
 };
 
 

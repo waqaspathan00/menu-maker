@@ -4,7 +4,7 @@ import { AiFillPlusCircle } from 'react-icons/ai'
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { MenusContext, UserContext, NewMenuContext } from '../lib/context';
 import { menuRef } from '../lib/firebase'
-import { query, where, getDocs } from 'firebase/firestore'
+import { query, where, getDocs, limit } from 'firebase/firestore'
 import { useRouter } from 'next/router';
 import CategoryList from '../components/ItemList/CategoryList';
 import axios from 'axios';
@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 function Dashboard()
 {
 	const { userMenus, setUserMenu } = useContext(MenusContext);
-	const { newMenu, setNewMenu } = useContext(NewMenuContext);
+	const { setNewMenu } = useContext(NewMenuContext);
 	const { userData } = useContext(UserContext)
 	const router = useRouter();
 	const [loading, setLoading] = useState(false);
@@ -27,7 +27,7 @@ function Dashboard()
 				let tempArr = []
 				if (req.data.length > 0)
 				{
-					const q = query(menuRef, where('slug', 'in', req.data))
+					const q = query(menuRef, where('slug', 'in', req.data), limit(5))
 					const sp = await getDocs(q)
 					sp.forEach((doc) =>
 					{
@@ -40,8 +40,6 @@ function Dashboard()
 				console.error(error.message)
 			}
 		}
-
-
 	}, [setUserMenu])
 	function handleEdit(menus)
 	{
@@ -76,31 +74,22 @@ function Dashboard()
 	useEffect(() =>
 	{
 		let isMounted = true;
-		if (!userData.loading)
-		{
-			if (userData.user)
-			{
-				getMenuList(isMounted);
-			} else
-			{
-				router.push("/")
-			}
-		}
+		getMenuList(isMounted)
 		return () => isMounted = false;
 	}, [userData.user, getMenuList, setUserMenu, loading])
 
 	return (
 		<main className="mt-20">
 			<section className="container mx-auto
-		justify-center
-		2xl:space-x-12
-		lg:space-x-12
-		space-x-0
-		flex-wrap
-		mt-0
-		h-auto
-		text-primary-black
-		">
+			justify-center
+			2xl:space-x-12
+			lg:space-x-12
+			space-x-0
+			flex-wrap
+			mt-0
+			h-auto
+		  text-primary-black
+			">
 				<div className="flex w-full justify-evenly">
 					<div className="">
 						Restaurant info
@@ -147,7 +136,7 @@ function Dashboard()
 											<div className="space-x-4">
 												<button className="font-semibold" onClick={() => handleEdit(menu)} disabled={loading}>Edit</button>
 												<button className="font-semibold" disabled={loading}>View</button>
-												<button className="font-semibold text-primary-red" disabled={loading} onClick={(e) => handleDelete(e,menu, index)}>Delete</button>
+												<button className="font-semibold text-primary-red" disabled={loading} onClick={(e) => handleDelete(e, menu, index)}>Delete</button>
 											</div>
 											<div>
 												<button className="font-semibold text-primary-blue" disabled={loading}>Set active</button>
