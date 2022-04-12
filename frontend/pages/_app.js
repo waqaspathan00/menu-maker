@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps })
                     <NewMenuProvider>
                         <title>Menu Mate</title>
                         <NavigationBar />
-                        <div className="mt-48">
+                        <div className='pt-12'>
                             {authRequired.includes(router.pathname) ? (<ProtectedRoute>
                                 <Component {...pageProps} />
                             </ProtectedRoute>) : <Component {...pageProps} />}

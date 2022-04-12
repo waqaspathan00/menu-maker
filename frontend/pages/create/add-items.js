@@ -22,7 +22,6 @@ export default function AddItems()
 
     async function handleSubmit(e)
     {
-        console.log(newMenu)
         e.preventDefault();
         try
         {
@@ -37,12 +36,13 @@ export default function AddItems()
             })
         } catch (error)
         {
-            console.log(error)
+            console.error(error)
         } finally
         {
             setLoading(false);
             toast.success("Menu successfully added! You will be redirected to dashboard");
-            setTimeout(() => {
+            setTimeout(() =>
+            {
                 router.push("/dashboard");
                 setNewMenu({
                     "menu-data": [],
@@ -79,7 +79,7 @@ export default function AddItems()
             }, 1000)
         } catch (error)
         {
-            console.log(error);
+            console.error(error);
             toast.error("Oops! Something went wrong..")
         } finally
         {
@@ -91,7 +91,6 @@ export default function AddItems()
 
     useEffect(() =>
     {
-        
         if (router.isReady)
         {
             if (router.query.isEdit === 'true')
@@ -127,8 +126,8 @@ export default function AddItems()
                         <div className="flex items-center border p-4">
                             <h1 className="text-lg font-medium">{newMenu["menu-name"]}'s dishes</h1>
                         </div>
-                        <ul className="flex space-x-1">
-                            <li className="text-xs text-gray-400">Available categories: </li>
+                        <ul className="flex space-x-2 mt-2">
+                            <li className="text-xs text-gray-400 pr-1">Available categories: </li>
                             {currentCategories.length > 0 ? currentCategories.map((category, index) =>
                             {
                                 if (index < currentCategories.length - 1)
