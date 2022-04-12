@@ -1,11 +1,14 @@
 import { useEffect } from 'react'
 import { IoCloseOutline } from 'react-icons/io5'
-
+/**
+ * @param  {string} url - url_name from menu object
+ * @param  {CallableFunction} setIsOpen
+ */
 function QrCode({ url, setIsOpen })
 {
 
 
-	function handleDownload(e)
+	function handleDownload()
 	{
 		const canvas = document.getElementById('qr-code').children[1];
 		let downloadLink = document.createElement('a');

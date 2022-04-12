@@ -37,7 +37,7 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 	const [uploadFile, uploading] = useUploadFile();
 
 
-
+	// Upload function
 	async function upload()
 	{
 		if (dishImage)
@@ -67,7 +67,8 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 	{
 		e.preventDefault();
 		let tempMenu = { ...newMenu };
-		tempMenu['slug'] = tempMenu['menu-name'].split(' ').join('-').toLowerCase()
+
+		// Process upload if user added an image
 		const imageUrl = dishImage ? await upload() : "";
 
 		// Store the items array for this specific category
@@ -108,7 +109,6 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 		let tempMenu = { ...newMenu };
 		let imageUrl = "";
 		let imagePath = ""
-		tempMenu['slug'] = tempMenu['menu-name'].split(' ').join('-').toLowerCase()
 		if (dishImage && props['image-path'] !== `${ dishCat }/${ dishImage.name }`)
 		{
 			imageUrl = await upload();
@@ -131,7 +131,6 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 		* Get the index of the the dish within the array of that 
 		* category
 		 */
-
 		const pos = findDishIndex(tempMenu["menu-data"][prev], props["item-name"])
 
 		tempMenu["menu-data"][prev]['items'][pos] = {
@@ -142,6 +141,7 @@ function NewItemInput({ setToggle, type = "", props, prevCategory = "" })
 			"image-path": imagePath,
 		}
 
+		// If category is changed
 		if (prevCategory !== dishCat)
 		{
 

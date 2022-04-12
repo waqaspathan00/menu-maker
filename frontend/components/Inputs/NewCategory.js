@@ -1,6 +1,14 @@
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { NewMenuContext } from "../../lib/context";
+
+
+/**
+ * @param  {CallableFunction} setIsOpen = Will set this component to be opened or close.
+ * @param  {CallableFunction} setToggle="" Optional. Will toggle the NewItemInput to 	open
+ * @param  {string} type="" Optional. Will check if is in edit mode.
+ * @param {string} prevCategory="" - Optional. Will hold the initial category when edition
+ */
 const NewCategory = ({ setIsOpen, setToggle = "", type = "", prevCategory = "" }) =>
 {
 	const [category, setCategory] = useState(prevCategory);
@@ -20,7 +28,8 @@ const NewCategory = ({ setIsOpen, setToggle = "", type = "", prevCategory = "" }
 			if (type === "edit")
 			{
 				// Will check if category changes
-				if(category !== prevCategory) {
+				if (category !== prevCategory)
+				{
 					// Clone newMenu array
 					let tempMenu = { ...newMenu }
 
@@ -52,7 +61,7 @@ const NewCategory = ({ setIsOpen, setToggle = "", type = "", prevCategory = "" }
 					// Set the context to the updated array of categories
 					setNewCategories(tempCategories)
 				}
-			
+
 			} else
 			{
 				const tempCat = [...currentCategories];

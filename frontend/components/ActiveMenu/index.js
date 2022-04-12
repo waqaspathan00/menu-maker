@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react'
 import { HiQrcode, HiLink } from 'react-icons/hi'
 import { toast } from 'react-toastify';
 import QrCode from './QRCode';
-
+/**
+ * @param  {Object} props
+ * @param  {CallableFunction} handleSetActive
+ * @param  {Boolean} loading
+ */
 function ActiveMenu({ props, handleSetActive, loading })
 {
 
 	const [isOpen, setIsOpen] = useState(false);
-	const [isCopied, setIsCopied] = useState(false);
 
 
 
