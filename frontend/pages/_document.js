@@ -15,9 +15,11 @@ export default function Document() {
                     rel="stylesheet"/>
                 <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap"
                       rel="stylesheet"/>
+                <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
             </Head>
 
             <body>
+
                 <Main/>
                 <NextScript/>
 
