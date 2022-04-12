@@ -36,7 +36,8 @@ export default function AddItems() {
         } finally {
             setLoading(false);
             toast.success("Menu successfully added! You will be redirected to dashboard");
-            setTimeout(() => {
+            setTimeout(() =>
+            {
                 router.push("/dashboard");
                 setNewMenu({
                     "menu-data": [],
