@@ -3,9 +3,11 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
+
 class MainConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'main'
+
 
 class FirestoreDB:
     """ initialize FirestoreDB using credentials stored in serviceAccountKey """
