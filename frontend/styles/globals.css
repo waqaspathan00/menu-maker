@@ -13,3 +13,16 @@
         border: #CCC 1px solid;
     }
 }
+
+ul, ol, li {
+    margin: 0 !important;
+    padding: 0 !important;
+} 
+
+h1,h2,h3,h4 {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+a {
+    text-decoration: none !important;
+}
