@@ -1,4 +1,4 @@
-import {getAuth, GoogleAuthProvider, signInWithPopup, signOut} from 'firebase/auth'
+import {getAuth, GoogleAuthProvider, signInWithPopup, signOut, getAdditionalUserInfo} from 'firebase/auth'
 import axios from 'axios';
 import {initializeApp} from "firebase/app";
 import {getStorage} from 'firebase/storage'
@@ -46,6 +46,10 @@ export const storage = getStorage();
 export const signInWithGoogle = () => {
     signInWithPopup(auth, googleProvider).then(async (result) => {
         const user = result.user;
+        const details = getAdditionalUserInfo(result)
+        // details.isNewUser == True or False
+        // if True then redirect to /register to register a new menu name
+        // then redirect to /create/add-items with new menu name
 
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/login/', {uid: user.uid})
