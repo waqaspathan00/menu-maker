@@ -3,8 +3,8 @@ import { SiDatabricks } from 'react-icons/si'
 import { AiFillPlusCircle } from 'react-icons/ai'
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { MenusContext, UserContext, NewMenuContext } from '../lib/context';
-import { menuRef } from '../lib/firebase'
-import { query, where, getDocs, limit } from 'firebase/firestore'
+import { menuRef, db } from '../lib/firebase'
+import { query, where, getDocs, limit, writeBatch, doc } from 'firebase/firestore'
 import { useRouter } from 'next/router';
 import CategoryList from '../components/ItemList/CategoryList';
 import axios from 'axios';
@@ -14,7 +14,9 @@ function Dashboard()
 {
 	const { userMenus, setUserMenu } = useContext(MenusContext);
 	const { setNewMenu } = useContext(NewMenuContext);
-	const { userData } = useContext(UserContext)
+	const { userData } = useContext(UserContext);
+	const [menuList, setMenuList] = useState(null);
+	const [activeMenu, setActiveMenu] = useState(null);
 	const router = useRouter();
 	const [loading, setLoading] = useState(false);
 	const getMenuList = useCallback(async (isMounted) =>
@@ -27,6 +29,7 @@ function Dashboard()
 				let tempArr = []
 				if (req.data.length > 0)
 				{
+					setMenuList(req.data);
 					const q = query(menuRef, where('slug', 'in', req.data), limit(5))
 					const sp = await getDocs(q)
 					sp.forEach((doc) =>
@@ -34,7 +37,10 @@ function Dashboard()
 						tempArr.push(doc.data())
 					})
 				}
-				setUserMenu(tempArr)
+				let active = tempArr.filter((item) => item["isActive"] === true);
+				console.log(active)
+				setActiveMenu(active);
+				setUserMenu(tempArr.filter(item => item["isActive"] === false))
 			} catch (error)
 			{
 				console.error(error.message)
@@ -71,6 +77,44 @@ function Dashboard()
 			setLoading(false);
 		}
 	}
+
+	async function handleSetActive(e, menuName, prevStatus = true)
+	{
+		e.preventDefault();
+		setLoading(true);
+		try
+		{
+			const batch = writeBatch(db);
+			for (let i = 0; i < menuList.length; i++)
+			{
+				if(!prevStatus) {
+					if (menuList[i] !== menuName)
+					{
+						const activeRef = doc(db, "menus", menuList[i]);
+						batch.update(activeRef, { "isActive": false })
+					}
+				} else {
+					const activeRef = doc(db, "menus", menuList[i]);
+					batch.update(activeRef, { "isActive": false })
+				}
+			}
+			if(!prevStatus) {
+				const activeRef = doc(db, "menus", menuName);
+				batch.update(activeRef, { "isActive": true })
+			}
+		
+
+			await batch.commit();
+		} catch (error)
+		{
+			toast.error(error.message)
+		} finally
+		{
+			setLoading(false)
+		}
+
+	}
+
 	useEffect(() =>
 	{
 		let isMounted = true;
@@ -92,21 +136,25 @@ function Dashboard()
 			">
 				<div className="flex w-full justify-evenly">
 					<div className="">
-						Restaurant info
+						{/* <button >wAZZAP</button> */}
+						aceacaecaec
 					</div>
 					<div className=" w-3/6 ">
 						<div className='w-full relative pb-24 mb-12'>
 							<h4 className='font-semibold'>Today's Menu</h4>
+
 							<div className="w-full h-auto">
-								<h1 className="text-4xl leading-loose font-black">Crazy Monday</h1>
-								<ul className="flex w-full space-x-4 text-sm">
-									<li>Breakfast</li>
-									<li>|</li>
-									<li>Lunch</li>
-									<li>|</li>
-									<li>Dinner</li>
-								</ul>
+								
+								{activeMenu === null || activeMenu.length === 0 ? 	
+									<h1 className='text-primary-gray'>No active Menu</h1>
+									: <>	<h1 className="text-4xl leading-loose font-black">{(activeMenu[0]["menu-name"])}</h1>
+									<ul className="flex space-x-4 text-sm">
+										{activeMenu[0]["menu-data"].map((category, index) => <li key={index}>{category["category-title"]}</li>)}
+									</ul>
+										<button className="font-semibold text-primary-blue" disabled={loading} onClick={(e) => handleSetActive(e, activeMenu[0]["slug"], true)}>Set active</button>
+									</>}
 							</div>
+						
 							<BsCalendar2Check className='w-6 h-6 absolute -left-12 top-0' />
 							<div className='h-full border  border-primary-gray/40 rounded mt-2 absolute -left-9 top-6'></div>
 						</div>
@@ -139,7 +187,10 @@ function Dashboard()
 												<button className="font-semibold text-primary-red" disabled={loading} onClick={(e) => handleDelete(e, menu, index)}>Delete</button>
 											</div>
 											<div>
-												<button className="font-semibold text-primary-blue" disabled={loading}>Set active</button>
+												<button className="font-semibold text-primary-blue" disabled={loading} onClick={(e) => handleSetActive(e, menu["slug"], false)}>Set active</button>
+											</div>
+											<div>
+												{menu["isActive"] ? "Active" : "Not Active"}
 											</div>
 										</div>
 									</div>
