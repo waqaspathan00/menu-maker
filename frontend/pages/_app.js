@@ -1,4 +1,3 @@
-import "bootstrap/dist/css/bootstrap.min.css"
 import '../styles/globals.css';
 import { useUserData } from "../lib/hooks";
 import { MenusProvider, NewMenuProvider, UserContext } from "../lib/context";
