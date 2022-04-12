@@ -38,12 +38,6 @@ export default function Menu() {
                     <div className="w-11/12 p-2 mx-auto" key={index}>
                         <Category>{category}</Category>
                         <p className="w-full p-2 font-logo text-primary-black">{category['category-title']}</p>
-                        {category.items.map((item, index) =>
-                            <div key={index}
-                                 className="grid grid-cols-[repeat(auto-fill,minmax(271px,1fr))] w-full justify-items-center">
-                                <MenuItem>{item}</MenuItem>
-                            </div>
-                        )}
                     </div>
                 )
             })}
