@@ -15,15 +15,9 @@ def create_menu(request):
 
     # decode HTTP request using utf-8
     data = json.loads(request.body.decode('utf-8'))
-    menu_name = data["menu-name"]
-    url_menu_name = menu_name.lower()  # convert menu name to lowercase
-    url_menu_name = url_menu_name.replace(' ', '-')  # replace spaces with dashes
 
-    # remove special characters
-    special_chars = ['"', "'", ":", "#", ",", "!", "?", "@", "."]
-    for char in special_chars:
-        url_menu_name = url_menu_name.replace(char, "")
-    data['url_name'] = url_menu_name
+    data = FirestoreDB.cleanMenuData(data)
+    url_menu_name = data['url_name']
 
     # check if menu name taken
     menu_doc = FirestoreDB.get_menu(url_menu_name)
@@ -59,6 +53,7 @@ def edit_menu(request, name):
     # decode HTTP request using utf-8 format
     data = json.loads(request.body.decode('utf-8'))
     uid = get_uid()
+
     if not uid:
         return HttpResponse(status=404, content="You must be logged in to edit a menu")
 
@@ -73,7 +68,8 @@ def edit_menu(request, name):
     if name not in menu_names_list:
         return HttpResponse(status=401, content="You do not have access to this menu")
 
-    menu_name = data["url_name"]  # extract current menu name
+    data = FirestoreDB.cleanMenuData(data)
+    menu_name = data['url_name']  # extract current menu name
 
     # Availability Swap
     # if the user changes their open status:
