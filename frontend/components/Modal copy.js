@@ -7,9 +7,6 @@ const Modal = ({ setModalOn, setChoice, props} ) => {
         setChoice(false)
         setModalOn(false)
     }
-    console.log('wrap')
-    console.log(props)
-    console.log('wrap')
 
     return (
 
