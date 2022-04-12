@@ -122,7 +122,7 @@ function Dashboard()
 	useEffect(() =>
 	{
 		let isMounted = true;
-		getMenuList(isMounted)
+		getMenuList(isMounted);
 		return () => isMounted = false;
 	}, [userData.user, getMenuList, setUserMenu, loading])
 
