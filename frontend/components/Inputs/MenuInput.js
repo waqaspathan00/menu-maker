@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NewMenuContext } from "/lib/context";
 
 import { MdArrowRightAlt } from 'react-icons/md'
@@ -33,6 +33,14 @@ const MenuInput = () =>
 	{
 		setMenuName(e.currentTarget.value);
 	}
+
+	useEffect(() => {
+		setNewMenu({
+			"menu-data": [],
+			"menu-name": "",
+			"isActive": false
+		})
+	},[])
 
 	return (
 		<div className="mt-4 w-full p-4">
