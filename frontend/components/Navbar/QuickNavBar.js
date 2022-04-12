@@ -5,7 +5,7 @@ export default function QuickNavBar() {
     return (
         <>
             <div className={"h-20"}></div>
-            <div className='w-full h-20 fixed bottom-0 flex justify-around items-center bg-lavender'>
+            <div className='w-full z-20 h-20 fixed bottom-0 flex justify-around items-center bg-lavender'>
                 <div className='bn-tab'>
                     <Link href={"/"}>
                         <img className={"w-10 cursor-pointer"} src={"/assets/img/nav/info.png"}/>
