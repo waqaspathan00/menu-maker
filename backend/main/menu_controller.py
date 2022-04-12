@@ -39,12 +39,12 @@ def view_menu(name):
 
     menu_name = name.lower()  # remove lower cases
     # retrieve menu data using menu name
-    result = FirestoreDB.get_menu(menu_name).get()
+    result = FirestoreDB.get_menu(menu_name)
+    if not result:
+        return HttpResponse(status=404, content="Menu does not exist")
 
-    if result.exists:  # return menu data (to the front end)
-        menu_data = result.to_dict()
-        return JsonResponse(menu_data)
-    return HttpResponse(status=404, content="Menu does not exist")
+    menu_data = result.get().to_dict()
+    return JsonResponse(menu_data)
 
 
 def edit_menu(request, name):

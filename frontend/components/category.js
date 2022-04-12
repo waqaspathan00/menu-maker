@@ -19,7 +19,7 @@ export default function Category(props) {
           <div className="relative flex items-center justify-center h-full ">
             {/* <div /> */}
             {/* <MdOutlineArrowForward className="px-2 text-5xl text-white justify-self-end" /> */}
-            <h2 className='text-2xl font-semibold text-white'>{props.children['category-title']}</h2>  
+            <h2 className='text-2xl text-white font-rock-salt'>{props.category["category-title"]}</h2>
           </div>
         </button>
         {modalOn ? <Modal Modal setModalOn={setModalOn} setChoice={setChoice} props={props}/> : null}
