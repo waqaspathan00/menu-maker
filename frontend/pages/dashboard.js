@@ -140,14 +140,14 @@ function Dashboard()
 			">
 				<div className="flex w-full justify-evenly">
 					<div className=" container mx-auto ">
-						<div className='w-full relative pb-24 mb-12'>
-							<div className='flex'>
+						<div className='w-full relative pb-24'>
+							<div className='flex items-center'>
 								<BsCalendar2Check className='w-6 h-6 mr-2 xl:hidden lg:hidden md:hidden block' />
-								<h4 className='font-semibold mb-0 text-sm'>Today's Menu</h4>
+								<h4 className='text-sm font-semibold mb-0 m'>Today's Menu</h4>
 							</div>
-							<div className="w-full h-auto">
+							<div className="w-full h-auto mt-0">
 								{activeMenu === null || activeMenu.length === 0 ?
-									<h1 className='text-primary-gray text-sm'>No active Menu</h1>
+									<h1 className='w-fit text-primary-gray text-sm xl:pl-0 lg:pl-0 md:pl-0   pl-8'>No active Menu</h1>
 									: <ActiveMenu props={activeMenu[0]} handleSetActive={handleSetActive} loading={loading} />}
 							</div>
 							<div className='xl:block lg:block md:block hidden'>
@@ -168,7 +168,7 @@ function Dashboard()
 									</button>
 								</div>
 							</Link>
-							<div className="w-full h-auto mt-2 space-y-4">
+							<div className="w-full h-auto mt-4 space-y-4">
 								{userMenus && userMenus?.length !== 0 ? userMenus.map((menu, index) =>
 									<div key={index} className="w-full border p-4 rounded relative shadow-sm">
 										<CategoryList props={menu} index={index} handleDelete={handleDelete} handleEdit={handleEdit} handleSetActive={handleSetActive} loading={loading} />

@@ -42,7 +42,7 @@ function CategoryList({ props, handleDelete, handleEdit, handleSetActive, loadin
 			{isCategoryOpen ? <ul className="flex text-sm items-center mt-4">
 				{props["menu-data"].map((category, index) =>
 					<li key={index}>
-						<h4 className='text-sm mb-0'>{category['category-title']}</h4>
+						<h4 className='text-base mb-0'>{category['category-title']}</h4>
 					</li>
 				)}
 			</ul> : null}
