@@ -1,8 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css"
 import '../styles/globals.css';
 import { useUserData } from "../lib/hooks";
-import { MenusProvider, NewMenuProvider, UserContext   } from "../lib/context";
-import NavigationBar from '/components/Navbar/NavigationBar'
+import { MenusProvider, NewMenuProvider, UserContext } from "../lib/context";
 import QuickNavBar from '/components/Navbar/QuickNavBar'
 import React, { useState } from "react";
 import { ToastContainer } from 'react-toastify';
@@ -18,7 +17,6 @@ function MyApp({ Component, pageProps }) {
                 <MenusProvider>
                     <NewMenuProvider>
                         <title>Menu Mate</title>
-                        <NavigationBar />
                         <Component {...pageProps} />
                         <ToastContainer position='top-right' />
                     </NewMenuProvider>
