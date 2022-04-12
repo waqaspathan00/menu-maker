@@ -48,6 +48,8 @@ export const signInWithGoogle = () => {
         const user = result.user;
         const details = getAdditionalUserInfo(result)
         // details.isNewUser == True or False
+        // if True then redirect to /register to register a new menu name
+        // then redirect to /create/add-items with new menu name
 
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/login/', {uid: user.uid})
