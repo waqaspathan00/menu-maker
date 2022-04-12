@@ -1,15 +1,21 @@
-import "bootstrap/dist/css/bootstrap.min.css"
 import '../styles/globals.css';
 import { useUserData } from "../lib/hooks";
 import { MenusProvider, NewMenuProvider, UserContext } from "../lib/context";
+import NavigationBar from '/components/Navbar/NavigationBar'
 import QuickNavBar from '/components/Navbar/QuickNavBar'
 import React, { useState } from "react";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {useRouter} from 'next/router';
+import ProtectedRoute from "../components/ProtectedRoute";
 
-function MyApp({ Component, pageProps }) {
+const authRequired = ['/create/add-items', '/create/add-menu', '/dashboard']
+
+function MyApp({ Component, pageProps })
+{
     const userData = useUserData();
     const [step, setStep] = useState(1);
+    const router = useRouter();
 
     return (
         <>
@@ -17,7 +23,12 @@ function MyApp({ Component, pageProps }) {
                 <MenusProvider>
                     <NewMenuProvider>
                         <title>Menu Mate</title>
-                        <Component {...pageProps} />
+                        <NavigationBar />
+                        <div className="mt-48">
+                            {authRequired.includes(router.pathname) ? (<ProtectedRoute>
+                                <Component {...pageProps} />
+                            </ProtectedRoute>) : <Component {...pageProps} />}
+                        </div>
                         <ToastContainer position='top-right' />
                     </NewMenuProvider>
                     <QuickNavBar />

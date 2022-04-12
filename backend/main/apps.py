@@ -19,6 +19,18 @@ class FirestoreDB:
         return FirestoreDB.db.collection(coll_id)
 
     @staticmethod
+    def register_business(uid, name):
+        """ register a new users business name to be used as their menu name """
+        user_collection = FirestoreDB.get_collection(uid)
+        business_doc = user_collection.document("business")
+
+        if business_doc.get().exists:
+            return False
+
+        business_doc.set({'business-name': [name]})
+        return True
+
+    @staticmethod
     def get_menu(menu_name):
         """ return a menu data document using provided menu_name """
         menu_collection = FirestoreDB.get_collection("menus")
@@ -81,3 +93,15 @@ class FirestoreDB:
             menu_names_dict['menu_names'].remove(menu_name)
             user_menus.update({'menu_names': menu_names_dict['menu_names']})
 
+    @staticmethod
+    def cleanMenuData(data):
+        menu_name = data["menu-name"]
+        url_menu_name = menu_name.lower()  # convert menu name to lowercase
+        url_menu_name = url_menu_name.replace(' ', '-')  # replace spaces with dashes
+
+        # remove special characters
+        special_chars = ['"', "'", ":", "#", ",", "!", "?", "@", "."]
+        for char in special_chars:
+            url_menu_name = url_menu_name.replace(char, "")
+        data['url_name'] = url_menu_name
+        return data
