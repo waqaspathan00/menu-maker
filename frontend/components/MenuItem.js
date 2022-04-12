@@ -16,7 +16,7 @@ export default function MenuItem(props) {
   return (
       <div className="grid w-full p-2 justify-items-center">
         <div className="relative w-full h-32 overflow-hidden rounded-lg shadow-2xl"  >
-          <img className="absolute inset-0 object-cover w-full h-full bg-black" />
+          <img className="absolute inset-0 object-cover w-full h-full bg-black" src={props.children["item-image"]}/>
           {/* <div className="absolute inset-0 bg-gray-900 bg-opacity-75"></div> */}
           <div className="relative grid h-full grid-cols-2 place-content-between">
             {/* <MdOutlineArrowForward className="px-2 text-5xl text-white justify-self-end" /> */}
