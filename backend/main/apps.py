@@ -2,6 +2,8 @@ from django.apps import AppConfig
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+from os import environ
+import json
 
 
 class MainConfig(AppConfig):
@@ -11,7 +13,9 @@ class MainConfig(AppConfig):
 
 class FirestoreDB:
     """ initialize FirestoreDB using credentials stored in serviceAccountKey """
-    cred = credentials.Certificate("../serviceAccountKey.json")
+    data = environ.get('SERVICE_ACCOUNT_KEY')
+    SERVICE_ACCOUNT_KEY = json.loads(data)
+    cred = credentials.Certificate(SERVICE_ACCOUNT_KEY)
     firebase_admin.initialize_app(cred)
     db = firestore.client()
 
