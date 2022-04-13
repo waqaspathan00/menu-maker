@@ -3,6 +3,7 @@
 - [Frontend Guide](frontend/README.md)
 
 ### Project Details TOC
+- [How to Run](#running)
 - [Inspiration](#inspiration)
 - [Goal](#goal)
 - [Mission Statement](#mission)
@@ -12,13 +13,10 @@
 <a name="running"/>
 
 ## How to run the project
-1. Ensure you have a serviceAccountKey from Google for Firestore
-   1. Follow this link to get one https://cloud.google.com/docs/authentication/production#create_service_account
-2. Place the serviceAccountKey.json file directly in the project. It should be sibling to backend and frontend folders.
-3. Next, open 2 terminals
-4. In terminal 1 start the backend server with this command ```python manage.py runserver```
+1. Open 2 terminals
+2. In terminal 1 start the backend server with this command ```python manage.py runserver```
    1. This will run on port 8000
-5. In terminal 2 start the frontend application with this command ```npm start```
+3. In terminal 2 start the frontend application with this command ```npm start```
    1. This will run on port 3000
 
 <a name="inspiration"/>
