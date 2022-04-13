@@ -48,6 +48,7 @@
     ]
   },
   "devDependencies": {
-    "@types/sortablejs": "^1.10.7"
+    "@types/sortablejs": "^1.10.7",
+    "eslint": "^8.13.0"
   }
 }
