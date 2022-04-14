@@ -11,6 +11,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 import ActiveMenu from '../components/ActiveMenu';
+
 function Dashboard()
 {
 	const { userMenus, setUserMenu } = useContext(MenusContext);
@@ -127,8 +128,8 @@ function Dashboard()
 	}, [userData.user, getMenuList, setUserMenu, loading])
 
 	return (
-		<main className="mt-20">
-			<section className="container mx-auto
+			<main className='w-full mt-24'>
+				<section className="max-w-[800px] mx-auto
 			justify-center
 			2xl:space-x-12
 			lg:space-x-12
@@ -137,58 +138,61 @@ function Dashboard()
 			mt-0
 			h-auto
 		  text-primary-black
+		  p-4
 			">
-				<div className="flex w-full justify-evenly">
-					<div className=" container mx-auto ">
-						<div className='w-full relative pb-24'>
-							<div className='flex items-center'>
-								<BsCalendar2Check className='w-6 h-6 mr-2 xl:hidden lg:hidden md:hidden block' />
-								<h4 className='text-sm font-semibold mb-0 m'>Today's Menu</h4>
+					<div className="flex w-full justify-evenly">
+						<div className=" container mx-auto ">
+							<div className='w-full relative pb-24'>
+								<div className='flex items-center'>
+									<BsCalendar2Check className='w-6 h-6 mr-2 xl:hidden lg:hidden md:hidden block' />
+									<h4 className='text-sm font-semibold mb-0 m'>Today's Menu</h4>
+								</div>
+								<div className="w-full h-auto mt-0">
+									{activeMenu === null || activeMenu.length === 0 ?
+										<h1 className='w-fit text-primary-gray text-sm xl:pl-0 lg:pl-0 md:pl-0   pl-8'>No active Menu</h1>
+										: <ActiveMenu props={activeMenu[0]} handleSetActive={handleSetActive} loading={loading} />}
+								</div>
+								<div className='xl:block lg:block md:block hidden'>
+									<BsCalendar2Check className='w-6 h-6 absolute -left-12 top-0' />
+									<div className='h-full border  border-primary-gray/40 rounded mt-2 absolute -left-9 top-6'></div>
+								</div>
 							</div>
-							<div className="w-full h-auto mt-0">
-								{activeMenu === null || activeMenu.length === 0 ?
-									<h1 className='w-fit text-primary-gray text-sm xl:pl-0 lg:pl-0 md:pl-0   pl-8'>No active Menu</h1>
-									: <ActiveMenu props={activeMenu[0]} handleSetActive={handleSetActive} loading={loading} />}
-							</div>
-							<div className='xl:block lg:block md:block hidden'>
-								<BsCalendar2Check className='w-6 h-6 absolute -left-12 top-0' />
-								<div className='h-full border  border-primary-gray/40 rounded mt-2 absolute -left-9 top-6'></div>
-							</div>
-						</div>
-						<div className='w-full relative mt-2'>
-							<Link href="/create/add-menu" >
+							<div className='w-full relative mt-12'>
+
 								<div className='flex items-center justify-between'>
 									<div className='flex'>
 										<SiDatabricks className='w-6 h-6 mr-2 xl:hidden lg:hidden md:hidden block' />
 										<h4 className='font-semibold mb-0'>My Menus</h4>
 									</div>
-									<button className='flex items-center p-2 border rounded text-primary-blue border-primary-blue hover:bg-primary-blue hover:text-white ring-1 ring-primary-blue transition-colors font-semibold'>
-										<AiFillPlusCircle className='w-4 h-4 mr-1' />
-										Add Menu
-									</button>
+									<Link href="/create/add-menu" >
+										<button className='flex items-center p-2 border rounded text-primary-blue border-primary-blue hover:bg-primary-blue hover:text-white ring-1 ring-primary-blue transition-colors font-semibold w-fit'>
+											<AiFillPlusCircle className='w-4 h-4 mr-1' />
+											Add Menu
+										</button>
+									</Link>
 								</div>
-							</Link>
-							<div className="w-full h-auto mt-4 space-y-4">
-								{userMenus && userMenus?.length !== 0 ? userMenus.map((menu, index) =>
-									<div key={index} className="w-full border p-4 rounded relative shadow-sm">
-										<CategoryList props={menu} index={index} handleDelete={handleDelete} handleEdit={handleEdit} handleSetActive={handleSetActive} loading={loading} />
-									</div>
 
-								) : <h1 className='text-sm'>No menus available</h1>}
+								<div className="w-full h-auto mt-4 space-y-4">
+									{userMenus && userMenus?.length !== 0 ? userMenus.map((menu, index) =>
+										<div key={index} className="w-full border p-4 rounded relative shadow-sm">
+											<CategoryList props={menu} index={index} handleDelete={handleDelete} handleEdit={handleEdit} handleSetActive={handleSetActive} loading={loading} />
+										</div>
+
+									) : <h1 className='text-sm'>No menus available</h1>}
+								</div>
+								<div className='xl:block lg:block md:block hidden'>
+									<SiDatabricks className='w-6 h-6 absolute -left-12 top-0' />
+									<div className='h-12 border  border-primary-gray/40 rounded mt-2 absolute -left-9 top-6'></div>
+								</div>
 							</div>
-							<div className='xl:block lg:block md:block hidden'>
-								<SiDatabricks className='w-6 h-6 absolute -left-12 top-0' />
-								<div className='h-12 border  border-primary-gray/40 rounded mt-2 absolute -left-9 top-6'></div>
-							</div>
+
+
+
 						</div>
 
-
-
 					</div>
-
-				</div>
-			</section>
-		</main >
+				</section>
+			</main >
 	);
 }
 

@@ -4,7 +4,7 @@ import Link from "next/link"
 export default function QuickNavBar() {
     return (
         <>
-            <div className={"h-20"}></div>
+            {/* <div className={"h-20"}></div>
             <div className='w-full z-20 h-20 fixed bottom-0 flex justify-around items-center bg-lavender'>
                 <div className='bn-tab'>
                     <Link href={"/"}>
@@ -21,7 +21,7 @@ export default function QuickNavBar() {
                         <img className={"w-10 cursor-pointer"} src={"/assets/img/nav/profile.png"}/>
                     </Link>
                 </div>
-            </div>
+            </div> */}
         </>
 
     )
