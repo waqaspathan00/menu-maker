@@ -120,13 +120,12 @@ export default function NavigationBar()
                         </Transition>
                     </Menu>
                     <Link href="#">About Us</Link>
-
+                  {!userData.user && !userData.loading ?  <button className="px-8 border py-2 rounded-full  border-primary-blue  text-primary-blue hover:bg-primary-blue hover:text-white transition-colors flex items-center justify-center xl:w-fit lg:w-fit md:w-fit w-full" onClick={signInWithGoogle}><BsGoogle className="mr-2" /> Login with Google </button> : null}
                 </div>
                 {!userData.loading && userData.user ? null :
                     <div className="pt-2">
                         <button className="px-8 border py-2 rounded-full  border-primary-blue  text-primary-blue hover:bg-primary-blue hover:text-white transition-colors flex items-center w-full justify-center" onClick={signInWithGoogle}><BsGoogle className="mr-2" /> Login with Google </button>
                     </div>}
-                {/* <h4 className=" font-rock-salt">Menu Maker</h4> */}
             </Transition>
 
 
