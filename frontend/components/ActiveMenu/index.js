@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { HiQrcode, HiLink } from 'react-icons/hi'
 import { toast } from 'react-toastify';
 import QrCode from './QRCode';
+import { AiOutlineEye } from 'react-icons/ai'
+import { useRouter } from 'next/router';
 /**
  * @param  {Object} props
  * @param  {CallableFunction} handleSetActive
@@ -11,13 +13,13 @@ function ActiveMenu({ props, handleSetActive, loading })
 {
 
 	const [isOpen, setIsOpen] = useState(false);
-
+	const router = useRouter();
 
 
 	return (<div className='text-primary-black'>
 		<h1 className="text-4xl leading-loose font-black mb-0 ">{(props["menu-name"])}</h1>
 
-		<ul className="flex space-x-4 text-xs items-center">
+		<ul className="flex text-xs items-center">
 			{props["menu-data"].map((category, index) =>
 			{
 
@@ -41,11 +43,15 @@ function ActiveMenu({ props, handleSetActive, loading })
 			{
 				navigator.clipboard.writeText(`http://localhost:3000/view/${ props['url_name'] }`);
 				toast.success("Successfully copied share link!", {
-					pauseOnHover:false
+					pauseOnHover: false
 				});
 			}}>
 				<HiLink />
 				<p className='mb-0 text-sm'>Share link</p>
+			</button>
+			<button className='text-xl p-2 border rounded flex space-x-2 hover:bg-primary-blue hover:text-white transition-colors xl:w-fit lg:w-fit md:w-fit w-full justify-center' title='Preview menu' onClick={() => router.push(`/view/${ props['url_name'] }`)}>
+				<AiOutlineEye />
+				<p className='mb-0 text-sm' >Preview</p>
 			</button>
 		</div>
 
