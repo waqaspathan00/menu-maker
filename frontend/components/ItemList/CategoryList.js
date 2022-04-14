@@ -32,10 +32,10 @@ function CategoryList({ props, handleDelete, handleEdit, handleSetActive, loadin
 					</button>
 				</div>
 				{isOpenMenu ? <div className="flex flex-col w-24 p-2 top-8 bg-white absolute right-0 border rounded items-start space-y-2">
-					<button className="font-semibold text-xs hover:font-bold" onClick={() => handleEdit(props)} disabled={loading}>Edit</button>
-					<button className="font-semibold text-xs hover:font-bold" disabled={loading}>View</button>
-					<button className="font-semibold text-primary-red text-xs hover:font-bold" disabled={loading} onClick={(e) => handleDelete(e, props, index)}>Delete</button>
-					<button className="font-semibold text-xs hover:font-bold text-primary-blue" disabled={loading} onClick={(e) => handleSetActive(e, props["url_name"], false)}>Set active</button>
+					<button className="font-semibold text-sm hover:font-bold" onClick={() => handleEdit(props)} disabled={loading}>Edit</button>
+					<button className="font-semibold text-sm hover:font-bold" disabled={loading}>View</button>
+					<button className="font-semibold text-primary-red text-sm hover:font-bold" disabled={loading} onClick={(e) => handleDelete(e, props, index)}>Delete</button>
+					<button className="font-semibold text-sm hover:font-bold text-primary-blue" disabled={loading} onClick={(e) => handleSetActive(e, props["url_name"], false)}>Set active</button>
 				</div> : null}
 
 			</div>
