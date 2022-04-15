@@ -1,10 +1,11 @@
 import "bootstrap/dist/css/bootstrap.min.css"
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {UserContext} from "../../lib/context";
 import {Navbar, Nav, Container} from "react-bootstrap";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
-import {signInWithGoogle, signOutWithGoogle} from "../../lib/firebase";
+import {signInWithGoogle, signOutWithGoogle, details} from "../../lib/firebase";
 import {useRouter} from "next/router";
+import { getAdditionalUserInfo } from "firebase/auth";
 
 export default function NavigationBar() {
     const {userData} = useContext(UserContext);
@@ -70,9 +71,10 @@ const TryItFreeButton = () => {
  * Shown when user is not signed in
  */
 const SignInButton = () => {
+    
     return (
         <button className={"w-40 px-2 py-2 bg-white rounded-lg flex justify-around items-center"}
-                onClick={signInWithGoogle}>
+                onClick={signInWithGoogle} >
             <img src={"/assets/img/nav/google.png"} className={"w-8"} alt={""}/>
             <span className={"text-lg"}>Sign in</span>
         </button>
@@ -85,7 +87,7 @@ const SignInButton = () => {
 const SignOutButton = () => {
     return (
         <button className={"w-40 px-2 py-2 bg-white rounded-lg flex justify-around items-center"}
-                onClick={signOutWithGoogle}>
+                onClick={signOutWithGoogle} >
             <span className={"text-lg"}>Sign Out</span>
         </button>
     )

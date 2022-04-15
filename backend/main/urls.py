@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     # --- uncomment this route for testing purposes ---
-    # path("", views.test, name="test"),
+    path("", views.test, name="test"),
 
     path("create", views.create, name="create"),
     path("view/<str:name>", views.view, name="view"),
