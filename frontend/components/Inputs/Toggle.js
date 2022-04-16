@@ -6,9 +6,9 @@ function Toggle()
 	const [isChecked, setIsChecked] = useState(false)
 
 	return (<div className="relative w-fit mt-12 ">
-		<button onClick={() => setIsChecked(prev => !prev)} className="absolute z-50 w-10 h-10 bottom-2 right-0 border " type="button">
+		<button onClick={() => setIsChecked(prev => !prev)} className="absolute z-50 w-10 h-10 bottom-2 right-0 " type="button">
 		</button>
-		<div className="w-fit border">
+		<div className="w-fit">
 			<h4 className="text-sm font-semibold mt-2 flex items-center gap-1 "> <IoIosTime className="w-5 h-5" />Availability: </h4>
 			<div>
 				<div class="flex items-center">
