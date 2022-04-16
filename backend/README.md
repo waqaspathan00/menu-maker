@@ -1,5 +1,29 @@
 # BACKEND
 
+## Obtain serviceAccountKey
+1. In the backend folder, create a .env file
+2. Get a serviceAccountKey from Google for Firestore
+   1. Follow this link to get one https://cloud.google.com/docs/authentication/production#create_service_account
+3. Take the contents of the serviceAccountKey.json file and paste them into the .env file in the following format:
+```dotenv
+SERVICE_ACCOUNT_KEY="PASTE JSON DATA HERE"
+
+# example
+SERVICE_ACCOUNT_KEY='{
+  "type": "INSERT",
+  "project_id": "INSERT",
+  "private_key_id": "INSERT",
+  "private_key": "INSERT",
+  "client_email": "INSERT",
+  "client_id": "INSERT",
+  "auth_uri": "INSERT",
+  "token_uri": "INSERT",
+  "auth_provider_x509_cert_url": "INSERT",
+  "client_x509_cert_url": "INSERT"
+}'
+```
+
+
 ## Installation guide
 
 1. Open CLI at root of project directory, run the following commands

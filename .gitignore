@@ -1,4 +1,4 @@
-/serviceAccountKey.json
+/backend/serviceAccountKey.json
 /.idea/.gitignore
 /backend/db.sqlite3
 /.idea/menu-maker.iml
@@ -6,3 +6,4 @@
 /.idea/modules.xml
 /.idea/inspectionProfiles/profiles_settings.xml
 /.idea/vcs.xml
+/backend/.env

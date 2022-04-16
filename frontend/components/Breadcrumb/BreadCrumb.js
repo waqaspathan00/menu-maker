@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import React from 'react';
 import { AiOutlineRight } from 'react-icons/ai';
+/**
+ * @param  {number} {step}
+ */
 const BreadCrumb = ({ step }) =>
 {
 	const steps = [{ name: 'Add Menu', path: "/create/add-menu" }, {
@@ -20,7 +23,10 @@ const BreadCrumb = ({ step }) =>
 		</div>
 	)
 }
-
+/**
+ * @param  {object} crumb
+ * @param  {boolean} isActive
+ */
 function AddCrumbs({ crumb, isActive })
 {
 	return <div >

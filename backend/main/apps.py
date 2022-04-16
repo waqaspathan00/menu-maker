@@ -2,14 +2,20 @@ from django.apps import AppConfig
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+from os import environ
+import json
+
 
 class MainConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'main'
 
+
 class FirestoreDB:
     """ initialize FirestoreDB using credentials stored in serviceAccountKey """
-    cred = credentials.Certificate("./serviceAccountKey.json")
+    data = environ.get('SERVICE_ACCOUNT_KEY')
+    SERVICE_ACCOUNT_KEY = json.loads(data)
+    cred = credentials.Certificate(SERVICE_ACCOUNT_KEY)
     firebase_admin.initialize_app(cred)
     db = firestore.client()
 
@@ -17,6 +23,18 @@ class FirestoreDB:
     def get_collection(coll_id):
         """ return a Firestore collection using provided collection id """
         return FirestoreDB.db.collection(coll_id)
+
+    @staticmethod
+    def register_business(uid, name):
+        """ register a new users business name to be used as their menu name """
+        user_collection = FirestoreDB.get_collection(uid)
+        business_doc = user_collection.document("business")
+
+        if business_doc.get().exists:
+            return False
+
+        business_doc.set({'business-name': [name]})
+        return True
 
     @staticmethod
     def get_menu(menu_name):

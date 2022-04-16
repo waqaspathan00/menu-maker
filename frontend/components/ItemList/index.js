@@ -69,14 +69,14 @@ function ItemList({ props, index })
 				</button>
 				<div className='space-x-2 flex border-l pl-2 border-l-primary-gray relative'>
 					{/* <span className='flex items-center text-xs cursor-pointer hover:text-slate-500 transition-colors' title='Options'><BsThreeDotsVertical className='w-4 h-4' /></span> */}
-					<div className='space-x-2 text-xs whitespace-nowrap'>
+					<div className='space-x-2 text-sm whitespace-nowrap'>
 						<button onClick={() => setIsCategoryOpen(true)}>Edit</button>
 						<button onClick={() => setShowWarning(true)}>Delete</button>
 					</div>
 				</div>
 			</div>
 			<div className='space-y-4'>
-				{isOpen ? <ReactSortable list={state} setList={setState} animation={300} disabled={!isEdit ? false : true} >
+				{isOpen ? <ReactSortable list={state} setList={setState} animation={300} disabled={!isEdit ? false : true} handle=".handle-sort" >
 					{state.map((item, index) => <Dish key={index} props={item} category={props['category-title']} isEdit={isEdit} setEdit={setEdit} index={index} />)}
 				</ReactSortable> : null}
 			</div>

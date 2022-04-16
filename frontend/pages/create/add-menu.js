@@ -1,10 +1,9 @@
 import MenuInput from '/components/Inputs/MenuInput.js'
 import eatingCat from '/public/assets/img/eating-cat.png'
-import Image from 'next/Image'
+import Image from 'next/image'
 import { useContext, useEffect } from 'react'
 import { NewMenuContext } from "/lib/context";
 import BreadCrumb from '/components/Breadcrumb/BreadCrumb'
-import { useRouter } from "next/router";
 
 
 const AddMenu = () =>
