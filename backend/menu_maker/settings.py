@@ -51,7 +51,7 @@ SESSION_COOKIE_HTTPONLY = True
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-CORS_ORIGIN_WHITELIST = ["http://localhost:3000", "http://127.0.0.1:3000", "https://menumate.vercel.app/"]
+CORS_ORIGIN_WHITELIST = ["http://localhost:3000", "http://127.0.0.1:3000", "https://menumate.vercel.app"]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = ["GET", "POST", "PATCH", "DELETE"]
 CORS_ALLOW_HEADERS = ["accept", "accept-encoding", "authorization", "content-type", "dnt", "origin", "user-agent",
