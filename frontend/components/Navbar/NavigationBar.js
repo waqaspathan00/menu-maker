@@ -189,12 +189,12 @@ const TryItFreeButton = () =>
 /**
  * Shown when user is not signed in
  */
-const SignInButton = () =>
-{
+const SignInButton = () => {
+    
     return (
         <button className={"w-40 px-2 py-2 bg-white rounded-lg flex justify-around items-center"}
-            onClick={signInWithGoogle}>
-            <img src={"/assets/img/nav/google.png"} className={"w-8"} alt={""} />
+                onClick={signInWithGoogle} >
+            <img src={"/assets/img/nav/google.png"} className={"w-8"} alt={""}/>
             <span className={"text-lg"}>Sign in</span>
         </button>
     )
@@ -206,8 +206,7 @@ const SignInButton = () =>
 const SignOutButton = () =>
 {
     return (
-        <button className={"w-40 px-2 py-2 bg-white rounded-lg flex justify-around items-center"}
-            onClick={signOutWithGoogle}>
+        <button className={"w-40 px-2 py-2 bg-white rounded-lg flex justify-around items-center"} onClick={signOutWithGoogle}>
             <span className={"text-lg"}>Sign Out</span>
         </button>
     )
