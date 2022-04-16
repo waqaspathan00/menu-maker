@@ -2,6 +2,12 @@
 - [Backend Guide](backend/README.md)
 - [Frontend Guide](frontend/README.md)
 
+## Environments
+- Production -> Combination of final frontend and backend results
+- Preview -> Same as Production but moreso used for frontend testing
+- menumate-dev -> backend server testing
+- menumate -> backend server
+
 ### Project Details TOC
 - [How to Run](#running)
 - [Inspiration](#inspiration)
