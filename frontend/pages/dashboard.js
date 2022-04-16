@@ -11,8 +11,6 @@ import axios from 'axios';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 import ActiveMenu from '../components/ActiveMenu';
-import Toggle from '../components/Inputs/Toggle';
-import { MdFoodBank } from 'react-icons/md'
 import RestaurantInfo from '../components/Restaurant';
 
 function Dashboard({ menu })
