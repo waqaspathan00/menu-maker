@@ -52,7 +52,8 @@ export const signInWithGoogle = () =>  {
             const details = getAdditionalUserInfo(result)
     
             try {
-                const response = await axios.post('http://127.0.0.1:8000/api/login/', {uid: user.uid})
+                // const response = await axios.post('http://127.0.0.1:8000/api/login/', {uid: user.uid})  // localhost
+                const response = await axios.post('https://menumate.herokuapp.com/api/login/', {uid: user.uid})  // production
                 toast.success("Signed in")
 
                 if (details.isNewUser){
@@ -68,7 +69,8 @@ export const signInWithGoogle = () =>  {
 export const signOutWithGoogle = () => {
     signOut(auth).then(async r => {
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/logout/')
+            // const response = await axios.post('http://127.0.0.1:8000/api/logout/')  // localhost
+            const response = await axios.post('https://menumate.herokuapp.com/api/logout/')  // production
             toast.success("Successfully signed out")
         } catch (error) {
             console.log(error)
