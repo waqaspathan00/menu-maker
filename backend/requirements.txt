@@ -5,4 +5,4 @@ pyjwt[crypto]
 ipython
 django-allauth
 django-cors-headers
-environ
+django-heroku
