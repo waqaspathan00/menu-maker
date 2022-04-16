@@ -18,7 +18,10 @@ export default function Menu() {
             const menuUrlName = router.query.menuName
 
             try {
-                const response = await axios.get('http://localhost:8000/api/view/' + menuUrlName)
+                // const response = await axios.get('http://localhost:8000/api/view/' + menuUrlName) // localhost
+
+                const response = await axios.get('https://menumate.herokuapp.com/api/view/' + menuUrlName)  // production
+
                 const data = response.data
                 setCategories(data['menu-data'])
                 setMenuName(data["menu-name"])

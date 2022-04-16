@@ -22,6 +22,15 @@ SERVICE_ACCOUNT_KEY='{
   "client_x509_cert_url": "INSERT"
 }'
 ```
+4. Last, we need to add a couple lines of code for **local development**
+   1. DO NOT COMMIT THESE LINES OF CODE
+   2. run this command ```pip install python-dotenv```
+   3. Add this code in ```apps.py``` under ```main```
+    ```python
+    from dotenv import load_dotenv
+    load_dotenv()
+    ```
+
 
 
 ## Installation guide
