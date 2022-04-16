@@ -21,8 +21,8 @@ function QrCode({ url, setIsOpen })
 	useEffect(() =>
 	{
 		const qrcode = new QRCode(document.getElementById('qr-code'), {
-			// text: `http://127.0.0.1:3000/view/${ url }`,  // localhost
-			text: `https://menumate.vercel.app/view/${ url }`,  // production
+			text: `http://127.0.0.1:3000/view/${ url }`,  // localhost
+			// text: `https://menumate.vercel.app/view/${ url }`,  // production
 			colorDark: '#000',
 			colorLight: '#fff',
 			correctLevel: QRCode.CorrectLevel.H

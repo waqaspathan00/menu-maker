@@ -19,8 +19,8 @@ export default function register() {
     if (!userData.loading){
       const uid = userData.user.uid
 
-      // await axios.post('http://127.0.0.1:8000/api/register/', {  // localhost
-      await axios.post('https://menumate.herokuapp.com/api/register/', {  // production
+      await axios.post('http://127.0.0.1:8000/api/register/', {  // localhost
+      // await axios.post('https://menumate.herokuapp.com/api/register/', {  // production
         uid: uid,
         "business-name": busName
       })
