@@ -11,7 +11,11 @@ import axios from 'axios';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 import ActiveMenu from '../components/ActiveMenu';
-function Dashboard()
+import Toggle from '../components/Inputs/Toggle';
+import { MdFoodBank } from 'react-icons/md'
+import RestaurantInfo from '../components/Restaurant';
+
+function Dashboard({ menu })
 {
 	const { userMenus, setUserMenu } = useContext(MenusContext);
 	const { setNewMenu } = useContext(NewMenuContext);
@@ -20,6 +24,7 @@ function Dashboard()
 	const [activeMenu, setActiveMenu] = useState(null);
 	const router = useRouter();
 	const [loading, setLoading] = useState(false);
+
 	const getMenuList = useCallback(async (isMounted) =>
 	{
 		if (isMounted) 
@@ -28,7 +33,7 @@ function Dashboard()
 			{
 				const req = await axios.get('http://127.0.0.1:8000/api/get-menus');
 				let tempArr = []
-				if (req.data.length > 0)
+				if (menu.length > 0)
 				{
 					setMenuList(req.data);
 					const q = query(menuRef, where('url_name', 'in', req.data), limit(5))
@@ -124,11 +129,11 @@ function Dashboard()
 		let isMounted = true;
 		getMenuList(isMounted);
 		return () => isMounted = false;
-	}, [userData.user, getMenuList, setUserMenu, loading])
+	}, [userData.user, getMenuList, setUserMenu, loading, menu])
 
 	return (
-		<main className="mt-20">
-			<section className="container mx-auto
+		<main className='w-full my-12'>
+			<section className=" mx-auto
 			justify-center
 			2xl:space-x-12
 			lg:space-x-12
@@ -137,10 +142,13 @@ function Dashboard()
 			mt-0
 			h-auto
 		  text-primary-black
+		  p-4
+		  container
 			">
-				<div className="flex w-full justify-evenly">
-					<div className=" container mx-auto ">
-						<div className='w-full relative pb-24'>
+				<div className="w-full justify-center flex	xl:flex-nowrap lg:flex-nowrap md:flex-nowrap flex-wrap xl:space-x-24 lg:space-x-24 md:space-x-24 space-x-0">
+					<RestaurantInfo />
+					<div className='xl:w-3/4 lg:w-3/4 w-full'>
+						<div className='w-full relative pb-16'>
 							<div className='flex items-center'>
 								<BsCalendar2Check className='w-6 h-6 mr-2 xl:hidden lg:hidden md:hidden block' />
 								<h4 className='text-sm font-semibold mb-0 m'>Today's Menu</h4>
@@ -155,19 +163,21 @@ function Dashboard()
 								<div className='h-full border  border-primary-gray/40 rounded mt-2 absolute -left-9 top-6'></div>
 							</div>
 						</div>
-						<div className='w-full relative mt-2'>
-							<Link href="/create/add-menu" >
-								<div className='flex items-center justify-between'>
-									<div className='flex'>
-										<SiDatabricks className='w-6 h-6 mr-2 xl:hidden lg:hidden md:hidden block' />
-										<h4 className='font-semibold mb-0'>My Menus</h4>
-									</div>
-									<button className='flex items-center p-2 border rounded text-primary-blue border-primary-blue hover:bg-primary-blue hover:text-white ring-1 ring-primary-blue transition-colors font-semibold'>
+						<div className='w-full relative mt-12'>
+
+							<div className='flex items-center justify-between'>
+								<div className='flex'>
+									<SiDatabricks className='w-6 h-6 mr-2 xl:hidden lg:hidden md:hidden block' />
+									<h4 className='font-semibold mb-0'>My Menus</h4>
+								</div>
+								<Link href="/create/add-menu" >
+									<button className='flex items-center p-2 border rounded text-primary-blue border-primary-blue hover:bg-primary-blue hover:text-white ring-1 ring-primary-blue transition-colors font-semibold w-fit'>
 										<AiFillPlusCircle className='w-4 h-4 mr-1' />
 										Add Menu
 									</button>
-								</div>
-							</Link>
+								</Link>
+							</div>
+
 							<div className="w-full h-auto mt-4 space-y-4">
 								{userMenus && userMenus?.length !== 0 ? userMenus.map((menu, index) =>
 									<div key={index} className="w-full border p-4 rounded relative shadow-sm">
@@ -191,9 +201,23 @@ function Dashboard()
 		</main >
 	);
 }
+export async function getServerSideProps(context)
+{
+	try
+	{
+		const req = await axios.get('http://127.0.0.1:8000/api/get-menus');
+		return {
+			props: { menu: req.data },
+		}
+	} catch (error)
+	{
+		console.error(error)
+		return {
+			props: { menu: [] }
+		}
+	}
 
-
-
+}
 
 
 export default Dashboard;

@@ -37,22 +37,29 @@ function Dish({ props, category, isEdit, setEdit, index })
 		<>
 			<div className='mt-4 w-auto border rounded shadow-lg p-4'>
 				<div className='flex items-center'>
-					<MdOutlineDragIndicator className='mr-4 hover:cursor-grab' />
-
-					<div className='w-full pl-4 relative'>
-						{props['item-image'] || props['item-image'].length > 0 ? <img src={props['item-image']} className="w-full h-full object-container mb-4" /> : null}
-						<button className='w-full flex justify-between items-center relative cursor-pointer ' >
-							<h1 className='leading-relaxed font-semibold hover:text-gray-500 text-left'>{props['item-name']}</h1>
-							<div className='space-x-2 flex pl-2 w-fit'>
-								<AiFillEdit className='hover:text-primary-gray cursor-pointer' title="Edit Category title" onClick={() => setEdit(true)} />
-								<AiFillDelete className='text-primary-red hover:text-primary-red/50 cursor-pointer' title='Delete' onClick={removeDish} />
+					<MdOutlineDragIndicator className='mr-4 hover:cursor-grab handle-sort' />
+					<div className='w-full flex '>
+						{props['item-image'] || props['item-image'].length ?
+							<div className='w-36 h-24 mr-4'>
+								<img src={props['item-image']} className="w-full h-full object-fill rounded-md mb-4" />
+							</div> : null}
+						<div className='relative w-full'>
+							<div>
+								<h1 className='leading-relaxed font-bold text-left text-lg'>{props['item-name']}</h1>
+								<div className='space-x-2 flex pl-2 w-fit absolute right-0 top-2'>
+									<button type='button' onClick={() => setEdit(true)}>
+										<AiFillEdit className='hover:text-primary-gray cursor-pointer w-5 h-5' title="Edit Category title" />
+									</button>
+									<button type='button' title='Delete' onClick={removeDish}>
+										<AiFillDelete className='text-primary-red hover:text-primary-red/50 w-5 h-5 cursor-pointer' />
+									</button>
+								</div>
 							</div>
-						</button>
 
-
-						<div>
-							{props['item-description'].length > 0 ? <p className='text-sm leading-relaxed mb-0'>{props['item-description']}</p> : null}
-							<p className='font-bold mb-0'>$ {Number(props['item-price']).toFixed(2)}</p>
+							<div>
+								{props['item-description'].length > 0 ? <p className='text-sm leading-relaxed mb-0'>{props['item-description']}</p> : null}
+								<p className='font-semibold mb-0'>$ {Number(props['item-price']).toFixed(2)}</p>
+							</div>
 						</div>
 
 					</div>
