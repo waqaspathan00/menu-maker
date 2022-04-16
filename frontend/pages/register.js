@@ -36,7 +36,6 @@ export default function register() {
   
   return (
     <div>
-        <NavigationBar/>
         <p className='text-3xl text-center font-logo'>Welcome!</p>
         <p className='p-2 text-center font-logo'>To get started, register with your business name</p>
         <form className='flex flex-col items-center p-4'>
