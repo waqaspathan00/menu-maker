@@ -2,31 +2,30 @@ import axios from 'axios';
 import React, { useContext, useState } from 'react'
 import NavigationBar from '../components/Navbar/NavigationBar'
 import { UserContext } from '../lib/context';
+import Router from 'next/router'
 
 export default function register() {
 
   const {userData} = useContext(UserContext);
   const [busName, setBusName] = useState("");
 
-  
-  
   const handleChange = (e) =>
 	{
 		setBusName(e.currentTarget.value);
 	}
 
-  console.log(busName)
-  //hhtp://localhost:8000/api/register , {uid:userdata.user.uid, business-name: busName}
   async function handleSubmit(e) {
     e.preventDefault();
     if (!userData.loading){
       const uid = userData.user.uid
-      await axios.post('http://127.0.0.1:8000/api/register', {
+      await axios.post('http://127.0.0.1:8000/api/register/', {
         uid: uid,
         "business-name": busName
       })
       .then(function (response) {
-        console.log(response);
+        if (response.status == 200){
+          Router.push('/create/add-items')
+        };
       })
       .catch(function (error) {
         console.log(error);

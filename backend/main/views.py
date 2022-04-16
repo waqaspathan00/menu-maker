@@ -1,5 +1,5 @@
 from .menu_controller import create_menu, view_menu, edit_menu, delete_menu, get_menus
-from .auth_controller import login_user, logout_user
+from .auth_controller import login_user, logout_user, register_user
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import CustomSession
@@ -49,6 +49,12 @@ def delete(request, name):
         return delete_menu(name)
     return HttpResponse(status=400, content="Incorrect HTTP request, use DELETE")
 
+@csrf_exempt
+def register(request):
+    """ when the user logs in, save their uid to session as a jwt token """
+    if request.method == "POST":
+        return register_user(request)
+    return HttpResponse(status=400, content="Incorrect HTTP request, use POST")
 
 @csrf_exempt
 def login(request):

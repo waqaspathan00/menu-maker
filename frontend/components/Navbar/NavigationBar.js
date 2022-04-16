@@ -1,11 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css"
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext} from "react";
 import {UserContext} from "../../lib/context";
 import {Navbar, Nav, Container} from "react-bootstrap";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
-import {signInWithGoogle, signOutWithGoogle, details} from "../../lib/firebase";
+import {signInWithGoogle, signOutWithGoogle} from "../../lib/firebase";
 import {useRouter} from "next/router";
-import { getAdditionalUserInfo } from "firebase/auth";
 
 export default function NavigationBar() {
     const {userData} = useContext(UserContext);

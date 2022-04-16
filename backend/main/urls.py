@@ -11,7 +11,7 @@ urlpatterns = [
     path("delete/<str:name>", views.delete, name="delete"),
 
     path("get-menus", views.menus, name="get-menu"),
-
+    path("register/", views.register, name="register"),
     path("login/", views.login, name="login"),
     path("logout/", views.logout, name="logout"),
 ]
