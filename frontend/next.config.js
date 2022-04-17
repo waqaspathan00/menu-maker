@@ -1,7 +1,10 @@
 const withPWA = require("next-pwa")
 
 module.exports = withPWA({
-    pwa: {
-        dest: "public"
-    },
-})
+  pwa: {
+    dest: 'public',
+  },
+  images: {
+    domains: ['https://lh3.googleusercontent.com'],
+  },
+});

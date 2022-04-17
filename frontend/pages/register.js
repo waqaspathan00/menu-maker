@@ -24,7 +24,7 @@ export default function register() {
 
             await axios.post(process.env.NEXT_PUBLIC_BACKEND_URL + 'api/register/', {
                 uid: uid,
-                "business-name": newMenu["menu-name"]
+                "business-name": busName
             }).then(function (response) {
                 if (response.status === 200) {
                     let temp = newMenu;
