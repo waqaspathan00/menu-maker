@@ -1,4 +1,3 @@
-/* React JS Template using functions */
 import React, {useContext, useEffect, useState} from "react"
 import BreadCrumb from '/components/Breadcrumb/BreadCrumb'
 import {NewMenuContext} from "/lib/context";
@@ -23,8 +22,7 @@ export default function AddItems() {
         e.preventDefault();
         try {
             setLoading(true);
-            const req = await fetch('http://127.0.0.1:8000/api/create', {  // localhost
-            // const req = await fetch('https://menumate.herokuapp.com/api/create', {  // production
+            const req = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + 'api/create', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -53,8 +51,7 @@ export default function AddItems() {
         e.preventDefault();
         setLoading(true);
         try {
-            const req = await fetch(`http://127.0.0.1:8000/api/edit/${router.query.slug}`, {  // localhost
-            // const req = await fetch(`https://menumate.herokuapp.com/api/edit/${router.query.slug}`, {  // production
+            const req = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `api/edit/${router.query.slug}`, {
                 method: 'PATCH',
                 headers: {
                     'Accept': 'application/json',
@@ -89,7 +86,7 @@ export default function AddItems() {
                 setStep(2);
             }
 
-            if (step === 1 || step === 3 || router.query.step == 2) {
+            if (step === 1 || step === 3 || router.query.step == 2 ) {
                 setStep(2);
             } else {
                 router.push("/create/add-menu")

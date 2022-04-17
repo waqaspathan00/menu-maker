@@ -29,8 +29,7 @@ function Dashboard({ menu })
 		{
 			try
 			{
-				const req = await axios.get('http://127.0.0.1:8000/api/get-menus');  // localhost
-				// const req = await axios.get('https://menumate.herokuapp.com/api/get-menus/');  // production
+				const req = await axios.get(process.env.NEXT_PUBLIC_BACKEND_URL + 'api/get-menus');
 				let tempArr = []
 				if (menu.length > 0)
 				{
@@ -66,8 +65,7 @@ function Dashboard({ menu })
 		setLoading(true);
 		try
 		{
-			const req = await fetch(`http://127.0.0.1:8000/api/delete/${ menu['slug'] }`, {  // localhost
-			// const req = await fetch(`https://menumate.herokuapp.com/api/delete/${ menu['slug'] }`, {  // production
+			const req = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `api/delete/${ menu['slug'] }`, {
 				method: "DELETE"
 			})
 			let temp = [...userMenus];
@@ -205,8 +203,7 @@ export async function getServerSideProps(context)
 {
 	try
 	{
-		const req = await axios.get('http://127.0.0.1:8000/api/get-menus');  // localhost
-		// const req = await axios.get('https://menumate.herokuapp.com/api/get-menus/');  // production
+		const req = await axios.get(process.env.NEXT_PUBLIC_BACKEND_URL + 'api/get-menus');
 		return {
 			props: { menu: req.data },
 		}
