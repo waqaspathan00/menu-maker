@@ -49,12 +49,14 @@ def delete(request, name):
         return delete_menu(name)
     return HttpResponse(status=400, content="Incorrect HTTP request, use DELETE")
 
+
 @csrf_exempt
 def register(request):
     """ when the user logs in, save their uid to session as a jwt token """
     if request.method == "POST":
         return register_user(request)
     return HttpResponse(status=400, content="Incorrect HTTP request, use POST")
+
 
 @csrf_exempt
 def register(request):

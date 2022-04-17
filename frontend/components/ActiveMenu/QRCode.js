@@ -21,7 +21,7 @@ function QrCode({ url, setIsOpen })
 	useEffect(() =>
 	{
 		const qrcode = new QRCode(document.getElementById('qr-code'), {
-			text: `http://127.0.0.1:3000/view/${ url }`,
+			text: process.env.NEXT_PUBLIC_FRONTEND_URL + `view/${ url }`,
 			colorDark: '#000',
 			colorLight: '#fff',
 			correctLevel: QRCode.CorrectLevel.H

@@ -10,7 +10,7 @@ import {useRouter} from 'next/router';
 import ProtectedRoute from "../components/ProtectedRoute";
 
 
-const authRequired = ['/create/add-items', '/create/add-menu', '/dashboard']
+const authRequired = ['/create/add-items', '/create/add-menu', '/dashboard'];
 
 function MyApp({ Component, pageProps })
 {
@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps })
                 <MenusProvider>
                     <NewMenuProvider>
                         <title>Menu Mate</title>
-                            <NavigationBar />
+                        {router.route === '/view/[menuName]' ? null : <NavigationBar />}
                             {authRequired.includes(router.pathname) ? (<ProtectedRoute>
                                 <Component {...pageProps} />
                             </ProtectedRoute>) : <Component {...pageProps} />}

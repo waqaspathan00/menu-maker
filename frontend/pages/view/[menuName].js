@@ -18,7 +18,8 @@ export default function Menu() {
             const menuUrlName = router.query.menuName
 
             try {
-                const response = await axios.get('http://localhost:8000/api/view/' + menuUrlName)
+                const response = await axios.get(process.env.NEXT_PUBLIC_BACKEND_URL + 'api/view/' + menuUrlName)
+
                 const data = response.data
                 setCategories(data['menu-data'])
                 setMenuName(data["menu-name"])

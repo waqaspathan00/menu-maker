@@ -41,7 +41,7 @@ function ActiveMenu({ props, handleSetActive, loading })
 			</button>
 			<button className='text-xl p-2 border rounded flex space-x-2 hover:bg-primary-blue hover:text-white transition-colors xl:w-fit lg:w-fit md:w-fit w-full  justify-center' title='Share link' onClick={() =>
 			{
-				navigator.clipboard.writeText(`http://localhost:3000/view/${ props['url_name'] }`);
+				navigator.clipboard.writeText(process.env.NEXT_PUBLIC_FRONTEND_URL + `view/${ props['url_name'] }`);
 				toast.success("Successfully copied share link!", {
 					pauseOnHover: false
 				});
