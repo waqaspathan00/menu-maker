@@ -24,7 +24,8 @@ export const MenusContext = createContext({});
 export const MenusProvider = ({ children }) =>
 {
 	const [userMenus, setUserMenu] = useState(null);
-	const values = useMemo(() => ({userMenus, setUserMenu}), [userMenus, setUserMenu])
+	const [busName, setBusName] = useState('')
+	const values = useMemo(() => ({userMenus, setUserMenu, busName, setBusName}), [userMenus, setUserMenu, busName, setBusName])
 
 	return <MenusContext.Provider value={values}>
 		{children}
