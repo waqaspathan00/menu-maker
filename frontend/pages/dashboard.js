@@ -15,7 +15,7 @@ import RestaurantInfo from '../components/Restaurant';
 
 function Dashboard({ menu })
 {
-	const { userMenus, setUserMenu } = useContext(MenusContext);
+	const { userMenus, setUserMenu} = useContext(MenusContext);
 	const { setNewMenu } = useContext(NewMenuContext);
 	const { userData } = useContext(UserContext);
 	const [menuList, setMenuList] = useState(null);
@@ -51,6 +51,9 @@ function Dashboard({ menu })
 			}
 		}
 	}, [setUserMenu])
+
+
+	
 	function handleEdit(menus)
 	{
 		setNewMenu(menus);
@@ -127,7 +130,7 @@ function Dashboard({ menu })
 		let isMounted = true;
 		getMenuList(isMounted);
 		return () => isMounted = false;
-	}, [userData.user, getMenuList, setUserMenu, loading, menu])
+	}, [getMenuList, loading, menu])
 
 	return (
 		<main className='w-full my-12'>
@@ -144,7 +147,7 @@ function Dashboard({ menu })
 		  container
 			">
 				<div className="w-full justify-center flex	xl:flex-nowrap lg:flex-nowrap md:flex-nowrap flex-wrap xl:space-x-24 lg:space-x-24 md:space-x-24 space-x-0">
-					<RestaurantInfo />
+					<RestaurantInfo  />
 					<div className='xl:w-3/4 lg:w-3/4 w-full'>
 						<div className='w-full relative pb-16'>
 							<div className='flex items-center'>
