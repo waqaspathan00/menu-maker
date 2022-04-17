@@ -2,7 +2,13 @@
 
 ## Installation guide
 
-1. Open CLI at root of project directory, run the following commands
-   1. ```cd frontend```
-   2. ```npm install```
-   3. ```npm start```
+1. cd into frontend folder
+2. create a .env file and add the following contents
+   ```
+   NEXT_PUBLIC_BACKEND_URL=http://localhost:8000/
+   NEXT_PUBLIC_FRONTEND_URL=http://localhost:3000/
+   ```
+3. Now start the program
+   1. ```npm install```
+   2. ```npm start```
+   
