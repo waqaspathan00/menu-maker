@@ -36,7 +36,7 @@ class FirestoreDB:
         if business_doc.get().exists:
             return False
 
-        business_doc.set({'business-name': [name]})
+        business_doc.set({'business-name': name})
         return True
 
     @staticmethod
@@ -50,18 +50,6 @@ class FirestoreDB:
             return document
         return None
 
-    @staticmethod
-    def register_business(uid, name):
-        """ register a new users business name to be used as their menu name """
-        user_collection = FirestoreDB.get_collection(uid)
-        business_doc = user_collection.document("business")
-
-        if business_doc.get().exists:
-            return False
-
-        business_doc.set({'business-name': [name]})
-        return True
-        
     @staticmethod
     def save_menu(menu_name, data):
         """ save menu data to Firestore, can be used for create and edit"""
