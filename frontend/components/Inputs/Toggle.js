@@ -11,14 +11,14 @@ function Toggle()
 		<div className="w-fit">
 			<h4 className="text-sm font-semibold mt-2 flex items-center gap-1 "> <IoIosTime className="w-5 h-5" />Availability: </h4>
 			<div>
-				<div class="flex items-center">
+				<div className="flex items-center">
 					<h4 className="text-sm ml-5">Accepting Orders:</h4>
 					<div className="ml-5 ">
-						<label htmlFor="unchecked" class="mt-3 inline-flex items-center cursor-pointer">
-							<span class="relative">
-								<span class="block w-10 h-6 bg-[#E9E9EA] rounded-full shadow-inner"></span>
-								<span class={`absolute block w-4 h-4 mt-1 ml-1  rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out ${ isChecked ? 'bg-primary-blue transform translate-x-full' : "bg-white" }`}>
-									<input id="unchecked" type="checkbox" class="absolute opacity-0 w-0 h-0" />
+						<label htmlFor="unchecked" className="mt-3 inline-flex items-center cursor-pointer">
+							<span className="relative">
+								<span className="block w-10 h-6 bg-[#E9E9EA] rounded-full shadow-inner"></span>
+								<span className={`absolute block w-4 h-4 mt-1 ml-1  rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out ${ isChecked ? 'bg-primary-blue transform translate-x-full' : "bg-white" }`}>
+									<input id="unchecked" type="checkbox" className="absolute opacity-0 w-0 h-0" />
 								</span>
 							</span>
 						</label>
