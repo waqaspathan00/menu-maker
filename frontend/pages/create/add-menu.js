@@ -37,8 +37,8 @@ const AddMenu = () =>
                 </div>
                 <div className="xl:max-w-[603px] lg:max-w-[603px] w-full p-4">
                     <div className="2xl:block lg:block hidden ">
-                        <h1 className="text-4xl font-extrabold text-primary-black text-left leading-relaxed tracking-normal">Peak
-                            your customer’s interest by having a creative menu name!</h1>
+                        <h1 className="text-4xl font-extrabold text-primary-black text-left leading-relaxed tracking-normal">Who
+                            is this menu for?</h1>
                     </div>
                     <MenuInput setStep={setStep} />
                 </div>
