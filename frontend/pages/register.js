@@ -46,10 +46,10 @@ export default function register() {
             <p className='p-2 text-center font-logo'>To get started, register with your business name</p>
             <form className='flex flex-col items-center p-4'>
                 <input type="text"
-                       className="block  w-full bg-[#F9F9F9] h-11 border border-[#DADADA] rounded-sm mt-4 pl-4"
+                       className="block w-full md:w-1/2 bg-[#F9F9F9] h-11 border border-[#DADADA] rounded-sm mt-4 pl-4"
                        placeholder="Enter business name..." value={busName} onChange={handleChange} required/>
                 <button
-                    className="flex items-center justify-center w-full py-2 font-semibold text-white transition-colors rounded mt-2px-6 bg-primary-green hover:bg-primary-green/70"
+                    className="flex w-full md:w-1/2 items-center justify-center w-full py-2 font-semibold text-white transition-colors rounded mt-2px-6 bg-primary-green hover:bg-primary-green/70"
                     onClick={handleSubmit}>
                     Submit
                 </button>
