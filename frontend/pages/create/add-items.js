@@ -19,6 +19,7 @@ export default function AddItems() {
 
 
     async function handleSubmit(e) {
+   
         e.preventDefault();
         try {
             setLoading(true);
@@ -91,8 +92,14 @@ export default function AddItems() {
             } else {
                 router.push("/create/add-menu")
             }
-        }
 
+            if(router.query['first-time-login'] === 'true'){
+                const tempMenu = {...newMenu}
+                tempMenu['isActive'] = true;
+                setNewMenu(tempMenu)
+            }
+        }
+        
         return () => {
             setIsEdit(false)
         }

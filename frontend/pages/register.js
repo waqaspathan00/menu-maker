@@ -31,7 +31,7 @@ export default function register() {
                     temp["menu-name"] = busName;
                     setNewMenu(temp);
                     setBusName(busName)
-                    Router.push('/create/add-items?step=2')
+                    Router.push('/create/add-items?step=2&first-time-login=true')
                 }
             }).catch(function (error) {
                 toast.error("You have already registered a business name")
