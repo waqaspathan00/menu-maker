@@ -68,7 +68,7 @@ function Dashboard({ menu })
 		setLoading(true);
 		try
 		{
-			const req = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `api/delete/${ menu['slug'] }`, {
+			const req = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `api/delete/${ menu.url_name }`, {
 				method: "DELETE"
 			})
 			let temp = [...userMenus];
