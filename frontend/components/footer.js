@@ -13,8 +13,7 @@ const Footer = (props) => {
             </div>
             <div className="absolute inset-x-0 bottom-0">
                 <div className="p-4 text-xs text-right text-gray-400">
-                    Mon-Fri: 8:30AM - 9PM <br></br>
-                    Sat-Sun: 12:30PM-12AM
+                    Currently Open!
                 </div>
             </div>
 
