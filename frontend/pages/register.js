@@ -24,14 +24,14 @@ export default function register() {
 
             await axios.post(process.env.NEXT_PUBLIC_BACKEND_URL + 'api/register/', {
                 uid: uid,
-                "business-name": newMenu["menu-name"]
+                "business-name": busName
             }).then(function (response) {
                 if (response.status === 200) {
                     let temp = newMenu;
                     temp["menu-name"] = busName;
                     setNewMenu(temp);
                     setBusName(busName)
-                    Router.push('/create/add-items?step=2')
+                    Router.push('/create/add-items?step=2&first-time-login=true')
                 }
             }).catch(function (error) {
                 toast.error("You have already registered a business name")
