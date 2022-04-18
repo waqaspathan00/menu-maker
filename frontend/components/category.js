@@ -14,8 +14,7 @@ export default function Category(props) {
   return (
       <div className="grid w-full p-2 justify-items-center">
         <button className="relative w-full h-32 overflow-hidden rounded-lg shadow-2xl" onClick={clicked} >
-          <img className="absolute inset-0 object-cover w-full h-full bg-black" />
-          <div className="absolute inset-0 bg-gray-900 bg-opacity-75"></div>
+          <img className="absolute inset-0 object-cover w-full h-full brightness-50" src={'/assets/img/plate.jpg'} />
           <div className="relative flex items-center justify-center h-full ">
             {/* <div /> */}
             {/* <MdOutlineArrowForward className="px-2 text-5xl text-white justify-self-end" /> */}
