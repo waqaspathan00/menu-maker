@@ -107,7 +107,7 @@ export default function NavigationBar() {
                 leaveTo="opacity-0"
             >
                 <div className="grid gap-2 h-auto absolute top-21 bg-white w-full shadow-xl left-0 p-4 border z-50">
-                    <Link href="#how-to-use">Home</Link>
+                    <Link href="/">Home</Link>
                     <Menu as="div" className="relative ">
                         <Menu.Button className="flex items-center gap-x-2">Learn <BsFillCaretDownFill/></Menu.Button>
                         <Transition
