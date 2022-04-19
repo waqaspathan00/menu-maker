@@ -13,8 +13,8 @@ class MainConfig(AppConfig):
 
 class FirestoreDB:
     """ initialize FirestoreDB using credentials stored in serviceAccountKey """
-    from dotenv import load_dotenv
-    load_dotenv()
+    # from dotenv import load_dotenv
+    # load_dotenv()
 
     data = environ.get('SERVICE_ACCOUNT_KEY')
     SERVICE_ACCOUNT_KEY = json.loads(data)
