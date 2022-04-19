@@ -3,6 +3,7 @@ import NavigationBar from "../components/Navbar/NavigationBar";
 import {BiLink} from 'react-icons/bi'
 import {RiQrCodeLine} from 'react-icons/ri'
 import {MdOutlineRestaurantMenu} from 'react-icons/md'
+import {AiFillCheckCircle} from "react-icons/ai";
 
 export default function Home({menus}) {
 
@@ -10,6 +11,7 @@ export default function Home({menus}) {
         <div className="text-primary-black scroll-smooth">
             {/* <NavigationBar/> */}
             <SplashSection/>
+            <GoalsSection/>
             <WhoIsThisForSection/>
             <TutorialSection/>
             <InstallGuide/>
@@ -33,12 +35,34 @@ const SplashSection = () => {
     )
 }
 
+const GoalsSection = () => {
+    const Goal = ({content}) => {
+        return (
+            <div className={"flex items-center"}>
+                <AiFillCheckCircle className={"w-8 h-8 mr-4 text-primary-green"}/>
+                <h3 className={"text-lg"}>{content}</h3>
+            </div>
+        )
+    }
+
+    return (
+        <div className={"flex justify-center"}>
+            <div className={"flex flex-col items-start space-y-4 mt-12"}>
+            <h2 className={"text-5xl w-full text-center font-bold"}>OUR GOALS</h2>
+                <Goal content={"Quickness of a text"}/>
+                <Goal content={"Share-ability of social media"}/>
+                <Goal content={"Fluid experience for the end user"}/>
+            </div>
+        </div>
+    )
+}
+
 const TutorialSection = () => {
     return (
         <div id={"how-to-use"}>
-            <div className={"flex flex-col items-around bg-primary-blue/90 my-10 p-4 text-white"}>
+            <div className={"flex flex-col items-around bg-primary-blue my-10 p-4 text-white"}>
                 <div className="container mx-auto pt-4 my-10">
-                    <h2 className={"text-3xl text-center font-bold my-8"}>Let us show you how in 2 simple steps</h2>
+                    <h2 className={"text-4xl text-center font-bold my-8"}>LET US SHOW YOU HOW - IN 2 STEPS</h2>
                     <div className={"flex w-full h-auto justify-evenly xl:flex-nowrap lg:flex-nowrap flex-wrap"}>
                         <div className={"flex flex-col items-center justify-center"}>
                             <MdOutlineRestaurantMenu className="w-48 h-48"/>
@@ -52,7 +76,8 @@ const TutorialSection = () => {
                     </div>
                 </div>
             </div>
-            <div className={"flex w-full h-auto justify-evenly xl:flex-nowrap lg:flex-nowrap flex-wrap-reverse my-12 items-center gap-4"}>
+            <div
+                className={"flex w-full h-auto justify-evenly xl:flex-nowrap lg:flex-nowrap flex-wrap-reverse my-12 items-center gap-4"}>
                 <div className="w-fit flex justify-center">
                     <img src={"/assets/img/home/hero-3.png"}
                          className={"w-3/5 md:w-full"}/>
@@ -78,7 +103,7 @@ const WhoIsThisForSection = () => {
     const TargetCustomerCard = ({image, title}) => {
         return (
             <div
-                className={"flex bg-primary-blue rounded-2xl mx-2 my-4 items-center justify-around h-16 drop-shadow-md w-11/12 md:w-1/2"}>
+                className={"flex bg-primary-blue rounded-2xl mx-2 my-4 items-center justify-around h-16 shadow-xl w-11/12 md:w-1/2"}>
                 <img src={`/assets/img/home/whoisthisfor/${image}.png`} className={"w-20"}/>
                 <h4 className={"text-xl font-rock-salt font-bold text-white"}>{title}</h4>
             </div>
@@ -87,7 +112,7 @@ const WhoIsThisForSection = () => {
 
     return (
         <div id={"who-this-is-for"} className={"flex flex-col items-center my-8"}>
-            <h2 className={"text-3xl text-center font-bold my-4"}>Who is this for?</h2>
+            <h2 className={"text-5xl text-center font-bold my-4"}>WHO THIS IS FOR</h2>
             <h3 className={"text-xl text-center mt-12"}>Home-based small business'</h3>
 
             <TargetCustomerCard image={"homecook"} title={"Home Cooks"}/>
@@ -103,7 +128,7 @@ const WhoIsThisForSection = () => {
 const InstallGuide = () => {
     const InstructionStepCard = ({num, title, image}) => {
         return (
-            <div className={"flex rounded-xl styled-img overflow-hidden justify-between mx-2 my-4"}>
+            <div className={"flex rounded-xl styled-img overflow-hidden justify-between mx-2 my-4 md:w-1/2"}>
                 <div className={"bg-primary-blue font-bold flex items-center justify-center w-1/12"}>
                     <div className={"bg-white rounded-full text-center w-6"}>
                         {num}
@@ -130,8 +155,8 @@ const InstallGuide = () => {
 
     return (
         <div id={"how-to-install"} className={"flex flex-col items-center justify-center bg-blue-gray"}>
-            <h2 className={"text-3xl text-center font-bold my-4"}>Install Menu Mate as an app</h2>
-            <h3 className={"text-xl"}>In just 3 clicks!</h3>
+            <h2 className={"text-4xl text-center font-bold my-4"}>INSTALL AS AN APP - IN 3 TAPS</h2>
+            <h3 className={"text-xl"}>menumate.vercel.app</h3>
 
             <InstructionStepCard
                 num={"1"}
