@@ -70,7 +70,7 @@ export default function NavigationBar() {
                     {!userData.loading && userData.user ? <UserNav user={userData.user}/> :
                         <ul className="flex gap-x-4 h-full items-center">
                             <li>
-                                <button onClick={() => router.push("/register")}
+                                <button onClick={() => signInWithGoogle()}
                                         className="px-6 border py-2 rounded-full bg-primary-blue text-base  text-white hover:bg-primary-blue/70 transition-colors">Start
                                     for free
                                 </button>
@@ -78,7 +78,7 @@ export default function NavigationBar() {
                             <li onClick={signInWithGoogle}>
                                 <button
                                     className="px-8 border py-2 rounded-full  border-primary-blue  text-primary-blue hover:bg-primary-blue hover:text-white transition-colors flex items-center">
-                                    <BsGoogle className="mr-2"/> Sign in with Google
+                                    <BsGoogle className="mr-2"/> Sign in
                                 </button>
                             </li>
                         </ul>}
@@ -91,7 +91,7 @@ export default function NavigationBar() {
                         </button>
                     </div>
                     {userData.loading ? "" : null}
-                    {userData.user ? <UserNav user={userData.user}/> : <button onClick={() => router.push("/register")}
+                    {userData.user ? <UserNav user={userData.user}/> : <button onClick={() => signInWithGoogle()}
                                                                                className="px-6 border py-2 rounded-full bg-primary-blue text-base  text-white hover:bg-primary-blue/70 transition-colors">Start
                         for free</button>}
                 </div>
