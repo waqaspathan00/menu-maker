@@ -6,3 +6,5 @@ ipython
 django-allauth
 django-cors-headers
 django-heroku
+gunicorn
+psycopg2-binary
