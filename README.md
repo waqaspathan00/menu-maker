@@ -22,8 +22,9 @@
 1. Open 2 terminals
 2. In terminal 1 start the backend server with this command ```python manage.py runserver```
    1. This will run on port 8000
-3. In terminal 2 start the frontend application with this command ```npm start```
+3. In terminal 2 start the frontend application with this command ```npm run dev```
    1. This will run on port 3000
+4. Open your preferred browser at ```localhost:3000```
 
 <a name="inspiration"/>
 
