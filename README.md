@@ -66,4 +66,4 @@ like home cooks, to share information with prospective clients
 - Firebase (authentication with google)
 - Firebase Storage (storing images)
 - Vercel for frontend deployment
-- Heroku for backend deployment (currently not working)
+- Heroku for backend deployment
